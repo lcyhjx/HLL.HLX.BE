@@ -26,6 +26,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HLL.HLX.BE.Tests", "Tests\H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HLL.HLX.BE.Core.Model", "HLL.HLX.BE.Core.Model\HLL.HLX.BE.Core.Model.csproj", "{8459A2DE-38CC-4DA3-A0CB-BBDF199B021B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{83B592AF-4F0D-43D7-A481-1AB04A7FD2C2}"
+	ProjectSection(SolutionItems) = preProject
+		test1.txt = test1.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
