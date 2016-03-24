@@ -1,4 +1,5 @@
-﻿@using HLL.HLX.BE.MultiTenancy
+﻿@using HLL.HLX.BE.Core.Model.MultiTenancy
+
 <div>
     <form name="tenantCreateForm" role="form" novalidate class="form-validation">
         <div class="modal-header">
@@ -23,10 +24,10 @@
 
             <div class="form-group form-md-line-input form-md-floating-label no-hint">
                 <label>@L("AdminEmailAddress")</label>
-                <input type="email" name="AdminEmailAddress" class="form-control" ng-model="vm.tenant.adminEmailAddress" required maxlength="@HLL.HLX.BE.Users.User.MaxEmailAddressLength">
+                <input type="email" name="AdminEmailAddress" class="form-control" ng-model="vm.tenant.adminEmailAddress" required maxlength="@HLL.HLX.BE.Core.Model.Users.User.MaxEmailAddressLength">
             </div>
 
-            <p>@L("DefaultPasswordIs", HLL.HLX.BE.Users.User.DefaultPassword)</p>
+            <p>@L("DefaultPasswordIs", HLL.HLX.BE.Core.Model.Users.User.DefaultPassword)</p>
 
         </div>
         <div class="modal-footer">

@@ -70,7 +70,7 @@
                     <p>@L("OrLoginWith"):</p>
                     
 
-                    using (Html.BeginForm("ExternalLogin", "Account", method: FormMethod.Post))
+                    using (Html.BeginForm("ExternalLogin", "Account", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
 

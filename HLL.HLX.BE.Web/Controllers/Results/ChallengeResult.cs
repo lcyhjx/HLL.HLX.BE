@@ -24,7 +24,7 @@ namespace HLL.HLX.BE.Web.Controllers.Results
 
         public override void ExecuteResult(ControllerContext context)
         {
-            var properties = new AuthenticationProperties() { RedirectUri = RedirectUri };
+            var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
             if (UserId != null)
             {
                 properties.Dictionary["XsrfId"] = UserId;

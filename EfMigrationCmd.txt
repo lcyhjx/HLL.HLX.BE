@@ -1,0 +1,30 @@
+
+
+Add-Migration 20150109_Order_UpdateTable -Verbos -ConnectionString "Data Source=LUCHA5;Initial Catalog=YAS;Integrated Security=False;User ID=sa;Password=hp_lakin_214;MultipleActiveResultSets=True" -ConnectionProviderName "System.Data.SqlClient"
+
+Update-Database -Verbos -ConnectionString "Data Source=YUANMICH2;Initial Catalog=YAS;Integrated Security=False;User ID=sa;Password=)OKM9ijn;MultipleActiveResultSets=True" -ConnectionProviderName "System.Data.SqlClient"
+
+Update-Database -Verbos -ConnectionString "Data Source=120.26.60.146;Initial Catalog=YAS;Integrated Security=True;User ID=sa;Password=Yas051003;MultipleActiveResultSets=True" -ConnectionProviderName "System.Data.SqlClient"
+
+Enable-Migrations
+Enable-Migrations -ContextTypeName SmartSnsPublisher.Web.Models.SiteDbContext
+
+Add-Migration 20150706_Project -Verbos
+
+Update-Database -Verbos
+
+Update-Database -Script -Verbos
+
+Update-Database -TargetMigration:"MigrationName
+only test
+    	
+//更新到指定版本
+Update-Database –TargetMigration: AddBlogUrl 
+
+如果你想回滚一切至空数据库，可以使用命令 
+Update-Database –TargetMigration: $InitialDatabase
+
+//得到脚本
+Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract
+
+telnet 120.26.60.146 3389

@@ -6,23 +6,19 @@ using Abp.UI;
 using Abp.Web.Models;
 using Abp.WebApi.Controllers;
 using HLL.HLX.BE.Api.Models;
-using HLL.HLX.BE.Core.Business.Authorization.Roles;
-using HLL.HLX.BE.Core.Business.MultiTenancy;
 using HLL.HLX.BE.Core.Business.Users;
 using HLL.HLX.BE.Core.Model.Authorization.Roles;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Core.Model.Users;
-using HLL.HLX.BE.MultiTenancy;
-using HLL.HLX.BE.Users;
 using Microsoft.Owin.Infrastructure;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 
-namespace HLL.HLX.BE.Api.Controllers
+namespace HLL.HLX.BE.WebApi.Api.Controllers
 {
     public class AccountController : AbpApiController
     {
-        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
+        public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; }
 
         private readonly UserManager _userManager;
 
@@ -100,4 +96,5 @@ namespace HLL.HLX.BE.Api.Controllers
             }
         }
     }
+
 }

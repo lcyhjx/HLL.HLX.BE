@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using Abp.Owin;
-using HLL.HLX.BE.Api.Controllers;
 using HLL.HLX.BE.Web;
+using HLL.HLX.BE.WebApi.Api.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;

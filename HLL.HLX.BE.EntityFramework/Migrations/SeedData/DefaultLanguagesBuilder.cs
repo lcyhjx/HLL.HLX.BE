@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
 {
     public class DefaultLanguagesBuilder
     {
-        public static List<ApplicationLanguage> InitialLanguages { get; private set; }
+        public static List<ApplicationLanguage> InitialLanguages { get; }
 
         private readonly HlxBeDbContext _context;
 
