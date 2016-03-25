@@ -33,6 +33,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HLL.HLX.BE.Common", "HLL.HLX.BE.Common\HLL.HLX.BE.Common.csproj", "{4BEEFBBA-6CB8-4DF7-ACD7-012DF66927DD}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SoapUITest", "SoapUITest", "{C26C0A40-8101-4BE2-BC0C-E21E8BBA93D8}"
+	ProjectSection(SolutionItems) = preProject
+		TextFile1.txt = TextFile1.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,5 +82,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C602C47E-F379-40A3-A146-4F19105B3491} = {7E85C7E5-70BD-4C9D-B052-D95955F46609}
+		{C26C0A40-8101-4BE2-BC0C-E21E8BBA93D8} = {7E85C7E5-70BD-4C9D-B052-D95955F46609}
 	EndGlobalSection
 EndGlobal
