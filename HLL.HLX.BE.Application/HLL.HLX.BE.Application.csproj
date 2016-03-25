@@ -95,8 +95,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Dto\BaseInput.cs" />
+    <Compile Include="Common\Dto\IdentityResultDto.cs" />
     <Compile Include="HlxBeApplicationModule.cs" />
     <Compile Include="HlxBeAppServiceBase.cs" />
+    <Compile Include="Mobility\Users\Dto\UserDto.cs" />
+    <Compile Include="Mobility\Users\Dto\UserRegisterInput.cs" />
+    <Compile Include="Mobility\Users\Dto\UserRegisterOutput.cs" />
+    <Compile Include="Mobility\Users\IUserAppService.cs" />
     <Compile Include="MultiTenancy\Dto\CreateTenantInput.cs" />
     <Compile Include="MultiTenancy\ITenantAppService.cs" />
     <Compile Include="MultiTenancy\Dto\TenantListDto.cs" />
@@ -119,6 +125,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HLL.HLX.BE.Common\HLL.HLX.BE.Common.csproj">
+      <Project>{4beefbba-6cb8-4df7-acd7-012df66927dd}</Project>
+      <Name>HLL.HLX.BE.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HLL.HLX.BE.Core.Business\HLL.HLX.BE.Core.Business.csproj">
       <Project>{17298ea0-af73-4f30-b6f1-2066100d7d74}</Project>
       <Name>HLL.HLX.BE.Core.Business</Name>
@@ -128,6 +138,7 @@
       <Name>HLL.HLX.BE.Core.Model</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

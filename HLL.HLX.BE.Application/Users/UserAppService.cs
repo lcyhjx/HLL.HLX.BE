@@ -1,10 +1,10 @@
 using System.Threading.Tasks;
 using Abp.Authorization;
-using HLL.HLX.BE.Application;
 using HLL.HLX.BE.Core.Business.Users;
+using HLL.HLX.BE.Users;
 using HLL.HLX.BE.Users.Dto;
 
-namespace HLL.HLX.BE.Users
+namespace HLL.HLX.BE.Application.Users
 {
     /* THIS IS JUST A SAMPLE. */
     public class UserAppService : HlxBeAppServiceBase, IUserAppService

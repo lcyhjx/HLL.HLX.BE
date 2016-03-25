@@ -96,7 +96,10 @@
     <Compile Include="MultiTenancy\Tenant.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authorization\Roles\Role.cs" />
+    <Compile Include="Users\IUserAvatarRepository.cs" />
+    <Compile Include="Users\IUserRepository.cs" />
     <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UserAvatar.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

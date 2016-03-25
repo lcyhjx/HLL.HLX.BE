@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 using Abp.Application.Services;
 using HLL.HLX.BE.Users.Dto;
 
-namespace HLL.HLX.BE.Users
+namespace HLL.HLX.BE.Application.Users
 {
     public interface IUserAppService : IApplicationService
     {

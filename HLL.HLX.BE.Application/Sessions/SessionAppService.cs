@@ -2,10 +2,10 @@
 using Abp.Auditing;
 using Abp.Authorization;
 using Abp.AutoMapper;
-using HLL.HLX.BE.Application;
+using HLL.HLX.BE.Sessions;
 using HLL.HLX.BE.Sessions.Dto;
 
-namespace HLL.HLX.BE.Sessions
+namespace HLL.HLX.BE.Application.Sessions
 {
     [AbpAuthorize]
     public class SessionAppService : HlxBeAppServiceBase, ISessionAppService

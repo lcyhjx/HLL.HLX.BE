@@ -1,15 +1,18 @@
 ﻿using System;
-using Abp.Authorization.Users;
-using Abp.Extensions;
-using HLL.HLX.BE.Core.Model.MultiTenancy;
-using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using HLL.HLX.BE.Core.Model.Users;
 
-namespace HLL.HLX.BE.Core.Model.Users
+
+namespace HLL.HLX.BE.Application.Mobility.Users.Dto
 {
-    public class User : AbpUser<Tenant, User>
+    [AutoMapFrom(typeof(User))]
+    public class UserDto : EntityDto<long>
     {
-        public const string DefaultPassword = "123qwe";
-
         /// <summary>
         /// 昵称
         /// </summary>
@@ -45,25 +48,5 @@ namespace HLL.HLX.BE.Core.Model.Users
         /// 头像图片存储路径
         /// </summary>
         public string AvatarFilePath { get; set; }
-
-
-
-        public static string CreateRandomPassword()
-        {
-            return Guid.NewGuid().ToString("N").Truncate(16);
-        }
-
-        public static User CreateTenantAdminUser(int tenantId, string emailAddress, string password)
-        {
-            return new User
-            {
-                TenantId = tenantId,
-                UserName = AdminUserName,
-                Name = AdminUserName,
-                Surname = AdminUserName,
-                EmailAddress = emailAddress,
-                Password = new PasswordHasher().HashPassword(password)
-            };
-        }
     }
 }

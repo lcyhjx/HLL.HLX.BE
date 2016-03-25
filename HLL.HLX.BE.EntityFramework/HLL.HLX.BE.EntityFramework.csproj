@@ -109,6 +109,8 @@
   <ItemGroup>
     <Compile Include="EF\HlxBeDbContext.cs" />
     <Compile Include="EF\Repositories\HlxBeRepositoryBase.cs" />
+    <Compile Include="EF\Repositories\Users\UserAvatarRepository.cs" />
+    <Compile Include="EF\Repositories\Users\UserRepository.cs" />
     <Compile Include="Migrations\201603220824588_Init_20160322.cs" />
     <Compile Include="Migrations\201603220824588_Init_20160322.Designer.cs">
       <DependentUpon>201603220824588_Init_20160322.cs</DependentUpon>

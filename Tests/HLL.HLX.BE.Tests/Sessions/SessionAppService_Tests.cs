@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using HLL.HLX.BE.Application.Sessions;
 using HLL.HLX.BE.Sessions;
 using Shouldly;
 using Xunit;
