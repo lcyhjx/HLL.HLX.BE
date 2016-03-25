@@ -112,6 +112,10 @@
     <EmbeddedResource Include="Localization\Source\HlxBe-pt-BR.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HLL.HLX.BE.Common\HLL.HLX.BE.Common.csproj">
+      <Project>{4beefbba-6cb8-4df7-acd7-012df66927dd}</Project>
+      <Name>HLL.HLX.BE.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\HLL.HLX.BE.Core.Model\HLL.HLX.BE.Core.Model.csproj">
       <Project>{8459a2de-38cc-4da3-a0cb-bbdf199b021b}</Project>
       <Name>HLL.HLX.BE.Core.Model</Name>

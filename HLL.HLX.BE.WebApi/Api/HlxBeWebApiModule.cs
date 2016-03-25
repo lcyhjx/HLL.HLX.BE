@@ -16,9 +16,13 @@ namespace HLL.HLX.BE.WebApi.Api
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
 
+            //DynamicApiControllerBuilder
+            //    .ForAll<IApplicationService>(typeof(HlxBeApplicationModule).Assembly, "app")
+            //    .Build();
+
             DynamicApiControllerBuilder
-                .ForAll<IApplicationService>(typeof(HlxBeApplicationModule).Assembly, "app")
-                .Build();
+               .For<HLL.HLX.BE.Application.Mobility.Users.IUserAppService>("app/mobility/user")
+               .Build();
 
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));
         }
