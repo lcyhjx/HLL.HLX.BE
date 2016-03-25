@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-workspace name="HLL.HLX" soapui-version="5.0.0" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:project name="HLX All Services">C:/D/MyPrograme/GitHub/HLL/HLL.HLX.BE/Tests/HLL.HLX.BE.Tests/SoapUITest/HLX-All-Services-soapui-project.xml</con:project>
+</con:soapui-workspace>

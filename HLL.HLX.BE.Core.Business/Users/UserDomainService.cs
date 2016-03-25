@@ -90,6 +90,7 @@ namespace HLL.HLX.BE.Core.Business.Users
         /// </summary>
         /// <param name="editUser"></param>
         /// <returns></returns>
+        
         public void UpdateUser(User editUser)
         {
             User user = _userRepository.Get(editUser.Id);
