@@ -1,17 +1,11 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using Abp.Application.Services.Dto;
-using Abp.Runtime.Validation;
+﻿using System.ComponentModel.DataAnnotations;
 using HLL.HLX.BE.Application.Common.Dto;
 
 namespace HLL.HLX.BE.Application.Mobility.Users.Dto
 {
     public class GetUserByIdInput : BaseInput
     {
-         [Required]
+        [Required]
         public long? UserId { get; set; }
-
-       
     }
-
 }

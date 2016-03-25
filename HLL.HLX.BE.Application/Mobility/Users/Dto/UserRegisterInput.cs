@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using HLL.HLX.BE.Application.Common.Dto;
 using HLL.HLX.BE.Common.Util;
 using HLL.HLX.BE.Core.Model.Users;
@@ -14,38 +10,34 @@ namespace HLL.HLX.BE.Application.Mobility.Users.Dto
     public class UserRegisterInput : BaseInput
     {
         /// <summary>
-        /// 手机号
+        ///     手机号
         /// </summary>
         [Required]
         public string PhoneNumber { get; set; }
 
         /// <summary>
-        /// 短信验证码
+        ///     短信验证码
         /// </summary>
-        //[Required]
-        //public string SmsVerificationCode { get; set; }
-
         /// <summary>
-        /// 密码
+        ///     密码
         /// </summary>
         [Required]
         public string Password { get; set; }
 
         /// <summary>
-        /// 用户呢称
+        ///     用户呢称
         /// </summary>
         public string NickName { get; set; }
 
-
         /// <summary>
-        /// 自定义验证input
+        ///     自定义验证input
         /// </summary>
         /// <param name="results"></param>
         public override void AddValidationErrors(List<ValidationResult> results)
         {
             if (string.IsNullOrEmpty(PhoneNumber))
             {
-                results.Add(new ValidationResult("手机号不能为空", new[] { "PhoneNumber" }));
+                results.Add(new ValidationResult("手机号不能为空", new[] {"PhoneNumber"}));
             }
             //SmsVerificationCode = SmsVerificationCode.Trim();
             //if (string.IsNullOrEmpty(SmsVerificationCode))
@@ -55,17 +47,17 @@ namespace HLL.HLX.BE.Application.Mobility.Users.Dto
             Password = Password.Trim();
             if (string.IsNullOrEmpty(Password))
             {
-                results.Add(new ValidationResult("密码不能为空", new[] { "Password" }));
+                results.Add(new ValidationResult("密码不能为空", new[] {"Password"}));
             }
 
             if (!CommonUtil.CheckIsValidPassword(Password))
             {
-                results.Add(new ValidationResult("密码必须由英文字母，英文符号和数字组成", new[] { "Password" }));
+                results.Add(new ValidationResult("密码必须由英文字母，英文符号和数字组成", new[] {"Password"}));
             }
 
             if (string.IsNullOrEmpty(NickName))
             {
-                results.Add(new ValidationResult("用户呢称不能为空", new[] { "NickName" }));
+                results.Add(new ValidationResult("用户呢称不能为空", new[] {"NickName"}));
             }
         }
 
@@ -79,13 +71,13 @@ namespace HLL.HLX.BE.Application.Mobility.Users.Dto
 
 
         /// <summary>
-        /// 根据input创建User对象
+        ///     根据input创建User对象
         /// </summary>
         /// <returns></returns>
         public User Map2User(int? tenantId)
         {
             //创建新用户
-            User user = new User
+            var user = new User
             {
                 TenantId = tenantId,
                 Name = !string.IsNullOrEmpty(NickName) ? NickName : PhoneNumber,

@@ -1,16 +1,16 @@
 using System.Threading.Tasks;
 using Abp.Authorization;
 using HLL.HLX.BE.Core.Business.Users;
-using HLL.HLX.BE.Users;
 using HLL.HLX.BE.Users.Dto;
 
 namespace HLL.HLX.BE.Application.Users
 {
     /* THIS IS JUST A SAMPLE. */
+
     public class UserAppService : HlxBeAppServiceBase, IUserAppService
     {
-        private readonly UserManager _userManager;
         private readonly IPermissionManager _permissionManager;
+        private readonly UserManager _userManager;
 
         public UserAppService(UserManager userManager, IPermissionManager permissionManager)
         {

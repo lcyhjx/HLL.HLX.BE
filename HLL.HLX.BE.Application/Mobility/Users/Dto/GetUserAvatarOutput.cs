@@ -5,7 +5,6 @@ namespace HLL.HLX.BE.Application.Mobility.Users.Dto
 {
     public class GetUserAvatarOutput : IOutputDto
     {
-
         public List<UserAvatarDto> UserAvatars { get; set; }
     }
 }

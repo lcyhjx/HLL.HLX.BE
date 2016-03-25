@@ -1,7 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
-using HLL.HLX.BE.Core.Business.MultiTenancy;
-using HLL.HLX.BE.Core.Business.Users;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Core.Model.Users;
 

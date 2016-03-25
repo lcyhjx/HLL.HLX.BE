@@ -8,10 +8,11 @@ using HLL.HLX.BE.Roles;
 namespace HLL.HLX.BE.Application.Roles
 {
     /* THIS IS JUST A SAMPLE. */
-    public class RoleAppService : HlxBeAppServiceBase,IRoleAppService
+
+    public class RoleAppService : HlxBeAppServiceBase, IRoleAppService
     {
-        private readonly RoleManager _roleManager;
         private readonly IPermissionManager _permissionManager;
+        private readonly RoleManager _roleManager;
 
         public RoleAppService(RoleManager roleManager, IPermissionManager permissionManager)
         {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Abp.Application.Services;
 using HLL.HLX.BE.Application.Mobility.Users.Dto;
 
@@ -11,54 +7,52 @@ namespace HLL.HLX.BE.Application.Mobility.Users
     public interface IUserAppService : IApplicationService
     {
         /// <summary>
-        /// 用户注册
+        ///     用户注册
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         Task<UserRegisterOutput> UserRegister(UserRegisterInput input);
 
         /// <summary>
-        /// 重置密码
+        ///     重置密码
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         ResetPasswordOutput ResetPassword(ResetPasswordInput input);
 
         /// <summary>
-        /// 获取用户信息
+        ///     获取用户信息
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         GetUserOutput GetUser(GetUserInput input);
 
         /// <summary>
-        /// 获取用户信息 by id ---- add by eleven
+        ///     获取用户信息 by id ---- add by eleven
         /// </summary>
         /// <param name="input"></param>
-        /// <returns></returns>        
-         GetUserByIdOutput GetUserById(GetUserByIdInput input);
+        /// <returns></returns>
+        GetUserByIdOutput GetUserById(GetUserByIdInput input);
 
         /// <summary>
-        /// 更新用户信息
+        ///     更新用户信息
         /// </summary>
         /// <param name="input"></param>
-        /// <returns></returns>        
-         UpdateUserOutput UpdateUser(UpdateUserInput input);
+        /// <returns></returns>
+        UpdateUserOutput UpdateUser(UpdateUserInput input);
 
         /// <summary>
-        /// 获取用户头像
+        ///     获取用户头像
         /// </summary>
         /// <param name="input"></param>
-        /// <returns></returns>        
-         GetUserAvatarOutput GetUserAvatar(GetUserAvatarInput input);
-
+        /// <returns></returns>
+        GetUserAvatarOutput GetUserAvatar(GetUserAvatarInput input);
 
         /// <summary>
-        /// 更新用户头像
+        ///     更新用户头像
         /// </summary>
         /// <param name="input"></param>
-        /// <returns></returns>        
+        /// <returns></returns>
         UpdateUserAvatarOutput UpdateUserAvatar(UpdateUserAvatarInput input);
-
     }
 }
