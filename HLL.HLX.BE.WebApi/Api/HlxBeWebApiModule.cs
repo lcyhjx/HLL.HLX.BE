@@ -21,6 +21,22 @@ namespace HLL.HLX.BE.WebApi.Api
             //    .Build();
 
             DynamicApiControllerBuilder
+              .For<HLL.HLX.BE.Application.Users.IUserAppService>("app/user")
+              .Build();
+
+            DynamicApiControllerBuilder
+              .For<HLL.HLX.BE.Application.Sessions.ISessionAppService>("app/session")
+              .Build();
+
+            DynamicApiControllerBuilder
+              .For<HLL.HLX.BE.Application.Roles.IRoleAppService>("app/role")
+              .Build();
+
+            DynamicApiControllerBuilder
+              .For<HLL.HLX.BE.Application.MultiTenancy.ITenantAppService>("app/tenant")
+              .Build();
+
+            DynamicApiControllerBuilder
                .For<HLL.HLX.BE.Application.Mobility.Users.IUserAppService>("app/mobility/user")
                .Build();
 

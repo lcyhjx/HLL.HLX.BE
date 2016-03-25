@@ -1,14 +1,19 @@
 ﻿using System.Data.Common;
+using System.Data.Entity;
 using Abp.Zero.EntityFramework;
 using HLL.HLX.BE.Core.Model.Authorization.Roles;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Core.Model.Users;
+using HLL.HLX.BE.EntityFramework.EF.DbConfiguration;
 
 namespace HLL.HLX.BE.EntityFramework.EF
 {
     public class HlxBeDbContext : AbpZeroDbContext<Tenant, Role, User>
     {
         //TODO: Define an IDbSet for your Entities...
+        public virtual IDbSet<UserAvatar> UserAvatars { get; set; }
+
+
 
         /* NOTE: 
          *   Setting "Default" to base class helps us when working migration commands on Package Manager Console.
@@ -36,6 +41,14 @@ namespace HLL.HLX.BE.EntityFramework.EF
             : base(connection, true)
         {
 
+        }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new UserAvatarConfiguration());
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

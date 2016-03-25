@@ -2,7 +2,7 @@
 using Abp.Application.Services;
 using HLL.HLX.BE.Application.Roles.Dto;
 
-namespace HLL.HLX.BE.Roles
+namespace HLL.HLX.BE.Application.Roles
 {
     public interface IRoleAppService : IApplicationService
     {

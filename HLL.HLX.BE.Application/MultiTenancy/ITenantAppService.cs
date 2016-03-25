@@ -4,7 +4,7 @@ using Abp.Application.Services.Dto;
 using HLL.HLX.BE.Application.MultiTenancy.Dto;
 using HLL.HLX.BE.MultiTenancy.Dto;
 
-namespace HLL.HLX.BE.MultiTenancy
+namespace HLL.HLX.BE.Application.MultiTenancy
 {
     public interface ITenantAppService : IApplicationService
     {

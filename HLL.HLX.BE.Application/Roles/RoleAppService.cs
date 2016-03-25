@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Abp.Authorization;
 using HLL.HLX.BE.Application.Roles.Dto;
 using HLL.HLX.BE.Core.Business.Authorization.Roles;
-using HLL.HLX.BE.Roles;
 
 namespace HLL.HLX.BE.Application.Roles
 {
