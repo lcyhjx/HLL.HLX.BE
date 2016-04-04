@@ -14,6 +14,9 @@ using Microsoft.AspNet.Identity;
 
 namespace HLL.HLX.BE.Core.Business.Users
 {
+    /// <summary>
+    /// 用户相关业务类
+    /// </summary>
     public class UserDomainService : DomainService
     {
         private readonly IUserRepository _userRepository;
@@ -102,7 +105,7 @@ namespace HLL.HLX.BE.Core.Business.Users
             user.PhoneNumber = editUser.PhoneNumber;
             user.Signature = editUser.Signature;
 
-            _userRepository.Update(user);
+            _userRepository.UpdateAsync(user);
         }
 
         /// <summary>

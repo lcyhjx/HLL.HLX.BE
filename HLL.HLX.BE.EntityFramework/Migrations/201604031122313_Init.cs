@@ -5,7 +5,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
     
-    public partial class Init_20160322 : DbMigration
+    public partial class Init : DbMigration
     {
         public override void Up()
         {
@@ -250,6 +250,13 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 c => new
                     {
                         Id = c.Long(false, true),
+                        NickName = c.String(maxLength: 50),
+                        Gender = c.String(maxLength: 10),
+                        Company = c.String(maxLength: 200),
+                        Title = c.String(maxLength: 100),
+                        PhoneNumber = c.String(maxLength: 50),
+                        Signature = c.String(),
+                        AvatarFilePath = c.String(),
                         AuthenticationSource = c.String(maxLength: 64),
                         Name = c.String(false, 32),
                         Surname = c.String(false, 32),
@@ -362,6 +369,34 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 .Index(t => t.CreatorUserId);
             
             CreateTable(
+                "dbo.HlxUserAvatar",
+                c => new
+                    {
+                        Id = c.Long(false, true),
+                        UserId = c.Long(),
+                        ImageFilePath = c.String(maxLength: 200),
+                        Name = c.String(maxLength: 100),
+                        Description = c.String(maxLength: 500),
+                        IsDeleted = c.Boolean(false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(false),
+                        CreatorUserId = c.Long()
+                    }, new Dictionary<string, object>
+                {
+                    { "DynamicFilter_UserAvatar_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" }
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
                 "dbo.AbpUserNotifications",
                 c => new
                     {
@@ -390,10 +425,49 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 })
                 .PrimaryKey(t => t.Id);
             
+            CreateTable(
+                "dbo.HlxVideo",
+                c => new
+                    {
+                        Id = c.Long(false, true),
+                        Title = c.String(false, 200),
+                        CoverPicPath = c.String(maxLength: 300),
+                        StreamMediaPath = c.String(maxLength: 300),
+                        EstimatedStartTime = c.DateTime(),
+                        ActualStartTime = c.DateTime(),
+                        ActualEndTime = c.DateTime(),
+                        Status = c.Int(false),
+                        PublishUserId = c.Long(false),
+                        limelightCount = c.Long(false),
+                        IsDeleted = c.Boolean(false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(false),
+                        CreatorUserId = c.Long()
+                    }, new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Video_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" }
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.HlxVideo", "LastModifierUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.HlxVideo", "DeleterUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.HlxVideo", "CreatorUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.HlxUserAvatar", "LastModifierUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.HlxUserAvatar", "DeleterUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.HlxUserAvatar", "CreatorUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.AbpRoles", "TenantId", "dbo.AbpTenants");
             DropForeignKey("dbo.AbpPermissions", "RoleId", "dbo.AbpRoles");
             DropForeignKey("dbo.AbpRoles", "LastModifierUserId", "dbo.AbpUsers");
@@ -414,7 +488,13 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropForeignKey("dbo.AbpUsers", "CreatorUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.AbpOrganizationUnits", "ParentId", "dbo.AbpOrganizationUnits");
             DropForeignKey("dbo.AbpFeatures", "EditionId", "dbo.AbpEditions");
+            DropIndex("dbo.HlxVideo", new[] { "CreatorUserId" });
+            DropIndex("dbo.HlxVideo", new[] { "LastModifierUserId" });
+            DropIndex("dbo.HlxVideo", new[] { "DeleterUserId" });
             DropIndex("dbo.AbpUserNotifications", new[] { "UserId", "State", "CreationTime" });
+            DropIndex("dbo.HlxUserAvatar", new[] { "CreatorUserId" });
+            DropIndex("dbo.HlxUserAvatar", new[] { "LastModifierUserId" });
+            DropIndex("dbo.HlxUserAvatar", new[] { "DeleterUserId" });
             DropIndex("dbo.AbpTenants", new[] { "CreatorUserId" });
             DropIndex("dbo.AbpTenants", new[] { "LastModifierUserId" });
             DropIndex("dbo.AbpTenants", new[] { "DeleterUserId" });
@@ -437,11 +517,19 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropIndex("dbo.AbpNotificationSubscriptions", new[] { "NotificationName", "EntityTypeName", "EntityId", "UserId" });
             DropIndex("dbo.AbpFeatures", new[] { "EditionId" });
             DropIndex("dbo.AbpBackgroundJobs", new[] { "IsAbandoned", "NextTryTime" });
+            DropTable("dbo.HlxVideo", new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Video_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" }
+                });
             DropTable("dbo.AbpUserOrganizationUnits", new Dictionary<string, object>
                 {
                     { "DynamicFilter_UserOrganizationUnit_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" }
                 });
             DropTable("dbo.AbpUserNotifications");
+            DropTable("dbo.HlxUserAvatar", new Dictionary<string, object>
+                {
+                    { "DynamicFilter_UserAvatar_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" }
+                });
             DropTable("dbo.AbpTenants", new Dictionary<string, object>
                 {
                     { "DynamicFilter_Tenant_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" }

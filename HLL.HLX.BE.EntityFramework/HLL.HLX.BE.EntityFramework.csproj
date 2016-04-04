@@ -109,17 +109,15 @@
   <ItemGroup>
     <Compile Include="EF\DbConfiguration\UserAvatarConfiguration.cs" />
     <Compile Include="EF\DbConfiguration\UserConfiguration.cs" />
+    <Compile Include="EF\DbConfiguration\VideoConfiguration.cs" />
     <Compile Include="EF\HlxBeDbContext.cs" />
     <Compile Include="EF\Repositories\HlxBeRepositoryBase.cs" />
     <Compile Include="EF\Repositories\Users\UserAvatarRepository.cs" />
     <Compile Include="EF\Repositories\Users\UserRepository.cs" />
-    <Compile Include="Migrations\201603220824588_Init_20160322.cs" />
-    <Compile Include="Migrations\201603220824588_Init_20160322.Designer.cs">
-      <DependentUpon>201603220824588_Init_20160322.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201603250645159_20150325_Add_User.cs" />
-    <Compile Include="Migrations\201603250645159_20150325_Add_User.Designer.cs">
-      <DependentUpon>201603250645159_20150325_Add_User.cs</DependentUpon>
+    <Compile Include="EF\Repositories\Videos\VideoRepository.cs" />
+    <Compile Include="Migrations\201604031122313_Init.cs" />
+    <Compile Include="Migrations\201604031122313_Init.Designer.cs">
+      <DependentUpon>201604031122313_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HlxBeDataModule.cs" />
@@ -140,11 +138,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201603220824588_Init_20160322.resx">
-      <DependentUpon>201603220824588_Init_20160322.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201603250645159_20150325_Add_User.resx">
-      <DependentUpon>201603250645159_20150325_Add_User.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604031122313_Init.resx">
+      <DependentUpon>201604031122313_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

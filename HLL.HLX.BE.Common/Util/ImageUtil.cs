@@ -127,7 +127,7 @@ namespace HLL.HLX.BE.Common.Util
             {
                 Bitmap bmp = new Bitmap(imgFilename);
                 MemoryStream ms = new MemoryStream();
-                bmp.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                bmp.Save(ms, ImageFormat.Jpeg);
                 byte[] arr = new byte[ms.Length];
                 ms.Position = 0;
                 ms.Read(arr, 0, (int)ms.Length);
@@ -150,14 +150,14 @@ namespace HLL.HLX.BE.Common.Util
                 byte[] arr = Convert.FromBase64String(imgBase64);
                 MemoryStream ms = new MemoryStream(arr);
                 Bitmap bmp = new Bitmap(ms);
-                var filename = Guid.NewGuid().ToString() + ".jpg";
+                var filename = Guid.NewGuid() + ".jpg";
                 var folder = HttpContext.Current.Server.MapPath(filePath);
                 if (!Directory.Exists(folder))
                 {
                     Directory.CreateDirectory(folder);
                 }
                 var fullname = Path.Combine(folder, filename);
-                bmp.Save(fullname, System.Drawing.Imaging.ImageFormat.Jpeg);
+                bmp.Save(fullname, ImageFormat.Jpeg);
                 //bmp.Save(txtFileName + ".bmp", ImageFormat.Bmp);
                 //bmp.Save(txtFileName + ".gif", ImageFormat.Gif);
                 //bmp.Save(txtFileName + ".png", ImageFormat.Png);

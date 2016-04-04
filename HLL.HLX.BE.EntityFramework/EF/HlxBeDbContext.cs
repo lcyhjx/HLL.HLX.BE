@@ -4,6 +4,7 @@ using Abp.Zero.EntityFramework;
 using HLL.HLX.BE.Core.Model.Authorization.Roles;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Core.Model.Users;
+using HLL.HLX.BE.Core.Model.Videos;
 using HLL.HLX.BE.EntityFramework.EF.DbConfiguration;
 
 namespace HLL.HLX.BE.EntityFramework.EF
@@ -12,6 +13,7 @@ namespace HLL.HLX.BE.EntityFramework.EF
     {
         //TODO: Define an IDbSet for your Entities...
         public virtual IDbSet<UserAvatar> UserAvatars { get; set; }
+        public virtual IDbSet<Video> Videos { get; set; }
 
 
 
@@ -47,6 +49,7 @@ namespace HLL.HLX.BE.EntityFramework.EF
         {
             modelBuilder.Configurations.Add(new UserConfiguration());
             modelBuilder.Configurations.Add(new UserAvatarConfiguration());
+            modelBuilder.Configurations.Add(new VideoConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

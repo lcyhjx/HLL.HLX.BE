@@ -21,23 +21,27 @@ namespace HLL.HLX.BE.WebApi.Api
             //    .Build();
 
             DynamicApiControllerBuilder
-              .For<HLL.HLX.BE.Application.Users.IUserAppService>("app/user")
+              .For<Application.Users.IUserAppService>("app/user")
               .Build();
 
             DynamicApiControllerBuilder
-              .For<HLL.HLX.BE.Application.Sessions.ISessionAppService>("app/session")
+              .For<Application.Sessions.ISessionAppService>("app/session")
               .Build();
 
             DynamicApiControllerBuilder
-              .For<HLL.HLX.BE.Application.Roles.IRoleAppService>("app/role")
+              .For<Application.Roles.IRoleAppService>("app/role")
               .Build();
 
             DynamicApiControllerBuilder
-              .For<HLL.HLX.BE.Application.MultiTenancy.ITenantAppService>("app/tenant")
+              .For<Application.MultiTenancy.ITenantAppService>("app/tenant")
               .Build();
 
             DynamicApiControllerBuilder
-               .For<HLL.HLX.BE.Application.Mobility.Users.IUserAppService>("app/mobility/user")
+               .For<Application.Mobility.Users.IUserAppService>("app/mobility/user")
+               .Build();
+
+            DynamicApiControllerBuilder
+               .For<Application.Mobility.Videos.IVideoAppService>("app/mobility/video")
                .Build();
 
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));

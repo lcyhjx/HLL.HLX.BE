@@ -19,8 +19,6 @@ using HLL.HLX.BE.Core.Business.Authorization.Roles;
 using HLL.HLX.BE.Core.Business.MultiTenancy;
 using HLL.HLX.BE.Core.Business.Users;
 using HLL.HLX.BE.Core.Model.Users;
-using HLL.HLX.BE.MultiTenancy;
-using HLL.HLX.BE.Core.Model;
 using HLL.HLX.BE.Core.Model.Authorization.Roles;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Web.Controllers.Results;
