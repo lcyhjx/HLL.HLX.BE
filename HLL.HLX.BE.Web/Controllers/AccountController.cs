@@ -100,6 +100,13 @@ namespace HLL.HLX.BE.Web.Controllers
                 returnUrl = returnUrl + returnUrlHash;
             }
 
+            string path = HttpRuntime.BinDirectory;
+            string path1 = HttpRuntime.AppDomainAppPath;
+
+            string sig = HLL.HLX.BE.Common.Tls.TlsSigHelper.GenerateSig(path1);
+
+             bool isValid =  HLL.HLX.BE.Common.Tls.TlsSigHelper.VerifySig(sig, path1);
+
             return Json(new MvcAjaxResponse { TargetUrl = returnUrl });
         }
 
