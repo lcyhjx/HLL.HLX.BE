@@ -4,7 +4,7 @@ using HLL.HLX.BE.Migrations.SeedData;
 
 namespace HLL.HLX.BE.EntityFramework.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<HlxBeDbContext>
+    public sealed class Configuration : DbMigrationsConfiguration<HlxBeDbContext>
     {
         public Configuration()
         {

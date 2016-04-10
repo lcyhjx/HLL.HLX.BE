@@ -117,6 +117,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HlxBeContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tls\TlsSigHelper.cs" />
     <Compile Include="Util\AppSettingUtil.cs" />

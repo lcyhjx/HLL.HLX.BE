@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Web;
 using Abp.Web;
 using Castle.Facilities.Logging;
+using HLL.HLX.BE.Common;
+using HLL.HLX.BE.Common.Util;
+using HLL.HLX.BE.EntityFramework.EF;
 
 namespace HLL.HLX.BE.Web
 {
@@ -10,6 +15,16 @@ namespace HLL.HLX.BE.Web
         {
             AbpBootstrapper.IocManager.IocContainer.AddFacility<LoggingFacility>(f => f.UseLog4Net().WithConfig("log4net.config"));
             base.Application_Start(sender, e);
+
+
+            HlxBeContext.AppBinPath = HttpRuntime.BinDirectory;
+            HlxBeContext.AppDomainPath = HttpRuntime.AppDomainAppPath;
+
+            bool migrateDbToLatestVersionEnabled = AppSettingUtil.GetAppSetting4Bool("MigrateDbToLatestVersionEnabled");
+            if (migrateDbToLatestVersionEnabled)
+            {
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<HlxBeDbContext, EntityFramework.Migrations.Configuration>());
+            }
         }
     }
 }

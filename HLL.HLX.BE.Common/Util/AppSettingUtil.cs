@@ -32,6 +32,18 @@ namespace HLL.HLX.BE.Common.Util
             return defaultValue;
         }
 
+        public static uint GetAppSetting4Uint(string key, uint defaultValue)
+        {
+            var strValue = ConfigurationManager.AppSettings[key];
+            uint value;
+            if (UInt32.TryParse(strValue, out value))
+            {
+                return value;
+            }
+
+            return defaultValue;
+        }
+
         public static bool GetAppSetting4Bool(string key, bool defaultValue = false)
         {
             var strValue = ConfigurationManager.AppSettings[key];

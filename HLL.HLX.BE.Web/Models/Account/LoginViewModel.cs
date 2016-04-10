@@ -13,5 +13,21 @@ namespace HLL.HLX.BE.Web.Models.Account
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }
+
+        /// <summary>
+        /// 移动端App版本号
+        /// </summary>
+        public string MobileAppVersion { get; set; }
+
+        /// <summary>
+        /// 移动端操作系统
+        /// </summary>
+        public string MobileOS { get; set; }
+
+
+        /// <summary>
+        /// 移动端操作系统版本
+        /// </summary>
+        public string MobileOSVersion { get; set; }
     }
 }

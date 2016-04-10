@@ -2,6 +2,9 @@
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
+using Abp.Logging;
+using Abp.UI;
+using HLL.HLX.BE.Common.Util;
 
 // 此文件为 C# demo，使用的非托管模式的 C++ 接口
 // 项目中使用 C# 调用 dllsigcheck.dll 时请注意平台，64 位和 32 位平台的 dll 我们均有预编译
@@ -24,8 +27,21 @@ namespace HLL.HLX.BE.Common.Tls
         /// <summary>
         /// 生成sig
         /// </summary>
+        /// <param name="identifier"></param>
         /// <returns></returns>
-        public static string GenerateSig(string basePath)
+        public static string GenerateSig(string identifier)
+        {
+            string basePath = HlxBeContext.AppDomainPath;
+            uint sdkappid = AppSettingUtil.GetAppSetting4Uint("TlsSdkAppId",0);
+            //string identifier = "group_root";
+            return GenerateSig(basePath, sdkappid, identifier);
+        }
+
+        /// <summary>
+        /// 生成sig
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateSig(string basePath, uint sdkappid,string identifier)
         {
             string pri_key_path = basePath + @"TlsSigApi\ec_key.pem"; ;
             //string bb = HttpCurrent.Context.Server.Mappath();
@@ -41,8 +57,8 @@ namespace HLL.HLX.BE.Common.Tls
             StringBuilder sig = new StringBuilder(4096);
             StringBuilder err_msg = new StringBuilder(4096);
             int ret = sigcheck.tls_gen_sig_ex(
-                1400000377,
-                "group_root",
+                sdkappid,
+                identifier,
                 sig,
                 4096,
                 pri_key,
@@ -51,17 +67,34 @@ namespace HLL.HLX.BE.Common.Tls
                 4096);
             if (0 != ret)
             {
-                //LogHelper.Logger.Error(string.Format("生成sig出错: {0}", err_msg));
-                return string.Empty;
+                LogHelper.Logger.Error(string.Format("生成sig出错: {0}", err_msg.ToString()));
+                throw new UserFriendlyException(err_msg.ToString());
+                //return string.Empty;
             }
             return sig.ToString();
+        }
+
+
+        /// <summary>
+        /// 校验sig
+        /// </summary>
+        /// <param name="sig"></param>
+        /// <param name="identifier"></param>
+        /// <returns></returns>
+        public static bool VerifySig(string sig, string identifier)
+        {
+            string basePath = HlxBeContext.AppDomainPath;
+            uint sdkappid = AppSettingUtil.GetAppSetting4Uint("TlsSdkAppId", 0);
+            //string identifier = "group_root";
+
+            return VerifySig(sig, basePath, sdkappid, identifier);
         }
 
         /// <summary>
         /// 校验sig
         /// </summary>
         /// <param name="sig"></param>
-        public static bool VerifySig(string sig, string basePath)
+        public static bool VerifySig(string sig, string basePath, uint sdkappid, string identifier)
         {
             string pub_key_path = basePath + @"TlsSigApi\public.pem";
 
@@ -80,8 +113,8 @@ namespace HLL.HLX.BE.Common.Tls
                 sig.ToString(),
                 pub_key,
                 (UInt32)pub_key.Length,
-                1400000377,
-                "group_root",
+                sdkappid,
+                identifier,
                 ref expire_time,
                 ref init_time,
                 err_msg,
@@ -89,7 +122,7 @@ namespace HLL.HLX.BE.Common.Tls
 
             if (0 != ret)
             {
-                //LogHelper.Logger.Error(string.Format("校验sig出错: {0}", err_msg));
+                LogHelper.Logger.Error(string.Format("校验sig出错: {0}", err_msg));
                 return false;
             }
             //Console.WriteLine("verify ok -- expire time " + expire_time + " -- init time " + init_time);

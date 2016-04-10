@@ -12,9 +12,11 @@ using Abp.AutoMapper;
 using Abp.Configuration.Startup;
 using Abp.Domain.Uow;
 using Abp.Extensions;
+using Abp.Logging;
 using Abp.Threading;
 using Abp.UI;
 using Abp.Web.Mvc.Models;
+using HLL.HLX.BE.Common.Util;
 using HLL.HLX.BE.Core.Business.Authorization.Roles;
 using HLL.HLX.BE.Core.Business.MultiTenancy;
 using HLL.HLX.BE.Core.Business.Users;
@@ -39,10 +41,7 @@ namespace HLL.HLX.BE.Web.Controllers
 
         private IAuthenticationManager AuthenticationManager
         {
-            get
-            {
-                return HttpContext.GetOwinContext().Authentication;
-            }
+            get { return HttpContext.GetOwinContext().Authentication; }
         }
 
         public AccountController(
@@ -80,7 +79,40 @@ namespace HLL.HLX.BE.Web.Controllers
         [DisableAuditing]
         public async Task<JsonResult> Login(LoginViewModel loginModel, string returnUrl = "", string returnUrlHash = "")
         {
+            //记录登录日志
+            string logInfo = @"用户{0}开始登录。移动端App版本:{1}; 系统端操作系统:{2};系统端操作系统版本:{3};其他信息:{4}";
+            List<string> otherInfos = new List<string>()
+            {
+                Request.UserHostAddress,
+                Request.Browser.Browser,
+                Request.Browser.Version,
+                Request.Browser.Type,
+                Request.Browser.Platform
+            };
+            string otherInfo = string.Join("-", otherInfos);
+
+            logInfo = string.Format(logInfo, loginModel.UsernameOrEmailAddress, loginModel.MobileAppVersion,
+                loginModel.MobileOS, loginModel.MobileOSVersion, otherInfo);
+            LogHelper.Logger.Info(logInfo);
+
+            loginModel.UsernameOrEmailAddress = loginModel.UsernameOrEmailAddress.Trim();
+            loginModel.Password = loginModel.Password.Trim();
+            if (string.IsNullOrEmpty(loginModel.UsernameOrEmailAddress))
+            {
+                throw new UserFriendlyException("用户名不能为空");
+            }
+            if (string.IsNullOrEmpty(loginModel.Password))
+            {
+                throw new UserFriendlyException("密码不能为空");
+            }
+
             CheckModelState();
+
+
+            if (!CommonUtil.CheckIsValidPassword(loginModel.Password))
+            {
+                throw new UserFriendlyException("密码错误。密码必须由英文字母，英文符号和数字组成");
+            }
 
             var loginResult = await GetLoginResultAsync(
                 loginModel.UsernameOrEmailAddress,
@@ -100,17 +132,26 @@ namespace HLL.HLX.BE.Web.Controllers
                 returnUrl = returnUrl + returnUrlHash;
             }
 
-            string path = HttpRuntime.BinDirectory;
-            string path1 = HttpRuntime.AppDomainAppPath;
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+            HttpContext.Response.Headers.Add("Access-Control-Allow-Credentials", "true");
 
-            string sig = HLL.HLX.BE.Common.Tls.TlsSigHelper.GenerateSig(path1);
+            User user = loginResult.User;
 
-             bool isValid =  HLL.HLX.BE.Common.Tls.TlsSigHelper.VerifySig(sig, path1);
+            string sig = HLL.HLX.BE.Common.Tls.TlsSigHelper.GenerateSig(user.UserName);
+            bool isValid = HLL.HLX.BE.Common.Tls.TlsSigHelper.VerifySig(sig, user.UserName);
 
-            return Json(new MvcAjaxResponse { TargetUrl = returnUrl });
+            UserModel userModel = new UserModel(user);
+            userModel.TlsSig = sig;
+
+            return Json(new MvcAjaxResponse
+            {
+                TargetUrl = returnUrl,
+                Result = userModel
+            });
         }
 
-        private async Task<AbpUserManager<Tenant, Role, User>.AbpLoginResult> GetLoginResultAsync(string usernameOrEmailAddress, string password, string tenancyName)
+        private async Task<AbpUserManager<Tenant, Role, User>.AbpLoginResult> GetLoginResultAsync(
+            string usernameOrEmailAddress, string password, string tenancyName)
         {
             var loginResult = await _userManager.LoginAsync(usernameOrEmailAddress, password, tenancyName);
 
@@ -131,10 +172,11 @@ namespace HLL.HLX.BE.Web.Controllers
             }
 
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties { IsPersistent = rememberMe }, identity);
+            AuthenticationManager.SignIn(new AuthenticationProperties {IsPersistent = rememberMe}, identity);
         }
 
-        private Exception CreateExceptionForFailedLoginAttempt(AbpLoginResultType result, string usernameOrEmailAddress, string tenancyName)
+        private Exception CreateExceptionForFailedLoginAttempt(AbpLoginResultType result, string usernameOrEmailAddress,
+            string tenancyName)
         {
             switch (result)
             {
@@ -144,14 +186,18 @@ namespace HLL.HLX.BE.Web.Controllers
                 case AbpLoginResultType.InvalidPassword:
                     return new UserFriendlyException(L("LoginFailed"), L("InvalidUserNameOrPassword"));
                 case AbpLoginResultType.InvalidTenancyName:
-                    return new UserFriendlyException(L("LoginFailed"), L("ThereIsNoTenantDefinedWithName{0}", tenancyName));
+                    return new UserFriendlyException(L("LoginFailed"),
+                        L("ThereIsNoTenantDefinedWithName{0}", tenancyName));
                 case AbpLoginResultType.TenantIsNotActive:
                     return new UserFriendlyException(L("LoginFailed"), L("TenantIsNotActive", tenancyName));
                 case AbpLoginResultType.UserIsNotActive:
-                    return new UserFriendlyException(L("LoginFailed"), L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress));
+                    return new UserFriendlyException(L("LoginFailed"),
+                        L("UserIsNotActiveAndCanNotLogin", usernameOrEmailAddress));
                 case AbpLoginResultType.UserEmailIsNotConfirmed:
-                    return new UserFriendlyException(L("LoginFailed"), "Your email address is not confirmed. You can not login"); //TODO: localize message
-                default: //Can not fall to default actually. But other result types can be added in the future and we may forget to handle it
+                    return new UserFriendlyException(L("LoginFailed"),
+                        "Your email address is not confirmed. You can not login"); //TODO: localize message
+                default:
+                    //Can not fall to default actually. But other result types can be added in the future and we may forget to handle it
                     Logger.Warn("Unhandled login fail reason: " + result);
                     return new UserFriendlyException(L("LoginFailed"));
             }
@@ -235,7 +281,8 @@ namespace HLL.HLX.BE.Web.Controllers
 
                     model.Password = Core.Model.Users.User.CreateRandomPassword();
 
-                    if (string.Equals(externalLoginInfo.Email, model.EmailAddress, StringComparison.InvariantCultureIgnoreCase))
+                    if (string.Equals(externalLoginInfo.Email, model.EmailAddress,
+                        StringComparison.InvariantCultureIgnoreCase))
                     {
                         user.IsEmailConfirmed = true;
                     }
@@ -254,13 +301,14 @@ namespace HLL.HLX.BE.Web.Controllers
 
                 //Switch to the tenant
                 _unitOfWorkManager.Current.EnableFilter(AbpDataFilters.MayHaveTenant);
-                _unitOfWorkManager.Current.SetFilterParameter(AbpDataFilters.MayHaveTenant, AbpDataFilters.Parameters.TenantId, tenant.Id);
+                _unitOfWorkManager.Current.SetFilterParameter(AbpDataFilters.MayHaveTenant,
+                    AbpDataFilters.Parameters.TenantId, tenant.Id);
 
                 //Add default roles
                 user.Roles = new List<UserRole>();
                 foreach (var defaultRole in await _roleManager.Roles.Where(r => r.IsDefault).ToListAsync())
                 {
-                    user.Roles.Add(new UserRole { RoleId = defaultRole.Id });
+                    user.Roles.Add(new UserRole {RoleId = defaultRole.Id});
                 }
 
                 //Save user
@@ -286,7 +334,8 @@ namespace HLL.HLX.BE.Web.Controllers
                         return Redirect(Url.Action("Index", "Home"));
                     }
 
-                    Logger.Warn("New registered user could not be login. This should not be normally. login result: " + loginResult.Result);
+                    Logger.Warn("New registered user could not be login. This should not be normally. login result: " +
+                                loginResult.Result);
                 }
 
                 //If can not login, show a register result page
@@ -351,7 +400,7 @@ namespace HLL.HLX.BE.Web.Controllers
                     default:
                         return View("TenantSelection", new TenantSelectionViewModel
                         {
-                            Action = Url.Action("ExternalLoginCallback", "Account", new { returnUrl }),
+                            Action = Url.Action("ExternalLoginCallback", "Account", new {returnUrl}),
                             Tenants = tenants.MapTo<List<TenantSelectionViewModel.TenantInfo>>()
                         });
                 }
@@ -373,7 +422,8 @@ namespace HLL.HLX.BE.Web.Controllers
                 case AbpLoginResultType.UnknownExternalLogin:
                     return await RegisterView(loginInfo, tenancyName);
                 default:
-                    throw CreateExceptionForFailedLoginAttempt(loginResult.Result, loginInfo.Email ?? loginInfo.DefaultUserName, tenancyName);
+                    throw CreateExceptionForFailedLoginAttempt(loginResult.Result,
+                        loginInfo.Email ?? loginInfo.DefaultUserName, tenancyName);
             }
         }
 
@@ -382,7 +432,8 @@ namespace HLL.HLX.BE.Web.Controllers
             var name = loginInfo.DefaultUserName;
             var surname = loginInfo.DefaultUserName;
 
-            var extractedNameAndSurname = TryExtractNameAndSurnameFromClaims(loginInfo.ExternalIdentity.Claims.ToList(), ref name, ref surname);
+            var extractedNameAndSurname = TryExtractNameAndSurnameFromClaims(
+                loginInfo.ExternalIdentity.Claims.ToList(), ref name, ref surname);
 
             var viewModel = new RegisterViewModel
             {
