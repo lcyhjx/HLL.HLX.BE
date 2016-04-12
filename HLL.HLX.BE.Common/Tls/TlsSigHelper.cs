@@ -43,7 +43,7 @@ namespace HLL.HLX.BE.Common.Tls
         /// <returns></returns>
         public static string GenerateSig(string basePath, uint sdkappid,string identifier)
         {
-            string pri_key_path = basePath + @"TlsSigApi\ec_key.pem"; ;
+            string pri_key_path = basePath + @"TlsSigApi\private_key.pem"; ;
             //string bb = HttpCurrent.Context.Server.Mappath();
 
 
@@ -96,7 +96,7 @@ namespace HLL.HLX.BE.Common.Tls
         /// <param name="sig"></param>
         public static bool VerifySig(string sig, string basePath, uint sdkappid, string identifier)
         {
-            string pub_key_path = basePath + @"TlsSigApi\public.pem";
+            string pub_key_path = basePath + @"TlsSigApi\public_key.pem";
 
             // 校验 sig
             FileStream f = new FileStream(pub_key_path, FileMode.Open, FileAccess.Read);
