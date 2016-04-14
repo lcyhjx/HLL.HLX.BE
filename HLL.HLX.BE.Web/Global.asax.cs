@@ -4,6 +4,7 @@ using System.Web;
 using Abp.Web;
 using Castle.Facilities.Logging;
 using HLL.HLX.BE.Common;
+using HLL.HLX.BE.Common.Infrastructure;
 using HLL.HLX.BE.Common.Util;
 using HLL.HLX.BE.EntityFramework.EF;
 
@@ -19,6 +20,9 @@ namespace HLL.HLX.BE.Web
 
             HlxBeContext.AppBinPath = HttpRuntime.BinDirectory;
             HlxBeContext.AppDomainPath = HttpRuntime.AppDomainAppPath;
+
+            //initialize engine context
+            EngineContext.Initialize(false);
 
             bool migrateDbToLatestVersionEnabled = AppSettingUtil.GetAppSetting4Bool("MigrateDbToLatestVersionEnabled");
             if (migrateDbToLatestVersionEnabled)
