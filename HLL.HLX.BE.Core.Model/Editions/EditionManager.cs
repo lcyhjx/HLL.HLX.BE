@@ -9,12 +9,12 @@ namespace HLL.HLX.BE.Core.Model.Editions
         public const string DefaultEditionName = "Standard";
 
         public EditionManager(
-            IRepository<Edition> editionRepository, 
+            IRepository<Edition> editionRepository,
             IRepository<EditionFeatureSetting, long> editionFeatureRepository)
             : base(
-                editionRepository, 
+                editionRepository,
                 editionFeatureRepository
-            )
+                )
         {
         }
     }

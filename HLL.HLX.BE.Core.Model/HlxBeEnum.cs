@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HLL.HLX.BE.Core.Model
+﻿namespace HLL.HLX.BE.Core.Model
 {
     /*
      * 所有枚举的值为7位数字，并且值不重复
@@ -25,5 +19,4 @@ namespace HLL.HLX.BE.Core.Model
         Started = 1010102,
         Ended = 1010103
     }
-
 }

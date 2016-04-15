@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Abp.Application.Services;
-using HLL.HLX.BE.Sessions.Dto;
+using HLL.HLX.BE.Application.Sessions.Dto;
 
 namespace HLL.HLX.BE.Application.Sessions
 {

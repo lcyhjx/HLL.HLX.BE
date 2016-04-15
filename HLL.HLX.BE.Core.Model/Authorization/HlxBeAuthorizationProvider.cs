@@ -16,7 +16,8 @@ namespace HLL.HLX.BE.Core.Model.Authorization
             }
 
             //Host permissions
-            var tenants = pages.CreateChildPermission(PermissionNames.Pages_Tenants, L("Tenants"), multiTenancySides: MultiTenancySides.Host);
+            var tenants = pages.CreateChildPermission(PermissionNames.Pages_Tenants, L("Tenants"),
+                multiTenancySides: MultiTenancySides.Host);
         }
 
         private static ILocalizableString L(string name)

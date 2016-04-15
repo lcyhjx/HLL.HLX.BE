@@ -6,6 +6,5 @@ namespace HLL.HLX.BE.Core.Model.Authorization.Roles
 {
     public class Role : AbpRole<Tenant, User>
     {
-
     }
 }

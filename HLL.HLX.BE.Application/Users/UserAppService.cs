@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Abp.Authorization;
+using HLL.HLX.BE.Application.Users.Dto;
 using HLL.HLX.BE.Core.Business.Users;
-using HLL.HLX.BE.Users.Dto;
 
 namespace HLL.HLX.BE.Application.Users
 {

@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using Abp.Application.Editions;
 using HLL.HLX.BE.Core.Model.Editions;
-using HLL.HLX.BE.EntityFramework;
 using HLL.HLX.BE.EntityFramework.EF;
 
-namespace HLL.HLX.BE.Migrations.SeedData
+namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
 {
     public class DefaultEditionsBuilder
     {

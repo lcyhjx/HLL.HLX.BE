@@ -1,9 +1,7 @@
-﻿using HLL.HLX.BE.EntityFramework;
-using EntityFramework.DynamicFilters;
+﻿using EntityFramework.DynamicFilters;
 using HLL.HLX.BE.EntityFramework.EF;
-using HLL.HLX.BE.EntityFramework.Migrations.SeedData;
 
-namespace HLL.HLX.BE.Migrations.SeedData
+namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
 {
     public class InitialDataBuilder
     {

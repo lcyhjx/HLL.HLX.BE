@@ -1,6 +1,6 @@
 using System.Data.Entity.Migrations;
 using HLL.HLX.BE.EntityFramework.EF;
-using HLL.HLX.BE.Migrations.SeedData;
+using HLL.HLX.BE.EntityFramework.Migrations.SeedData;
 
 namespace HLL.HLX.BE.EntityFramework.Migrations
 {

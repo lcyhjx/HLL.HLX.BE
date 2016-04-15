@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HLL.HLX.BE.Api.Models
+namespace HLL.HLX.BE.WebApi.Api.Models
 {
     public class LoginModel
     {

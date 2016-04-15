@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 using Abp.Application.Services;
-using HLL.HLX.BE.Users.Dto;
+using HLL.HLX.BE.Application.Users.Dto;
 
 namespace HLL.HLX.BE.Application.Users
 {

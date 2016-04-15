@@ -2,7 +2,7 @@ using Abp.Application.Services.Dto;
 using Abp.AutoMapper;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 
-namespace HLL.HLX.BE.MultiTenancy.Dto
+namespace HLL.HLX.BE.Application.MultiTenancy.Dto
 {
     [AutoMapFrom(typeof (Tenant))]
     public class TenantListDto : EntityDto

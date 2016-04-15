@@ -7,7 +7,6 @@ namespace HLL.HLX.BE.Core.Model.MultiTenancy
     {
         public Tenant()
         {
-            
         }
 
         public Tenant(string tenancyName, string name)

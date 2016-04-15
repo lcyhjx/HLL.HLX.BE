@@ -2,7 +2,7 @@
 using Abp.Auditing;
 using Abp.Authorization;
 using Abp.AutoMapper;
-using HLL.HLX.BE.Sessions.Dto;
+using HLL.HLX.BE.Application.Sessions.Dto;
 
 namespace HLL.HLX.BE.Application.Sessions
 {

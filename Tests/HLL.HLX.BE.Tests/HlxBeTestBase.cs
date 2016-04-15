@@ -9,17 +9,13 @@ using Abp.Modules;
 using Abp.Runtime.Session;
 using Abp.TestBase;
 using HLL.HLX.BE.EntityFramework;
-using HLL.HLX.BE.Migrations.SeedData;
-using HLL.HLX.BE.MultiTenancy;
-using HLL.HLX.BE.Users;
 using Castle.MicroKernel.Registration;
 using EntityFramework.DynamicFilters;
 using HLL.HLX.BE.Application;
-using HLL.HLX.BE.Core.Business.MultiTenancy;
-using HLL.HLX.BE.Core.Business.Users;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Core.Model.Users;
 using HLL.HLX.BE.EntityFramework.EF;
+using HLL.HLX.BE.EntityFramework.Migrations.SeedData;
 
 namespace HLL.HLX.BE.Tests
 {

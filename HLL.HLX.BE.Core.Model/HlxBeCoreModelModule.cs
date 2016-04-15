@@ -4,10 +4,9 @@ using Abp.Zero;
 
 namespace HLL.HLX.BE.Core.Model
 {
-    [DependsOn(typeof(AbpZeroCoreModule))]
+    [DependsOn(typeof (AbpZeroCoreModule))]
     public class HlxBeCoreModelModule : AbpModule
     {
-
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());

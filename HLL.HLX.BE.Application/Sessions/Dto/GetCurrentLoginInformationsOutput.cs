@@ -1,6 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
 
-namespace HLL.HLX.BE.Sessions.Dto
+namespace HLL.HLX.BE.Application.Sessions.Dto
 {
     public class GetCurrentLoginInformationsOutput : IOutputDto
     {

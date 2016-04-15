@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Abp.Application.Services.Dto;
 
-namespace HLL.HLX.BE.Users.Dto
+namespace HLL.HLX.BE.Application.Users.Dto
 {
     public class ProhibitPermissionInput : IInputDto
     {

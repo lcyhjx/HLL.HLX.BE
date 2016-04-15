@@ -2,7 +2,7 @@
 using Abp.AutoMapper;
 using HLL.HLX.BE.Core.Model.Users;
 
-namespace HLL.HLX.BE.Sessions.Dto
+namespace HLL.HLX.BE.Application.Sessions.Dto
 {
     [AutoMapFrom(typeof (User))]
     public class UserLoginInfoDto : EntityDto<long>
