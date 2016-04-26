@@ -15,7 +15,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents an order
     /// </summary>
-    public partial class Order : FullAuditedEntity<long, User>
+    public partial class Order : FullAuditedEntity<int, User>
     {
 
         private ICollection<DiscountUsageHistory> _discountUsageHistory;

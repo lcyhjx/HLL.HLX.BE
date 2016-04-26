@@ -1,76 +1,76 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Text;
+//using System.Threading.Tasks;
 
-namespace HLL.HLX.BE.Common.Caching
-{
+//namespace HLL.HLX.BE.Common.Caching
+//{
 
-    /// <summary>
-    /// Represents a NopNullCache (caches nothing)
-    /// </summary>
-    public partial class HlxNullCache : ICacheManager
-    {
-        /// <summary>
-        /// Gets or sets the value associated with the specified key.
-        /// </summary>
-        /// <typeparam name="T">Type</typeparam>
-        /// <param name="key">The key of the value to get.</param>
-        /// <returns>The value associated with the specified key.</returns>
-        public virtual T Get<T>(string key)
-        {
-            return default(T);
-        }
+//    /// <summary>
+//    /// Represents a NopNullCache (caches nothing)
+//    /// </summary>
+//    public partial class HlxNullCache : ICacheManager
+//    {
+//        /// <summary>
+//        /// Gets or sets the value associated with the specified key.
+//        /// </summary>
+//        /// <typeparam name="T">Type</typeparam>
+//        /// <param name="key">The key of the value to get.</param>
+//        /// <returns>The value associated with the specified key.</returns>
+//        public virtual T Get<T>(string key)
+//        {
+//            return default(T);
+//        }
 
-        /// <summary>
-        /// Adds the specified key and object to the cache.
-        /// </summary>
-        /// <param name="key">key</param>
-        /// <param name="data">Data</param>
-        /// <param name="cacheTime">Cache time</param>
-        public virtual void Set(string key, object data, int cacheTime)
-        {
-        }
+//        /// <summary>
+//        /// Adds the specified key and object to the cache.
+//        /// </summary>
+//        /// <param name="key">key</param>
+//        /// <param name="data">Data</param>
+//        /// <param name="cacheTime">Cache time</param>
+//        public virtual void Set(string key, object data, int cacheTime)
+//        {
+//        }
 
-        /// <summary>
-        /// Gets a value indicating whether the value associated with the specified key is cached
-        /// </summary>
-        /// <param name="key">key</param>
-        /// <returns>Result</returns>
-        public bool IsSet(string key)
-        {
-            return false;
-        }
+//        /// <summary>
+//        /// Gets a value indicating whether the value associated with the specified key is cached
+//        /// </summary>
+//        /// <param name="key">key</param>
+//        /// <returns>Result</returns>
+//        public bool IsSet(string key)
+//        {
+//            return false;
+//        }
 
-        /// <summary>
-        /// Removes the value with the specified key from the cache
-        /// </summary>
-        /// <param name="key">/key</param>
-        public virtual void Remove(string key)
-        {
-        }
+//        /// <summary>
+//        /// Removes the value with the specified key from the cache
+//        /// </summary>
+//        /// <param name="key">/key</param>
+//        public virtual void Remove(string key)
+//        {
+//        }
 
-        /// <summary>
-        /// Removes items by pattern
-        /// </summary>
-        /// <param name="pattern">pattern</param>
-        public virtual void RemoveByPattern(string pattern)
-        {
-        }
+//        /// <summary>
+//        /// Removes items by pattern
+//        /// </summary>
+//        /// <param name="pattern">pattern</param>
+//        public virtual void RemoveByPattern(string pattern)
+//        {
+//        }
 
-        /// <summary>
-        /// Clear all cache data
-        /// </summary>
-        public virtual void Clear()
-        {
-        }
+//        /// <summary>
+//        /// Clear all cache data
+//        /// </summary>
+//        public virtual void Clear()
+//        {
+//        }
 
-        /// <summary>
-        /// Dispose
-        /// </summary>
-        public virtual void Dispose()
-        {
-        }
-    }
-}
+//        /// <summary>
+//        /// Dispose
+//        /// </summary>
+//        public virtual void Dispose()
+//        {
+//        }
+//    }
+//}

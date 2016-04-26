@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product tag
     /// </summary>
-    public class ProductTag : FullAuditedEntity<long, User>
+    public class ProductTag : FullAuditedEntity<int, User>
     {
         private ICollection<Product> _products;
 

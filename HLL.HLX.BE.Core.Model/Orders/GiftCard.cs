@@ -9,7 +9,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a gift card
     /// </summary>
-    public partial class GiftCard : FullAuditedEntity<long, User>
+    public partial class GiftCard : FullAuditedEntity<int, User>
     {
         private ICollection<GiftCardUsageHistory> _giftCardUsageHistory;
         

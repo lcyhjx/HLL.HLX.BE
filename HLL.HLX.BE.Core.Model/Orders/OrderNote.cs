@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents an order note
     /// </summary>
-    public partial class OrderNote : FullAuditedEntity<long, User>
+    public partial class OrderNote : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the order identifier

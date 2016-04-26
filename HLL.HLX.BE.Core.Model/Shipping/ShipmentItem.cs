@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Shipping
     /// <summary>
     /// Represents a shipment item
     /// </summary>
-    public partial class ShipmentItem : FullAuditedEntity<long, User>
+    public partial class ShipmentItem : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the shipment identifier

@@ -5,7 +5,7 @@ namespace HLL.HLX.BE.Core.Model.Users
     /// <summary>
     ///     用户头像实体
     /// </summary>
-    public class UserAvatar : FullAuditedEntity<long, User>
+    public class UserAvatar : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     用户Id

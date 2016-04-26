@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Directory
     /// <summary>
     /// Represents a state/province
     /// </summary>
-    public partial class StateProvince : FullAuditedEntity<long, User>
+    public partial class StateProvince : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the country identifier

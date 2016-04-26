@@ -1,6 +1,6 @@
 
 
-Add-Migration 20150109_Order_UpdateTable -Verbos -ConnectionString "Data Source=LUCHA5;Initial Catalog=YAS;Integrated Security=False;User ID=sa;Password=hp_lakin_214;MultipleActiveResultSets=True" -ConnectionProviderName "System.Data.SqlClient"
+Add-Migration 20160410_Init -Verbos -ConnectionString "Data Source=LUCHA5;Initial Catalog=YAS;Integrated Security=False;User ID=sa;Password=hp_lakin_214;MultipleActiveResultSets=True" -ConnectionProviderName "System.Data.SqlClient"
 
 Update-Database -Verbos -ConnectionString "Data Source=YUANMICH2;Initial Catalog=YAS;Integrated Security=False;User ID=sa;Password=)OKM9ijn;MultipleActiveResultSets=True" -ConnectionProviderName "System.Data.SqlClient"
 

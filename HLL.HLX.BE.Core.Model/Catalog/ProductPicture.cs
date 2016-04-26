@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product picture mapping
     /// </summary>
-    public class ProductPicture : FullAuditedEntity<long, User>
+    public class ProductPicture : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product identifier

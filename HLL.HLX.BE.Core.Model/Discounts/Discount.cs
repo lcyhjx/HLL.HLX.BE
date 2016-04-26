@@ -9,7 +9,7 @@ namespace HLL.HLX.BE.Core.Model.Discounts
     /// <summary>
     /// Represents a discount
     /// </summary>
-    public partial class Discount : FullAuditedEntity<long, User>
+    public partial class Discount : FullAuditedEntity<int, User>
     {
         private ICollection<DiscountRequirement> _discountRequirements;
         private ICollection<Category> _appliedToCategories;

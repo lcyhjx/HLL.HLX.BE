@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a predefined (default) product attribute value
     /// </summary>
-    public class PredefinedProductAttributeValue : FullAuditedEntity<long, User>
+    public class PredefinedProductAttributeValue : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product attribute identifier

@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product attribute mapping
     /// </summary>
-    public class ProductAttributeMapping : FullAuditedEntity<long, User>
+    public class ProductAttributeMapping : FullAuditedEntity<int, User>
     {
         private ICollection<ProductAttributeValue> _productAttributeValues;
 

@@ -8,7 +8,7 @@ namespace HLL.HLX.BE.Core.Model.Discounts
     /// <summary>
     /// Represents a discount usage history entry
     /// </summary>
-    public partial class DiscountUsageHistory :  FullAuditedEntity<long, User>
+    public partial class DiscountUsageHistory :  FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the discount identifier

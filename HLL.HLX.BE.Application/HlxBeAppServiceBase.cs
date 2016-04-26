@@ -41,6 +41,26 @@ namespace HLL.HLX.BE.Application
             return TenantManager.GetByIdAsync(AbpSession.GetTenantId());
         }
 
+        private User _cachedUser;
+        protected virtual User CurrentUser
+        {
+            get
+            {
+                if (_cachedUser == null || _cachedUser.Id != AbpSession.UserId)
+                {
+                    var user = UserManager.FindById(AbpSession.GetUserId());
+                    if (user == null)
+                    {
+                        throw new ApplicationException("There is no current user!");
+                    }
+                    _cachedUser = user;
+                    return user;
+                }
+                return _cachedUser;
+            }
+        }
+
+
         protected virtual void CheckErrors(IdentityResult identityResult)
         {
             identityResult.CheckErrors(LocalizationManager);

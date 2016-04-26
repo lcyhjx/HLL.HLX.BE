@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Shipping
     /// <summary>
     /// Represents a delivery date 
     /// </summary>
-    public partial class DeliveryDate : FullAuditedEntity<long, User>
+    public partial class DeliveryDate : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the name

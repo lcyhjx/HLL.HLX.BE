@@ -9,7 +9,7 @@ namespace HLL.HLX.BE.Core.Model.Shipping
     /// <summary>
     /// Represents a shipment
     /// </summary>
-    public partial class Shipment : FullAuditedEntity<long, User>
+    public partial class Shipment : FullAuditedEntity<int, User>
     {
         private ICollection<ShipmentItem> _shipmentItems;
 

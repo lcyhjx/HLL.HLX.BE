@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Directory
     /// <summary>
     /// Represents a currency
     /// </summary>
-    public partial class Currency : FullAuditedEntity<long, User>
+    public partial class Currency : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the name

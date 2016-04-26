@@ -10,7 +10,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a recurring payment
     /// </summary>
-    public partial class RecurringPayment : FullAuditedEntity<long, User>
+    public partial class RecurringPayment : FullAuditedEntity<int, User>
     {
         private ICollection<RecurringPaymentHistory> _recurringPaymentHistory;
 

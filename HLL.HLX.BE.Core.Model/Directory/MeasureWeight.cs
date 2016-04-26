@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Directory
     /// <summary>
     /// Represents a measure weight
     /// </summary>
-    public partial class MeasureWeight : FullAuditedEntity<long, User>
+    public partial class MeasureWeight : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the name

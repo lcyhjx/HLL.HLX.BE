@@ -14,7 +14,6 @@ using EntityFramework.DynamicFilters;
 using HLL.HLX.BE.Application;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Core.Model.Users;
-using HLL.HLX.BE.EntityFramework.EF;
 using HLL.HLX.BE.EntityFramework.Migrations.SeedData;
 
 namespace HLL.HLX.BE.Tests

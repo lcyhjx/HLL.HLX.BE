@@ -5,7 +5,7 @@ using HLL.HLX.BE.Core.Model.Users;
 
 namespace HLL.HLX.BE.Core.Model.Common
 {
-    public partial class Address : FullAuditedEntity<long, User>, ICloneable
+    public partial class Address : FullAuditedEntity<int, User>, ICloneable
     {
         /// <summary>
         /// Gets or sets the first name

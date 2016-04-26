@@ -8,7 +8,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a shopping cart item
     /// </summary>
-    public partial class ShoppingCartItem : FullAuditedEntity<long, User>
+    public partial class ShoppingCartItem : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the store identifier

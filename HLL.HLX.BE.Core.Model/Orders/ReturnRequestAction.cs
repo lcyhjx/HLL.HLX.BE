@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a return request action
     /// </summary>
-    public partial class ReturnRequestAction : FullAuditedEntity<long, User>
+    public partial class ReturnRequestAction : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the name

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Abp.Domain.Entities.Auditing;
 using HLL.HLX.BE.Core.Model.Discounts;
 using HLL.HLX.BE.Core.Model.Users;
@@ -9,7 +10,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product
     /// </summary>
-    public class Product : FullAuditedEntity<long, User>
+    public class Product : FullAuditedEntity<int,User>
     {
         private ICollection<Discount> _appliedDiscounts;
         private ICollection<ProductAttributeCombination> _productAttributeCombinations;
@@ -44,6 +45,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
         /// <summary>
         ///     Gets or sets the name
         /// </summary>
+        //[DefaultValue()]
         public string Name { get; set; }
 
         /// <summary>

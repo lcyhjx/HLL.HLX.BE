@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a checkout attribute value
     /// </summary>
-    public partial class CheckoutAttributeValue : FullAuditedEntity<long, User>
+    public partial class CheckoutAttributeValue : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the checkout attribute mapping identifier

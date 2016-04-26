@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Abp.Localization;
-using HLL.HLX.BE.EntityFramework.EF;
 
 namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
 {

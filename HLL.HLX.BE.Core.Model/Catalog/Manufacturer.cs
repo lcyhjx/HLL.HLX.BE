@@ -9,7 +9,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a manufacturer
     /// </summary>
-    public class Manufacturer : FullAuditedEntity<long, User>
+    public class Manufacturer : FullAuditedEntity<int, User>
     {
         private ICollection<Discount> _appliedDiscounts;
 

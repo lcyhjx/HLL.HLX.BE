@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Common
     /// <summary>
     /// Represents a generic attribute
     /// </summary>
-    public partial class GenericAttribute : FullAuditedEntity<long, User>
+    public partial class GenericAttribute : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the entity identifier

@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a category template
     /// </summary>
-    public class CategoryTemplate : FullAuditedEntity<long, User>
+    public class CategoryTemplate : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the template name

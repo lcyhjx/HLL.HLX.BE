@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Directory
     /// <summary>
     /// Represents a measure dimension
     /// </summary>
-    public partial class MeasureDimension : FullAuditedEntity<long, User>
+    public partial class MeasureDimension : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the name

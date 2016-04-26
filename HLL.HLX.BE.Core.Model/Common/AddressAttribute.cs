@@ -8,7 +8,7 @@ namespace HLL.HLX.BE.Core.Model.Common
     /// <summary>
     /// Represents an address attribute
     /// </summary>
-    public partial class AddressAttribute : FullAuditedEntity<long, User>
+    public partial class AddressAttribute : FullAuditedEntity<int, User>
     {
         private ICollection<AddressAttributeValue> _addressAttributeValues;
 

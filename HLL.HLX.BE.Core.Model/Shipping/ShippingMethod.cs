@@ -8,7 +8,7 @@ namespace HLL.HLX.BE.Core.Model.Shipping
     /// <summary>
     /// Represents a shipping method (used for offline shipping rate computation methods)
     /// </summary>
-    public partial class ShippingMethod : FullAuditedEntity<long, User>
+    public partial class ShippingMethod : FullAuditedEntity<int, User>
     {
         private ICollection<Country> _restrictedCountries;
 

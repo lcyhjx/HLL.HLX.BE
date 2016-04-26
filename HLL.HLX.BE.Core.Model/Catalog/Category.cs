@@ -9,7 +9,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     ///// <summary>
     /// Represents a category
     /// </summary>
-    public class Category : FullAuditedEntity<long, User>
+    public class Category : FullAuditedEntity<int, User>
     {
         private ICollection<Discount> _appliedDiscounts;
 

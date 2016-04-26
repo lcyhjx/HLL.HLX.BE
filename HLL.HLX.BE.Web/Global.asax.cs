@@ -6,7 +6,7 @@ using Castle.Facilities.Logging;
 using HLL.HLX.BE.Common;
 using HLL.HLX.BE.Common.Infrastructure;
 using HLL.HLX.BE.Common.Util;
-using HLL.HLX.BE.EntityFramework.EF;
+using HLL.HLX.BE.EntityFramework;
 
 namespace HLL.HLX.BE.Web
 {

@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Videos
     /// <summary>
     ///     视频实体类
     /// </summary>
-    public class Video : FullAuditedEntity<long, User>
+    public class Video : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     视频标题

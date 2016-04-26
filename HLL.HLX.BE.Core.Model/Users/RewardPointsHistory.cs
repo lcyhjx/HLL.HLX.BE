@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Users
     /// <summary>
     /// Represents a reward point history entry
     /// </summary>
-    public partial class RewardPointsHistory : FullAuditedEntity<long, User>
+    public partial class RewardPointsHistory : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the customer identifier

@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Common
     /// <summary>
     /// Search term record (for statistics)
     /// </summary>
-    public partial class SearchTerm : FullAuditedEntity<long, User>
+    public partial class SearchTerm : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the keyword

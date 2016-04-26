@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a back in stock subscription
     /// </summary>
-    public class BackInStockSubscription : FullAuditedEntity<long, User>
+    public class BackInStockSubscription : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the store identifier

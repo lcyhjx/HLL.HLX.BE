@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a tier price
     /// </summary>
-    public class TierPrice : FullAuditedEntity<long, User>
+    public class TierPrice : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product identifier

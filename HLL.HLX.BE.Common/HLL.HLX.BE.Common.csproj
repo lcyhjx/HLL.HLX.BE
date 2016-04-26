@@ -158,14 +158,32 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\Extensions.cs" />
+    <Compile Include="Caching\HlxCacheExtensions.cs" />
     <Compile Include="Caching\HlxNullCache.cs" />
     <Compile Include="Caching\ICacheManager.cs" />
     <Compile Include="Caching\MemoryCacheManager.cs" />
     <Compile Include="Caching\PerRequestCacheManager.cs" />
     <Compile Include="Caching\RedisCacheManager.cs" />
+    <Compile Include="ComponentModel\GenericListTypeConverter.cs" />
+    <Compile Include="ComponentModel\WriteLockDisposable.cs" />
     <Compile Include="Configuration\HlxConfig.cs" />
     <Compile Include="Configuration\ISettings.cs" />
     <Compile Include="HlxBeContext.cs" />
+    <Compile Include="Html\BBCodeHelper.cs" />
+    <Compile Include="Html\CodeFormatter\CLikeFormat.cs" />
+    <Compile Include="Html\CodeFormatter\CodeFormat.cs" />
+    <Compile Include="Html\CodeFormatter\CodeFormatHelper.cs" />
+    <Compile Include="Html\CodeFormatter\CSharpFormat.cs" />
+    <Compile Include="Html\CodeFormatter\HighlightOptions.cs" />
+    <Compile Include="Html\CodeFormatter\HtmlFormat.cs" />
+    <Compile Include="Html\CodeFormatter\JavaScriptFormat.cs" />
+    <Compile Include="Html\CodeFormatter\MshFormat.cs" />
+    <Compile Include="Html\CodeFormatter\SourceFormat.cs" />
+    <Compile Include="Html\CodeFormatter\TsqlFormat.cs" />
+    <Compile Include="Html\CodeFormatter\VisualBasicFormat.cs" />
+    <Compile Include="Html\HtmlHelper.cs" />
+    <Compile Include="Html\ResolveLinksHelper.cs" />
     <Compile Include="Infrastructure\AppDomainTypeFinder.cs" />
     <Compile Include="Infrastructure\DependencyManagement\ContainerManager.cs" />
     <Compile Include="Infrastructure\DependencyManagement\IDependencyRegistrar.cs" />
@@ -176,6 +194,8 @@
     <Compile Include="Infrastructure\ITypeFinder.cs" />
     <Compile Include="Infrastructure\Singleton.cs" />
     <Compile Include="Infrastructure\WebAppTypeFinder.cs" />
+    <Compile Include="IPagedList.cs" />
+    <Compile Include="PagedList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tls\TlsSigHelper.cs" />
     <Compile Include="Util\AppSettingUtil.cs" />

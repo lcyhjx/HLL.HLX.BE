@@ -64,7 +64,7 @@ namespace HLL.HLX.BE.Core.Business.Videos
         ///删除视频
         /// </summary>
         /// <param name="id"></param>
-        public void DeleteVideo(long id)
+        public void DeleteVideo(int id)
         {
             _videoRepository.Delete(id);
         }

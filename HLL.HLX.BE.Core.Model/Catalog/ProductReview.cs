@@ -8,7 +8,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product review
     /// </summary>
-    public class ProductReview : FullAuditedEntity<long, User>
+    public class ProductReview : FullAuditedEntity<int, User>
     {
         private ICollection<ProductReviewHelpfulness> _productReviewHelpfulnessEntries;
 

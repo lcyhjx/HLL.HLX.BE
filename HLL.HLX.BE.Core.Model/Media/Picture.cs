@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Media
     /// <summary>
     /// Represents a picture
     /// </summary>
-    public partial class Picture : FullAuditedEntity<long, User>
+    public partial class Picture : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the picture binary

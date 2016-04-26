@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a manufacturer template
     /// </summary>
-    public class ManufacturerTemplate : FullAuditedEntity<long, User>
+    public class ManufacturerTemplate : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the template name

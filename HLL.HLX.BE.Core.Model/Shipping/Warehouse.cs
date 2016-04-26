@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Shipping
     /// <summary>
     /// Represents a shipment
     /// </summary>
-    public partial class Warehouse : FullAuditedEntity<long, User>
+    public partial class Warehouse : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the warehouse name

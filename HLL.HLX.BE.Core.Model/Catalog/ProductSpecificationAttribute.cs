@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product specification attribute
     /// </summary>
-    public class ProductSpecificationAttribute : FullAuditedEntity<long, User>
+    public class ProductSpecificationAttribute : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product identifier

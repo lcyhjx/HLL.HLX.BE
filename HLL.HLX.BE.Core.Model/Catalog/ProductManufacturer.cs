@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product manufacturer mapping
     /// </summary>
-    public class ProductManufacturer : FullAuditedEntity<long, User>
+    public class ProductManufacturer : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product identifier

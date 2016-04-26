@@ -143,18 +143,105 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EF\DbConfiguration\UserAvatarConfiguration.cs" />
-    <Compile Include="EF\DbConfiguration\UserConfiguration.cs" />
-    <Compile Include="EF\DbConfiguration\VideoConfiguration.cs" />
-    <Compile Include="EF\HlxBeDbContext.cs" />
-    <Compile Include="EF\Repositories\HlxBeRepositoryBase.cs" />
-    <Compile Include="EF\Repositories\Users\UserAvatarRepository.cs" />
-    <Compile Include="EF\Repositories\Users\UserRepository.cs" />
-    <Compile Include="EF\Repositories\Videos\VideoRepository.cs" />
-    <Compile Include="Migrations\201604031122313_Init.cs" />
-    <Compile Include="Migrations\201604031122313_Init.Designer.cs">
-      <DependentUpon>201604031122313_Init.cs</DependentUpon>
+    <Compile Include="Mapping\Catalog\BackInStockSubscriptionMap.cs" />
+    <Compile Include="Mapping\Catalog\CategoryMap.cs" />
+    <Compile Include="Mapping\Catalog\CategoryTemplateMap.cs" />
+    <Compile Include="Mapping\Catalog\CrossSellProductMap.cs" />
+    <Compile Include="Mapping\Catalog\ManufacturerMap.cs" />
+    <Compile Include="Mapping\Catalog\ManufacturerTemplateMap.cs" />
+    <Compile Include="Mapping\Catalog\PredefinedProductAttributeValueMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductAttributeCombinationMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductAttributeMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductAttributeMappingMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductAttributeValueMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductCategoryMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductManufacturerMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductPictureMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductReviewHelpfulnessMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductReviewMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductSpecificationAttributeMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductTagMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductTemplateMap.cs" />
+    <Compile Include="Mapping\Catalog\ProductWarehouseInventoryMap.cs" />
+    <Compile Include="Mapping\Catalog\RelatedProductMap.cs" />
+    <Compile Include="Mapping\Catalog\SpecificationAttributeMap.cs" />
+    <Compile Include="Mapping\Catalog\SpecificationAttributeOptionMap.cs" />
+    <Compile Include="Mapping\Catalog\TierPriceMap.cs" />
+    <Compile Include="Mapping\Common\AddressAttributeMap.cs" />
+    <Compile Include="Mapping\Common\AddressAttributeValueMap.cs" />
+    <Compile Include="Mapping\Common\AddressMap.cs" />
+    <Compile Include="Mapping\Common\GenericAttributeMap.cs" />
+    <Compile Include="Mapping\Common\SearchTermMap.cs" />
+    <Compile Include="Mapping\Configuration\ParaSettingMap.cs" />
+    <Compile Include="Mapping\Directory\CountryMap.cs" />
+    <Compile Include="Mapping\Directory\CurrencyMap.cs" />
+    <Compile Include="Mapping\Directory\MeasureDimensionMap.cs" />
+    <Compile Include="Mapping\Directory\MeasureWeightMap.cs" />
+    <Compile Include="Mapping\Directory\StateProvinceMap.cs" />
+    <Compile Include="Mapping\Discounts\DiscountMap.cs" />
+    <Compile Include="Mapping\Discounts\DiscountRequirementMap.cs" />
+    <Compile Include="Mapping\Discounts\DiscountUsageHistoryMap.cs" />
+    <Compile Include="Mapping\HlxEntityTypeConfiguration.cs" />
+    <Compile Include="Mapping\Localization\LanguageMap.cs" />
+    <Compile Include="Mapping\Localization\LocaleStringResourceMap.cs" />
+    <Compile Include="Mapping\Localization\LocalizedPropertyMap.cs" />
+    <Compile Include="Mapping\Media\DownloadMap.cs" />
+    <Compile Include="Mapping\Media\PictureMap.cs" />
+    <Compile Include="Mapping\Orders\CheckoutAttributeMap.cs" />
+    <Compile Include="Mapping\Orders\CheckoutAttributeValueMap.cs" />
+    <Compile Include="Mapping\Orders\GiftCardMap.cs" />
+    <Compile Include="Mapping\Orders\GiftCardUsageHistoryMap.cs" />
+    <Compile Include="Mapping\Orders\OrderItemMap.cs" />
+    <Compile Include="Mapping\Orders\OrderMap.cs" />
+    <Compile Include="Mapping\Orders\OrderNoteMap.cs" />
+    <Compile Include="Mapping\Orders\RecurringPaymentHistoryMap.cs" />
+    <Compile Include="Mapping\Orders\RecurringPaymentMap.cs" />
+    <Compile Include="Mapping\Orders\ReturnRequestAction.cs" />
+    <Compile Include="Mapping\Orders\ReturnRequestMap.cs" />
+    <Compile Include="Mapping\Orders\ReturnRequestReason.cs" />
+    <Compile Include="Mapping\Orders\ShoppingCartItemMap.cs" />
+    <Compile Include="Mapping\Seo\UrlRecordMap.cs" />
+    <Compile Include="Mapping\Shipping\DeliveryDateMap.cs" />
+    <Compile Include="Mapping\Shipping\ShipmentItemMap.cs" />
+    <Compile Include="Mapping\Shipping\ShipmentMap.cs" />
+    <Compile Include="Mapping\Shipping\ShippingMethodMap.cs" />
+    <Compile Include="Mapping\Shipping\WarehouseMap.cs" />
+    <Compile Include="Mapping\Stores\StoreMap.cs" />
+    <Compile Include="Mapping\Stores\StoreMappingMap.cs" />
+    <Compile Include="Mapping\Tax\TaxCategoryMap.cs" />
+    <Compile Include="Mapping\Users\RewardPointsHistoryMap.cs" />
+    <Compile Include="Mapping\Users\UserAvatarMap.cs" />
+    <Compile Include="Mapping\Users\UserMap.cs" />
+    <Compile Include="Mapping\Vendors\VendorMap.cs" />
+    <Compile Include="Mapping\Vendors\VendorNoteMap.cs" />
+    <Compile Include="Mapping\Videos\VideoMap.cs" />
+    <Compile Include="HlxBeDbContext.cs" />
+    <Compile Include="Migrations\201604261258584_20160410_Init.cs" />
+    <Compile Include="Migrations\201604261258584_20160410_Init.Designer.cs">
+      <DependentUpon>201604261258584_20160410_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\HlxDbMigration.cs" />
+    <Compile Include="Repositories\Catalog\PredefinedProductAttributeValueRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductAttributeCombinationRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductAttributeMappingRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductAttributeRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductAttributeValueRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductRepository.cs" />
+    <Compile Include="Repositories\Configuration\ParaSettingRepository.cs" />
+    <Compile Include="Repositories\HlxBeRepositoryBase.cs" />
+    <Compile Include="Repositories\Localization\LanguageRepository.cs" />
+    <Compile Include="Repositories\Localization\LocaleStringResourceRepository.cs" />
+    <Compile Include="Repositories\Localization\LocalizedPropertyRepository.cs" />
+    <Compile Include="Repositories\Seo\UrlRecordRepository.cs" />
+    <Compile Include="Repositories\Shipping\DeliveryDateRepository.cs" />
+    <Compile Include="Repositories\Stores\StoreMappingRepository.cs" />
+    <Compile Include="Repositories\Stores\StoreRepository.cs" />
+    <Compile Include="Repositories\Users\UserAvatarRepository.cs" />
+    <Compile Include="Repositories\Users\UserRepository.cs" />
+    <Compile Include="Repositories\Vendors\VendorNoteRepository.cs" />
+    <Compile Include="Repositories\Vendors\VendorRepository.cs" />
+    <Compile Include="Repositories\Videos\VideoRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HlxBeDataModule.cs" />
     <Compile Include="Migrations\SeedData\DefaultEditionsBuilder.cs" />
@@ -174,8 +261,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604031122313_Init.resx">
-      <DependentUpon>201604031122313_Init.cs</DependentUpon>
+    <Content Include="DBScript\Create_required_data.sql" />
+    <Content Include="DBScript\Create_sample_data.sql" />
+    <Content Include="DBScript\Create_sample_localization_data.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201604261258584_20160410_Init.resx">
+      <DependentUpon>201604261258584_20160410_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

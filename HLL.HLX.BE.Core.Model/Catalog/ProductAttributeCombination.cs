@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product attribute combination
     /// </summary>
-    public class ProductAttributeCombination : FullAuditedEntity<long, User>
+    public class ProductAttributeCombination : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product identifier

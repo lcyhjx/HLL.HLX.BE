@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Abp.Authorization.Users;
 using Abp.Extensions;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
+using HLL.HLX.BE.Core.Model.Orders;
 using Microsoft.AspNet.Identity;
 
 namespace HLL.HLX.BE.Core.Model.Users
@@ -9,6 +11,10 @@ namespace HLL.HLX.BE.Core.Model.Users
     public class User : AbpUser<Tenant, User>
     {
         public const string DefaultPassword = "123qwe";
+
+        private ICollection<ShoppingCartItem> _shoppingCartItems;
+        private ICollection<ReturnRequest> _returnRequests;
+
 
         /// <summary>
         ///     昵称
@@ -62,6 +68,28 @@ namespace HLL.HLX.BE.Core.Model.Users
                 EmailAddress = emailAddress,
                 Password = new PasswordHasher().HashPassword(password)
             };
+        }
+
+
+
+
+        /// <summary>
+        /// Gets or sets return request of this customer
+        /// </summary>
+        public virtual ICollection<ReturnRequest> ReturnRequests
+        {
+            get { return _returnRequests ?? (_returnRequests = new List<ReturnRequest>()); }
+            protected set { _returnRequests = value; }
+        }
+
+
+        /// <summary>
+        /// Gets or sets shopping cart items
+        /// </summary>
+        public virtual ICollection<ShoppingCartItem> ShoppingCartItems
+        {
+            get { return _shoppingCartItems ?? (_shoppingCartItems = new List<ShoppingCartItem>()); }
+            protected set { _shoppingCartItems = value; }
         }
     }
 }

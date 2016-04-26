@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a return request reason
     /// </summary>
-    public partial class ReturnRequestReason : FullAuditedEntity<long, User>
+    public partial class ReturnRequestReason : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the name

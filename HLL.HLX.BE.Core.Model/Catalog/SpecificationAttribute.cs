@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a specification attribute
     /// </summary>
-    public class SpecificationAttribute : FullAuditedEntity<long, User>
+    public class SpecificationAttribute : FullAuditedEntity<int, User>
     {
         private ICollection<SpecificationAttributeOption> _specificationAttributeOptions;
 

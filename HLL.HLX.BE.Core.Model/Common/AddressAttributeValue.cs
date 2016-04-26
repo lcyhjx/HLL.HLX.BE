@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Common
     /// <summary>
     /// Represents an address attribute value
     /// </summary>
-    public partial class AddressAttributeValue : FullAuditedEntity<long, User>
+    public partial class AddressAttributeValue : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the address attribute identifier

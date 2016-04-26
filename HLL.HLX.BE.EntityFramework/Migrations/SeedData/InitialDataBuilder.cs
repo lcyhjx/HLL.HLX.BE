@@ -1,5 +1,4 @@
 ﻿using EntityFramework.DynamicFilters;
-using HLL.HLX.BE.EntityFramework.EF;
 
 namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
 {

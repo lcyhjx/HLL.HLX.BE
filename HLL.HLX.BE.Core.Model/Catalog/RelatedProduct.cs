@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a related product
     /// </summary>
-    public class RelatedProduct : FullAuditedEntity<long, User>
+    public class RelatedProduct : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the first product identifier

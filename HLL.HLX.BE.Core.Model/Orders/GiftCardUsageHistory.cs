@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a gift card usage history entry
     /// </summary>
-    public partial class GiftCardUsageHistory : FullAuditedEntity<long, User>
+    public partial class GiftCardUsageHistory : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the gift card identifier

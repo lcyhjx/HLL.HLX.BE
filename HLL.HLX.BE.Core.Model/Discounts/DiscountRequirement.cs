@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Discounts
     /// <summary>
     /// Represents a discount requirement
     /// </summary>
-    public partial class DiscountRequirement : FullAuditedEntity<long, User>
+    public partial class DiscountRequirement : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the discount identifier

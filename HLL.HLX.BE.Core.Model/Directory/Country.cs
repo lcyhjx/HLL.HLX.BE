@@ -8,7 +8,7 @@ namespace HLL.HLX.BE.Core.Model.Directory
     /// <summary>
     /// Represents a country
     /// </summary>
-    public partial class Country : FullAuditedEntity<long, User>
+    public partial class Country : FullAuditedEntity<int, User>
     {
         private ICollection<StateProvince> _stateProvinces;
         private ICollection<ShippingMethod> _restrictedShippingMethods;

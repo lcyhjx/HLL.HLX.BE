@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a record to manage product inventory per warehouse
     /// </summary>
-    public class ProductWarehouseInventory : FullAuditedEntity<long, User>
+    public class ProductWarehouseInventory : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product identifier

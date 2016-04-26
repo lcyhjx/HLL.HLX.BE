@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a return request
     /// </summary>
-    public partial class ReturnRequest : FullAuditedEntity<long, User>
+    public partial class ReturnRequest : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets the store identifier

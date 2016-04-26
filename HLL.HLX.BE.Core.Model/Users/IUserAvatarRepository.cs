@@ -2,7 +2,7 @@
 
 namespace HLL.HLX.BE.Core.Model.Users
 {
-    public interface IUserAvatarRepository : IRepository<UserAvatar, long>
+    public interface IUserAvatarRepository : IRepository<UserAvatar, int>
     {
     }
 }

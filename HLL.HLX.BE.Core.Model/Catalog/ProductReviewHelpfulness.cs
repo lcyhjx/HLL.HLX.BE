@@ -6,7 +6,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product review helpfulness
     /// </summary>
-    public class ProductReviewHelpfulness : FullAuditedEntity<long, User>
+    public class ProductReviewHelpfulness : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the product review identifier

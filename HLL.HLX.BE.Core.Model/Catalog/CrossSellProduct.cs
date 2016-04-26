@@ -6,16 +6,16 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a cross-sell product
     /// </summary>
-    public class CrossSellProduct : FullAuditedEntity<long, User>
+    public class CrossSellProduct : FullAuditedEntity<int, User>
     {
         /// <summary>
         ///     Gets or sets the first product identifier
         /// </summary>
-        public int ProductId1 { get; set; }
+        public long ProductId1 { get; set; }
 
         /// <summary>
         ///     Gets or sets the second product identifier
         /// </summary>
-        public int ProductId2 { get; set; }
+        public long ProductId2 { get; set; }
     }
 }

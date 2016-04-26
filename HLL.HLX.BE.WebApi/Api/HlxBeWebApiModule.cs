@@ -36,6 +36,8 @@ namespace HLL.HLX.BE.WebApi.Api
               .For<Application.MultiTenancy.ITenantAppService>("app/tenant")
               .Build();
 
+
+            #region Mobility Web Api
             DynamicApiControllerBuilder
                .For<Application.Mobility.Users.IUserAppService>("app/mobility/user")
                .Build();
@@ -43,6 +45,13 @@ namespace HLL.HLX.BE.WebApi.Api
             DynamicApiControllerBuilder
                .For<Application.Mobility.Videos.IVideoAppService>("app/mobility/video")
                .Build();
+            #endregion
+
+            #region MobilityH5 Web Api
+            DynamicApiControllerBuilder
+               .For<Application.MobilityH5.Products.IProductAppService>("app/mobilityh5/product")
+               .Build();
+            #endregion
 
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));
         }

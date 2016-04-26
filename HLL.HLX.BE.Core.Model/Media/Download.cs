@@ -7,7 +7,7 @@ namespace HLL.HLX.BE.Core.Model.Media
     /// <summary>
     /// Represents a download
     /// </summary>
-    public partial class Download : FullAuditedEntity<long, User>
+    public partial class Download : FullAuditedEntity<int, User>
     {
         /// <summary>
         /// Gets or sets a GUID
