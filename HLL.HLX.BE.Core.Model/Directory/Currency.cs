@@ -1,5 +1,6 @@
 using System;
 using Abp.Domain.Entities.Auditing;
+using HLL.HLX.BE.Core.Model.Stores;
 using HLL.HLX.BE.Core.Model.Users;
 
 namespace HLL.HLX.BE.Core.Model.Directory
@@ -7,7 +8,7 @@ namespace HLL.HLX.BE.Core.Model.Directory
     /// <summary>
     /// Represents a currency
     /// </summary>
-    public partial class Currency : FullAuditedEntity<int, User>
+    public partial class Currency : FullAuditedEntity<int, User>, IStoreMappingSupported
     {
         /// <summary>
         /// Gets or sets the name

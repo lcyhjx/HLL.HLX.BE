@@ -170,6 +170,7 @@
     <Compile Include="Configuration\HlxConfig.cs" />
     <Compile Include="Configuration\ISettings.cs" />
     <Compile Include="HlxBeContext.cs" />
+    <Compile Include="HlxMsg.cs" />
     <Compile Include="Html\BBCodeHelper.cs" />
     <Compile Include="Html\CodeFormatter\CLikeFormat.cs" />
     <Compile Include="Html\CodeFormatter\CodeFormat.cs" />

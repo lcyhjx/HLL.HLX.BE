@@ -60,7 +60,7 @@ namespace HLL.HLX.BE.Web.Models.Account
         public UserModel(User user)
         {
             this.UserId = user.Id;
-            this.UserName = user.Name;
+            this.UserName = user.UserName;
             this.Name = user.Name;
             this.NickName = user.NickName;
             this.Gender = user.Gender;

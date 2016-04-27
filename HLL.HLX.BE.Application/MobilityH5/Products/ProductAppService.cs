@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Abp.Domain.Repositories;
+using Abp.Runtime.Caching;
 using Abp.UI;
 using AutoMapper;
 using HLL.HLX.BE.Application.MobilityH5.Products.Dto;
@@ -10,6 +11,7 @@ using HLL.HLX.BE.Core.Business.Shipping;
 using HLL.HLX.BE.Core.Business.Stores;
 using HLL.HLX.BE.Core.Business.Vendors;
 using HLL.HLX.BE.Core.Model.Catalog;
+using HLL.HLX.BE.Core.Model.Media;
 using HLL.HLX.BE.Core.Model.Orders;
 using HLL.HLX.BE.Core.Model.Seo;
 
@@ -20,28 +22,74 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
         private readonly ProductDomainService _productDomainService;
         private readonly SettingDomainService _settingDomainService;
         private readonly ShippingDomainServie _shippingDomainServie;
-        private readonly IStoreContext _storeContext;
-        private readonly VendorDomainService _vendorDomainService;
-        private readonly IVendorTest _vendorTest;
         
+        private readonly VendorDomainService _vendorDomainService;
+        private readonly ProductTemplateDomainService _productTemplateService;
 
-        private CatalogSettings _catalogSettings;
-        private SeoSettings _seoSettings;
+        private readonly IVendorTest _vendorTest;
+        private readonly IStoreContext _storeContext;
+        private readonly ICacheManager _cacheManager;
+
+
+        private CatalogSettings _catalogSettings1;
+        public CatalogSettings CatalogSettings
+        {
+            get
+            {
+                if (_catalogSettings1 == null)
+                {
+                    _catalogSettings1 = _settingDomainService.LoadSetting<CatalogSettings>(_storeContext.CurrentStore.Id);
+                }
+                return _catalogSettings1;
+            }
+        }
+
+
+        private SeoSettings _seoSettings1;
+        public SeoSettings SeoSettings
+        {
+            get
+            {
+                if (_seoSettings1 == null)
+                {
+                    _seoSettings1 = _settingDomainService.LoadSetting<SeoSettings>(_storeContext.CurrentStore.Id);
+                }
+                return _seoSettings1;
+            }
+        }
+
+        private MediaSettings _mediaSettings1;
+        public MediaSettings MediaSettings
+        {
+            get
+            {
+                if (_mediaSettings1 == null)
+                {
+                    _mediaSettings1 = _settingDomainService.LoadSetting<MediaSettings>(_storeContext.CurrentStore.Id);
+                }
+                return _mediaSettings1;
+            }
+        }
 
         public ProductAppService(ProductDomainService productDomainService
             , ShippingDomainServie shippingDomainServie
             , VendorDomainService vendorDomainService
             , SettingDomainService settingDomainService
+            ,ProductTemplateDomainService productTemplateService
+
             , IVendorTest vendorTest
             , IStoreContext storeContext
-            )
+            , ICacheManager cacheManager)
         {
             _productDomainService = productDomainService;
             _shippingDomainServie = shippingDomainServie;
             _vendorDomainService = vendorDomainService;
             _settingDomainService = settingDomainService;
+            _productTemplateService = productTemplateService;
+
             _vendorTest = vendorTest;
-            _storeContext = storeContext;            
+            _storeContext = storeContext;
+            this._cacheManager = cacheManager;
 
             var a = 5;
         }
@@ -50,10 +98,8 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
         public ProductDetailsOutput ProductDetails(ProductDetailsInput input)
         {
-            
-            _catalogSettings = _settingDomainService.LoadSetting<CatalogSettings>(_storeContext.CurrentStore.Id);
-            _seoSettings = _settingDomainService.LoadSetting<SeoSettings>(_storeContext.CurrentStore.Id);
 
+           
             var b = _vendorTest.GetTest();
 
             var product = _productDomainService.GetProductById(input.ProductId.GetValueOrDefault());
@@ -62,7 +108,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
                 throw new UserFriendlyException(string.Format("商品[ID:{0}]不存在", input.ProductId.GetValueOrDefault()));
             }
 
-           
+
 
             int aa = 5;
 
@@ -169,15 +215,15 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             var model = Mapper.Map<ProductDetailsDto>(product);
             model.HasSampleDownload = product.IsDownload && product.HasSampleDownload;
-            model.ShowSku = _catalogSettings.ShowProductSku;
-            model.ShowManufacturerPartNumber = _catalogSettings.ShowManufacturerPartNumber;
-            model.FreeShippingNotificationEnabled = _catalogSettings.ShowFreeShippingNotification;
-            model.ShowGtin = _catalogSettings.ShowGtin;
+            model.ShowSku = CatalogSettings.ShowProductSku;
+            model.ShowManufacturerPartNumber = CatalogSettings.ShowManufacturerPartNumber;
+            model.FreeShippingNotificationEnabled = CatalogSettings.ShowFreeShippingNotification;
+            model.ShowGtin = CatalogSettings.ShowGtin;
             model.DisplayDiscontinuedMessage = !product.Published &&
-                                               _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts;
+                                               CatalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts;
 
             //automatically generate product description?
-            if (_seoSettings.GenerateProductMetaDescription && String.IsNullOrEmpty(model.MetaDescription))
+            if (SeoSettings.GenerateProductMetaDescription && String.IsNullOrEmpty(model.MetaDescription))
             {
                 //based on short description
                 model.MetaDescription = model.ShortDescription;
@@ -198,9 +244,9 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             }
 
             //email a friend
-            model.EmailAFriendEnabled = _catalogSettings.EmailAFriendEnabled;
+            model.EmailAFriendEnabled = CatalogSettings.EmailAFriendEnabled;
             //compare products
-            model.CompareProductsEnabled = _catalogSettings.CompareProductsEnabled;
+            model.CompareProductsEnabled = CatalogSettings.CompareProductsEnabled;
 
             #endregion
 
@@ -242,20 +288,20 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             #region Back in stock subscriptions
 
-            //if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock &&
-            //    product.BackorderMode == BackorderMode.NoBackorders &&
-            //    product.AllowBackInStockSubscriptions &&
-            //    product.GetTotalStockQuantity() <= 0)
-            //{
-            //    //out of stock
-            //    model.DisplayBackInStockSubscription = true;
-            //}
+            if (product.ManageInventoryMethod == ManageInventoryMethod.ManageStock &&
+                product.BackorderMode == BackorderMode.NoBackorders &&
+                product.AllowBackInStockSubscriptions &&
+                product.GetTotalStockQuantity() <= 0)
+            {
+                //out of stock
+                model.DisplayBackInStockSubscription = true;
+            }
 
             #endregion
 
-            //#region Breadcrumb
+            #region Breadcrumb
 
-            ////do not prepare this model for the associated products. anyway it's not used
+            //do not prepare this model for the associated products. anyway it's not used
             //if (_catalogSettings.CategoryBreadcrumbEnabled && !isAssociatedProduct)
             //{
             //    var breadcrumbCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_BREADCRUMB_MODEL_KEY,
@@ -278,7 +324,9 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //            var category = productCategories[0].Category;
             //            if (category != null)
             //            {
-            //                foreach (var catBr in category.GetCategoryBreadCrumb(_categoryService, _aclService, _storeMappingService))
+            //                foreach (
+            //                    var catBr in
+            //                        category.GetCategoryBreadCrumb(_categoryService, _aclService, _storeMappingService))
             //                {
             //                    breadcrumbModel.CategoryBreadcrumb.Add(new CategorySimpleModel
             //                    {
@@ -294,11 +342,11 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //    });
             //}
 
-            //#endregion
+            #endregion
 
-            //#region Product tags
+            #region Product tags
 
-            ////do not prepare this model for the associated products. anyway it's not used
+            //do not prepare this model for the associated products. anyway it's not used
             //if (!isAssociatedProduct)
             //{
             //    var productTagsCacheKey = string.Format(ModelCacheEventConsumer.PRODUCTTAG_BY_PRODUCT_MODEL_KEY, product.Id, _workContext.WorkingLanguage.Id, _storeContext.CurrentStore.Id);
@@ -306,7 +354,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //        product.ProductTags
             //        //filter by store
             //        .Where(x => _productTagService.GetProductCount(x.Id, _storeContext.CurrentStore.Id) > 0)
-            //        .Select(x => new ProductTagModel
+            //        .Select(x => new ProductTagDto
             //        {
             //            Id = x.Id,
             //            Name = x.GetLocalized(y => y.Name),
@@ -316,30 +364,31 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //        .ToList());
             //}
 
-            //#endregion
+            #endregion
 
-            //#region Templates
+            #region Templates
 
             //var templateCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_TEMPLATE_MODEL_KEY, product.ProductTemplateId);
             //model.ProductTemplateViewPath = _cacheManager.Get(templateCacheKey, () =>
             //{
-            //    var template = _productTemplateService.GetProductTemplateById(product.ProductTemplateId);
-            //    if (template == null)
-            //        template = _productTemplateService.GetAllProductTemplates().FirstOrDefault();
-            //    if (template == null)
-            //        throw new Exception("No default template could be loaded");
-            //    return template.ViewPath;
+                var template = _productTemplateService.GetProductTemplateById(product.ProductTemplateId);
+                if (template == null)
+                    template = _productTemplateService.GetAllProductTemplates().FirstOrDefault();
+                if (template == null)
+                    throw new Exception("No default template could be loaded");
+                //return template.ViewPath;
+            model.ProductTemplateViewPath = template.ViewPath;
             //});
 
-            //#endregion
+            #endregion
 
-            //#region Pictures
+            #region Pictures
 
-            //model.DefaultPictureZoomEnabled = _mediaSettings.DefaultPictureZoomEnabled;
-            ////default picture
-            //var defaultPictureSize = isAssociatedProduct ?
-            //    _mediaSettings.AssociatedProductPictureSize :
-            //    _mediaSettings.ProductDetailsPictureSize;
+            model.DefaultPictureZoomEnabled = MediaSettings.DefaultPictureZoomEnabled;
+            //default picture
+            var defaultPictureSize = isAssociatedProduct ?
+                MediaSettings.AssociatedProductPictureSize :
+                MediaSettings.ProductDetailsPictureSize;
             ////prepare picture models
             //var productPicturesCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_DETAILS_PICTURES_MODEL_KEY, product.Id, defaultPictureSize, isAssociatedProduct, _workContext.WorkingLanguage.Id, _webHelper.IsCurrentConnectionSecured(), _storeContext.CurrentStore.Id);
             //var cachedPictures = _cacheManager.Get(productPicturesCacheKey, () =>
@@ -390,7 +439,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //model.DefaultPictureModel = cachedPictures.DefaultPictureModel;
             //model.PictureModels = cachedPictures.PictureModels;
 
-            //#endregion
+            #endregion
 
             //#region Product price
 
@@ -836,5 +885,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
         }
 
         #endregion
+
     }
+
 }

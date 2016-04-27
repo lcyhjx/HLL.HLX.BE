@@ -142,7 +142,10 @@
     <Compile Include="Catalog\IProductAttributeMappingRepository.cs" />
     <Compile Include="Catalog\IProductAttributeRepository.cs" />
     <Compile Include="Catalog\IProductAttributeValueRepository.cs" />
+    <Compile Include="Catalog\IProductPictureRepository.cs" />
     <Compile Include="Catalog\IProductRepository.cs" />
+    <Compile Include="Catalog\IProductTagRepository.cs" />
+    <Compile Include="Catalog\IProductTemplateRepository.cs" />
     <Compile Include="Catalog\LowStockActivity.cs" />
     <Compile Include="Catalog\ManageInventoryMethod.cs" />
     <Compile Include="Catalog\Manufacturer.cs" />
@@ -191,6 +194,11 @@
     <Compile Include="Directory\Currency.cs" />
     <Compile Include="Directory\CurrencySettings.cs" />
     <Compile Include="Directory\ExchangeRate.cs" />
+    <Compile Include="Directory\ICountryRepository.cs" />
+    <Compile Include="Directory\ICurrencyRepository.cs" />
+    <Compile Include="Directory\IMeasureDimensionRepository.cs" />
+    <Compile Include="Directory\IMeasureWeightRepository.cs" />
+    <Compile Include="Directory\IStateProvinceRepository.cs" />
     <Compile Include="Directory\MeasureDimension.cs" />
     <Compile Include="Directory\MeasureSettings.cs" />
     <Compile Include="Directory\MeasureWeight.cs" />

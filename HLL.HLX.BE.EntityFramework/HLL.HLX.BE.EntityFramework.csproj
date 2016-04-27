@@ -217,9 +217,9 @@
     <Compile Include="Mapping\Vendors\VendorNoteMap.cs" />
     <Compile Include="Mapping\Videos\VideoMap.cs" />
     <Compile Include="HlxBeDbContext.cs" />
-    <Compile Include="Migrations\201604261258584_20160410_Init.cs" />
-    <Compile Include="Migrations\201604261258584_20160410_Init.Designer.cs">
-      <DependentUpon>201604261258584_20160410_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201604271251502_20160410_Init.cs" />
+    <Compile Include="Migrations\201604271251502_20160410_Init.Designer.cs">
+      <DependentUpon>201604271251502_20160410_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\HlxDbMigration.cs" />
     <Compile Include="Repositories\Catalog\PredefinedProductAttributeValueRepository.cs" />
@@ -227,8 +227,16 @@
     <Compile Include="Repositories\Catalog\ProductAttributeMappingRepository.cs" />
     <Compile Include="Repositories\Catalog\ProductAttributeRepository.cs" />
     <Compile Include="Repositories\Catalog\ProductAttributeValueRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductPictureRepository.cs" />
     <Compile Include="Repositories\Catalog\ProductRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductTagRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductTemplateRepository.cs" />
     <Compile Include="Repositories\Configuration\ParaSettingRepository.cs" />
+    <Compile Include="Repositories\Directory\CountryRepository.cs" />
+    <Compile Include="Repositories\Directory\CurrencyRepository.cs" />
+    <Compile Include="Repositories\Directory\MeasureDimensionRepository.cs" />
+    <Compile Include="Repositories\Directory\MeasureWeightRepository.cs" />
+    <Compile Include="Repositories\Directory\StateProvinceRepository.cs" />
     <Compile Include="Repositories\HlxBeRepositoryBase.cs" />
     <Compile Include="Repositories\Localization\LanguageRepository.cs" />
     <Compile Include="Repositories\Localization\LocaleStringResourceRepository.cs" />
@@ -263,11 +271,12 @@
   <ItemGroup>
     <Content Include="DBScript\Create_required_data.sql" />
     <Content Include="DBScript\Create_sample_data.sql" />
-    <Content Include="DBScript\Create_sample_localization_data.sql" />
+    <Content Include="DBScript\SqlServer.Indexes.sql" />
+    <Content Include="DBScript\SqlServer.StoredProcedures.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604261258584_20160410_Init.resx">
-      <DependentUpon>201604261258584_20160410_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604271251502_20160410_Init.resx">
+      <DependentUpon>201604271251502_20160410_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

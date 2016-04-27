@@ -131,8 +131,12 @@
     <Compile Include="Catalog\ProductAttributeParser.cs" />
     <Compile Include="Catalog\ProductDomainService.cs" />
     <Compile Include="Catalog\ProductExtensions.cs" />
+    <Compile Include="Catalog\ProductTagDomainService.cs" />
+    <Compile Include="Catalog\ProductTemplateDomainService.cs" />
     <Compile Include="Configuration\SettingDomainService.cs" />
     <Compile Include="Configuration\SettingExtensions.cs" />
+    <Compile Include="Directory\CountryDomainService.cs" />
+    <Compile Include="Directory\CurrencyDomainService.cs" />
     <Compile Include="HlxBeCoreBusinessModule.cs" />
     <Compile Include="Authorization\PermissionChecker.cs" />
     <Compile Include="Authorization\Roles\AppRoleConfig.cs" />
