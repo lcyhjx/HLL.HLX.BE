@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Abp.Domain.Entities.Auditing;
 using HLL.HLX.BE.Core.Model.Discounts;
+using HLL.HLX.BE.Core.Model.Stores;
 using HLL.HLX.BE.Core.Model.Users;
 
 namespace HLL.HLX.BE.Core.Model.Catalog
@@ -9,7 +10,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     ///// <summary>
     /// Represents a category
     /// </summary>
-    public class Category : FullAuditedEntity<int, User>
+    public class Category : FullAuditedEntity<int, User>, IStoreMappingSupported
     {
         private ICollection<Discount> _appliedDiscounts;
 

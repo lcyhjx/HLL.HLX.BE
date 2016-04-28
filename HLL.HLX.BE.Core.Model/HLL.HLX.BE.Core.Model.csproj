@@ -143,6 +143,14 @@
     <Compile Include="Catalog\IProductAttributeRepository.cs" />
     <Compile Include="Catalog\IProductAttributeValueRepository.cs" />
     <Compile Include="Catalog\IProductPictureRepository.cs" />
+    <Compile Include="Catalog\ICategoryRepository.cs" />
+    <Compile Include="Catalog\ICategoryTemplateRepository.cs" />
+    <Compile Include="Catalog\ICrossSellProductRepository.cs" />
+    <Compile Include="Catalog\IManufacturerRepository.cs" />
+    <Compile Include="Catalog\IManufacturerTemplateRepository.cs" />
+    <Compile Include="Catalog\IProductCategoryRepository.cs" />
+    <Compile Include="Catalog\IProductManufacturerRepository.cs" />
+    <Compile Include="Catalog\IBackInStockSubscriptionRepository.cs" />
     <Compile Include="Catalog\IProductRepository.cs" />
     <Compile Include="Catalog\IProductTagRepository.cs" />
     <Compile Include="Catalog\IProductTemplateRepository.cs" />
@@ -185,6 +193,9 @@
     <Compile Include="Common\CommonSettings.cs" />
     <Compile Include="Common\FulltextSearchMode.cs" />
     <Compile Include="Common\GenericAttribute.cs" />
+    <Compile Include="Common\IAddressAttributeRepository.cs" />
+    <Compile Include="Common\IAddressAttributeValueRepository.cs" />
+    <Compile Include="Common\IAddressRepository.cs" />
     <Compile Include="Common\PdfSettings.cs" />
     <Compile Include="Common\SearchTerm.cs" />
     <Compile Include="Common\SearchTermReportLine.cs" />

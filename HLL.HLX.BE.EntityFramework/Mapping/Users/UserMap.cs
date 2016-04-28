@@ -11,7 +11,14 @@ namespace HLL.HLX.BE.EntityFramework.Mapping.Users
             Property(x => x.Gender).HasMaxLength(10);
             Property(x => x.Company).HasMaxLength(200);
             Property(x => x.Title).HasMaxLength(100);
-            Property(x => x.PhoneNumber).HasMaxLength(50);              
+            Property(x => x.PhoneNumber).HasMaxLength(50);
+
+            this.HasMany(c => c.Addresses)
+               .WithMany()
+               .Map(m => m.ToTable("CustomerAddresses"));
+
+            this.HasOptional(c => c.BillingAddress);
+            this.HasOptional(c => c.ShippingAddress);
         }
     }
 }

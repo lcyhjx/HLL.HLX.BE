@@ -128,8 +128,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog\CategoryDomainService.cs" />
+    <Compile Include="Catalog\CategoryExtensions.cs" />
     <Compile Include="Catalog\IProductAttributeFormatter.cs" />
     <Compile Include="Catalog\IProductAttributeParser.cs" />
+    <Compile Include="Catalog\PriceCalculationDomainService.cs" />
     <Compile Include="Catalog\ProductAttributeDomainService.cs" />
     <Compile Include="Catalog\ProductAttributeExtensions.cs" />
     <Compile Include="Catalog\ProductAttributeFormatter.cs" />
@@ -138,10 +141,13 @@
     <Compile Include="Catalog\ProductExtensions.cs" />
     <Compile Include="Catalog\ProductTagDomainService.cs" />
     <Compile Include="Catalog\ProductTemplateDomainService.cs" />
+    <Compile Include="Common\AddressAttributeDomainService.cs" />
+    <Compile Include="Common\AddressDomainService.cs" />
     <Compile Include="Configuration\SettingDomainService.cs" />
     <Compile Include="Configuration\SettingExtensions.cs" />
     <Compile Include="Directory\CountryDomainService.cs" />
     <Compile Include="Directory\CurrencyDomainService.cs" />
+    <Compile Include="Directory\StateProvinceDomainService.cs" />
     <Compile Include="HlxBeCoreBusinessModule.cs" />
     <Compile Include="Authorization\PermissionChecker.cs" />
     <Compile Include="Authorization\Roles\AppRoleConfig.cs" />
@@ -160,6 +166,8 @@
     <Compile Include="Stores\StoreDomainService.cs" />
     <Compile Include="Stores\StoreMappingDomainService.cs" />
     <Compile Include="Stores\WebStoreContext.cs" />
+    <Compile Include="Tax\CalculateTaxRequest.cs" />
+    <Compile Include="Tax\TaxDomainService.cs" />
     <Compile Include="Users\UserDomainService.cs" />
     <Compile Include="Users\UserManager.cs" />
     <Compile Include="Users\UserStore.cs" />

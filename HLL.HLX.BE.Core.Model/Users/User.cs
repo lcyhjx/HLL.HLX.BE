@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Abp.Authorization.Users;
 using Abp.Extensions;
+using HLL.HLX.BE.Core.Model.Common;
 using HLL.HLX.BE.Core.Model.MultiTenancy;
 using HLL.HLX.BE.Core.Model.Orders;
 using Microsoft.AspNet.Identity;
@@ -14,6 +15,7 @@ namespace HLL.HLX.BE.Core.Model.Users
 
         private ICollection<ShoppingCartItem> _shoppingCartItems;
         private ICollection<ReturnRequest> _returnRequests;
+        private ICollection<Address> _addresses;
 
 
         /// <summary>
@@ -51,6 +53,12 @@ namespace HLL.HLX.BE.Core.Model.Users
         ///     头像图片存储路径
         /// </summary>
         public string AvatarFilePath { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the customer is tax exempt
+        /// </summary>
+        public bool IsTaxExempt { get; set; }
+
 
         public static string CreateRandomPassword()
         {
@@ -90,6 +98,25 @@ namespace HLL.HLX.BE.Core.Model.Users
         {
             get { return _shoppingCartItems ?? (_shoppingCartItems = new List<ShoppingCartItem>()); }
             protected set { _shoppingCartItems = value; }
+        }
+
+        /// <summary>
+        /// Default billing address
+        /// </summary>
+        public virtual Address BillingAddress { get; set; }
+
+        /// <summary>
+        /// Default shipping address
+        /// </summary>
+        public virtual Address ShippingAddress { get; set; }
+
+        /// <summary>
+        /// Gets or sets customer addresses
+        /// </summary>
+        public virtual ICollection<Address> Addresses
+        {
+            get { return _addresses ?? (_addresses = new List<Address>()); }
+            protected set { _addresses = value; }
         }
     }
 }

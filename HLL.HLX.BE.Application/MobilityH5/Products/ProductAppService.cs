@@ -9,11 +9,14 @@ using HLL.HLX.BE.Application.MobilityH5.Products.Dto;
 using HLL.HLX.BE.Common;
 using HLL.HLX.BE.Core.Business.Catalog;
 using HLL.HLX.BE.Core.Business.Configuration;
+using HLL.HLX.BE.Core.Business.Directory;
 using HLL.HLX.BE.Core.Business.Media;
 using HLL.HLX.BE.Core.Business.Shipping;
 using HLL.HLX.BE.Core.Business.Stores;
+using HLL.HLX.BE.Core.Business.Tax;
 using HLL.HLX.BE.Core.Business.Vendors;
 using HLL.HLX.BE.Core.Model.Catalog;
+using HLL.HLX.BE.Core.Model.Directory;
 using HLL.HLX.BE.Core.Model.Media;
 using HLL.HLX.BE.Core.Model.Orders;
 using HLL.HLX.BE.Core.Model.Seo;
@@ -22,18 +25,23 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 {
     public class ProductAppService : HlxBeAppServiceBase, IProductAppService
     {
+        #region Fields
         private readonly ProductDomainService _productDomainService;
         private readonly SettingDomainService _settingDomainService;
         private readonly ShippingDomainServie _shippingDomainServie;        
         private readonly VendorDomainService _vendorDomainService;
         private readonly ProductTemplateDomainService _productTemplateService;
         private readonly PictureDomainService _pictureDomainService;
+        private readonly CurrencyDomainService _currencyDomainService;
+        private readonly TaxDomainService _taxDomainService;
 
         private readonly IVendorTest _vendorTest;
         private readonly IStoreContext _storeContext;
         private readonly ICacheManager _cacheManager;
+        #endregion
 
 
+        #region Properties
         private CatalogSettings _catalogSettings1;
         public CatalogSettings CatalogSettings
         {
@@ -74,12 +82,39 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             }
         }
 
+
+        private Currency _cachedCurrency;
+        /// <summary>
+        /// Get or set current user working currency
+        /// </summary>
+        public virtual Currency WorkingCurrency
+        {
+            get
+            {
+                if (_cachedCurrency != null)
+                    return _cachedCurrency;
+
+                //it not specified, then return the first found one
+                _cachedCurrency = _currencyDomainService.GetAllCurrencies().FirstOrDefault();
+                return _cachedCurrency;
+            }
+        }
+
+
+        #endregion
+
+
+
+
+
         public ProductAppService(ProductDomainService productDomainService
             , ShippingDomainServie shippingDomainServie
             , VendorDomainService vendorDomainService            
             , SettingDomainService settingDomainService
             ,ProductTemplateDomainService productTemplateService
             , PictureDomainService pictureDomainService
+            ,CurrencyDomainService currencyDomainService
+            , TaxDomainService taxDomainService
 
             , IVendorTest vendorTest
             , IStoreContext storeContext
@@ -91,6 +126,8 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             _settingDomainService = settingDomainService;
             _productTemplateService = productTemplateService;
             _pictureDomainService = pictureDomainService;
+            _currencyDomainService = currencyDomainService;
+            _taxDomainService = taxDomainService;
 
             _vendorTest = vendorTest;
             _storeContext = storeContext;
@@ -448,74 +485,75 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             #endregion
 
-            //#region Product price
+            #region Product price
 
-            //model.ProductPrice.ProductId = product.Id;
+            model.ProductPrice.ProductId = product.Id;
             //if (_permissionService.Authorize(StandardPermissionProvider.DisplayPrices))
-            //{
-            //    model.ProductPrice.HidePrices = false;
-            //    if (product.CustomerEntersPrice)
-            //    {
-            //        model.ProductPrice.CustomerEntersPrice = true;
-            //    }
-            //    else
-            //    {
-            //        if (product.CallForPrice)
-            //        {
-            //            model.ProductPrice.CallForPrice = true;
-            //        }
-            //        else
-            //        {
-            //            decimal taxRate;
-            //            decimal oldPriceBase = _taxService.GetProductPrice(product, product.OldPrice, out taxRate);
-            //            decimal finalPriceWithoutDiscountBase = _taxService.GetProductPrice(product, _priceCalculationService.GetFinalPrice(product, _workContext.CurrentCustomer, includeDiscounts: false), out taxRate);
-            //            decimal finalPriceWithDiscountBase = _taxService.GetProductPrice(product, _priceCalculationService.GetFinalPrice(product, _workContext.CurrentCustomer, includeDiscounts: true), out taxRate);
+            {
+                model.ProductPrice.HidePrices = false;
+                if (product.CustomerEntersPrice)
+                {
+                    model.ProductPrice.CustomerEntersPrice = true;
+                }
+                else
+                {
+                    if (product.CallForPrice)
+                    {
+                        model.ProductPrice.CallForPrice = true;
+                    }
+                    else
+                    {
+                        
+                        decimal taxRate;
+                        decimal oldPriceBase = _taxDomainService.GetProductPrice(product, product.OldPrice, CurrentUser,out taxRate);
+                        //decimal finalPriceWithoutDiscountBase = _taxDomainService.GetProductPrice(product, _priceCalculationService.GetFinalPrice(product, CurrentUser, includeDiscounts: false), out taxRate);
+                        //decimal finalPriceWithDiscountBase = _taxDomainService.GetProductPrice(product, _priceCalculationService.GetFinalPrice(product, CurrentUser, includeDiscounts: true), out taxRate);
 
-            //            decimal oldPrice = _currencyService.ConvertFromPrimaryStoreCurrency(oldPriceBase, _workContext.WorkingCurrency);
-            //            decimal finalPriceWithoutDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceWithoutDiscountBase, _workContext.WorkingCurrency);
-            //            decimal finalPriceWithDiscount = _currencyService.ConvertFromPrimaryStoreCurrency(finalPriceWithDiscountBase, _workContext.WorkingCurrency);
+                        //decimal oldPrice = _currencyDomainService.ConvertFromPrimaryStoreCurrency(oldPriceBase, WorkingCurrency);
+                        //decimal finalPriceWithoutDiscount = _currencyDomainService.ConvertFromPrimaryStoreCurrency(finalPriceWithoutDiscountBase, WorkingCurrency);
+                        //decimal finalPriceWithDiscount = _currencyDomainService.ConvertFromPrimaryStoreCurrency(finalPriceWithDiscountBase, WorkingCurrency);
 
-            //            if (finalPriceWithoutDiscountBase != oldPriceBase && oldPriceBase > decimal.Zero)
-            //                model.ProductPrice.OldPrice = _priceFormatter.FormatPrice(oldPrice);
+                        //if (finalPriceWithoutDiscountBase != oldPriceBase && oldPriceBase > decimal.Zero)
+                        //    model.ProductPrice.OldPrice = _priceFormatter.FormatPrice(oldPrice);
 
-            //            model.ProductPrice.Price = _priceFormatter.FormatPrice(finalPriceWithoutDiscount);
+                        //model.ProductPrice.Price = _priceFormatter.FormatPrice(finalPriceWithoutDiscount);
 
-            //            if (finalPriceWithoutDiscountBase != finalPriceWithDiscountBase)
-            //                model.ProductPrice.PriceWithDiscount = _priceFormatter.FormatPrice(finalPriceWithDiscount);
+                        //if (finalPriceWithoutDiscountBase != finalPriceWithDiscountBase)
+                        //    model.ProductPrice.PriceWithDiscount = _priceFormatter.FormatPrice(finalPriceWithDiscount);
 
-            //            model.ProductPrice.PriceValue = finalPriceWithDiscount;
+                        //model.ProductPrice.PriceValue = finalPriceWithDiscount;
 
-            //            //property for German market
-            //            //we display tax/shipping info only with "shipping enabled" for this product
-            //            //we also ensure this it's not free shipping
-            //            model.ProductPrice.DisplayTaxShippingInfo = _catalogSettings.DisplayTaxShippingInfoProductDetailsPage
-            //                && product.IsShipEnabled &&
-            //                !product.IsFreeShipping;
+                        ////property for German market
+                        ////we display tax/shipping info only with "shipping enabled" for this product
+                        ////we also ensure this it's not free shipping
+                        //model.ProductPrice.DisplayTaxShippingInfo = CatalogSettings.DisplayTaxShippingInfoProductDetailsPage
+                        //    && product.IsShipEnabled &&
+                        //    !product.IsFreeShipping;
 
-            //            //PAngV baseprice (used in Germany)
-            //            model.ProductPrice.BasePricePAngV = product.FormatBasePrice(finalPriceWithDiscountBase,
-            //                _localizationService, _measureService, _currencyService, _workContext, _priceFormatter);
+                        ////PAngV baseprice (used in Germany)
+                        //model.ProductPrice.BasePricePAngV = product.FormatBasePrice(finalPriceWithDiscountBase,
+                        //    _localizationService, _measureService, _currencyService, _workContext, _priceFormatter);
 
-            //            //currency code
-            //            model.ProductPrice.CurrencyCode = _workContext.WorkingCurrency.CurrencyCode;
+                        ////currency code
+                        //model.ProductPrice.CurrencyCode = _workContext.WorkingCurrency.CurrencyCode;
 
-            //            //rental
-            //            if (product.IsRental)
-            //            {
-            //                model.ProductPrice.IsRental = true;
-            //                var priceStr = _priceFormatter.FormatPrice(finalPriceWithDiscount);
-            //                model.ProductPrice.RentalPrice = _priceFormatter.FormatRentalProductPeriod(product, priceStr);
-            //            }
-            //        }
-            //    }
-            //}
+                        ////rental
+                        //if (product.IsRental)
+                        //{
+                        //    model.ProductPrice.IsRental = true;
+                        //    var priceStr = _priceFormatter.FormatPrice(finalPriceWithDiscount);
+                        //    model.ProductPrice.RentalPrice = _priceFormatter.FormatRentalProductPeriod(product, priceStr);
+                        //}
+                    }
+                }
+            }
             //else
             //{
             //    model.ProductPrice.HidePrices = true;
             //    model.ProductPrice.OldPrice = null;
             //    model.ProductPrice.Price = null;
             //}
-            //#endregion
+            #endregion
 
             //#region 'Add to cart' model
 
