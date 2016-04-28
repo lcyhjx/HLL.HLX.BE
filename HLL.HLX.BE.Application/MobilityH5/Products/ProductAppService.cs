@@ -1,12 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Abp.Domain.Repositories;
 using Abp.Runtime.Caching;
 using Abp.UI;
 using AutoMapper;
 using HLL.HLX.BE.Application.MobilityH5.Products.Dto;
+using HLL.HLX.BE.Common;
 using HLL.HLX.BE.Core.Business.Catalog;
 using HLL.HLX.BE.Core.Business.Configuration;
+using HLL.HLX.BE.Core.Business.Media;
 using HLL.HLX.BE.Core.Business.Shipping;
 using HLL.HLX.BE.Core.Business.Stores;
 using HLL.HLX.BE.Core.Business.Vendors;
@@ -21,10 +24,10 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
     {
         private readonly ProductDomainService _productDomainService;
         private readonly SettingDomainService _settingDomainService;
-        private readonly ShippingDomainServie _shippingDomainServie;
-        
+        private readonly ShippingDomainServie _shippingDomainServie;        
         private readonly VendorDomainService _vendorDomainService;
         private readonly ProductTemplateDomainService _productTemplateService;
+        private readonly PictureDomainService _pictureDomainService;
 
         private readonly IVendorTest _vendorTest;
         private readonly IStoreContext _storeContext;
@@ -73,9 +76,10 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
         public ProductAppService(ProductDomainService productDomainService
             , ShippingDomainServie shippingDomainServie
-            , VendorDomainService vendorDomainService
+            , VendorDomainService vendorDomainService            
             , SettingDomainService settingDomainService
             ,ProductTemplateDomainService productTemplateService
+            , PictureDomainService pictureDomainService
 
             , IVendorTest vendorTest
             , IStoreContext storeContext
@@ -86,6 +90,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             _vendorDomainService = vendorDomainService;
             _settingDomainService = settingDomainService;
             _productTemplateService = productTemplateService;
+            _pictureDomainService = pictureDomainService;
 
             _vendorTest = vendorTest;
             _storeContext = storeContext;
@@ -389,55 +394,57 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             var defaultPictureSize = isAssociatedProduct ?
                 MediaSettings.AssociatedProductPictureSize :
                 MediaSettings.ProductDetailsPictureSize;
-            ////prepare picture models
+            //prepare picture models
             //var productPicturesCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_DETAILS_PICTURES_MODEL_KEY, product.Id, defaultPictureSize, isAssociatedProduct, _workContext.WorkingLanguage.Id, _webHelper.IsCurrentConnectionSecured(), _storeContext.CurrentStore.Id);
             //var cachedPictures = _cacheManager.Get(productPicturesCacheKey, () =>
             //{
-            //    var pictures = _pictureService.GetPicturesByProductId(product.Id);
-            //    var defaultPicture = pictures.FirstOrDefault();
-            //    var defaultPictureModel = new PictureModel
-            //    {
-            //        ImageUrl = _pictureService.GetPictureUrl(defaultPicture, defaultPictureSize, !isAssociatedProduct),
-            //        FullSizeImageUrl = _pictureService.GetPictureUrl(defaultPicture, 0, !isAssociatedProduct),
-            //        Title = string.Format(_localizationService.GetResource("Media.Product.ImageLinkTitleFormat.Details"), model.Name),
-            //        AlternateText = string.Format(_localizationService.GetResource("Media.Product.ImageAlternateTextFormat.Details"), model.Name),
-            //    };
-            //    //"title" attribute
-            //    defaultPictureModel.Title = (defaultPicture != null && !string.IsNullOrEmpty(defaultPicture.TitleAttribute)) ?
-            //        defaultPicture.TitleAttribute :
-            //        string.Format(_localizationService.GetResource("Media.Product.ImageLinkTitleFormat.Details"), model.Name);
-            //    //"alt" attribute
-            //    defaultPictureModel.AlternateText = (defaultPicture != null && !string.IsNullOrEmpty(defaultPicture.AltAttribute)) ?
-            //        defaultPicture.AltAttribute :
-            //        string.Format(_localizationService.GetResource("Media.Product.ImageAlternateTextFormat.Details"), model.Name);
+                var pictures = _pictureDomainService.GetPicturesByProductId(product.Id);
+                var defaultPicture = pictures.FirstOrDefault();
+                var defaultPictureModel = new PictureDto
+                {
+                    ImageUrl = _pictureDomainService.GetPictureUrl(defaultPicture, defaultPictureSize, !isAssociatedProduct),
+                    FullSizeImageUrl = _pictureDomainService.GetPictureUrl(defaultPicture, 0, !isAssociatedProduct),
+                    Title = string.Format(InfoMsg.Media_Product_ImageLinkTitleFormat_Details, model.Name),
+                    AlternateText = string.Format(InfoMsg.Media_Product_ImageAlternateTextFormat_Details, model.Name),
+                };
+                //"title" attribute
+                defaultPictureModel.Title = (defaultPicture != null && !string.IsNullOrEmpty(defaultPicture.TitleAttribute)) ?
+                    defaultPicture.TitleAttribute :
+                    string.Format(InfoMsg.Media_Product_ImageLinkTitleFormat_Details, model.Name);
+                //"alt" attribute
+                defaultPictureModel.AlternateText = (defaultPicture != null && !string.IsNullOrEmpty(defaultPicture.AltAttribute)) ?
+                    defaultPicture.AltAttribute :
+                    string.Format(InfoMsg.Media_Product_ImageAlternateTextFormat_Details, model.Name);
 
-            //    //all pictures
-            //    var pictureModels = new List<PictureModel>();
-            //    foreach (var picture in pictures)
-            //    {
-            //        var pictureModel = new PictureModel
-            //        {
-            //            ImageUrl = _pictureService.GetPictureUrl(picture, _mediaSettings.ProductThumbPictureSizeOnProductDetailsPage),
-            //            FullSizeImageUrl = _pictureService.GetPictureUrl(picture),
-            //            Title = string.Format(_localizationService.GetResource("Media.Product.ImageLinkTitleFormat.Details"), model.Name),
-            //            AlternateText = string.Format(_localizationService.GetResource("Media.Product.ImageAlternateTextFormat.Details"), model.Name),
-            //        };
-            //        //"title" attribute
-            //        pictureModel.Title = !string.IsNullOrEmpty(picture.TitleAttribute) ?
-            //            picture.TitleAttribute :
-            //            string.Format(_localizationService.GetResource("Media.Product.ImageLinkTitleFormat.Details"), model.Name);
-            //        //"alt" attribute
-            //        pictureModel.AlternateText = !string.IsNullOrEmpty(picture.AltAttribute) ?
-            //            picture.AltAttribute :
-            //            string.Format(_localizationService.GetResource("Media.Product.ImageAlternateTextFormat.Details"), model.Name);
+                //all pictures
+                var pictureModels = new List<PictureDto>();
+                foreach (var picture in pictures)
+                {
+                    var pictureModel = new PictureDto
+                    {
+                        ImageUrl = _pictureDomainService.GetPictureUrl(picture, MediaSettings.ProductThumbPictureSizeOnProductDetailsPage),
+                        FullSizeImageUrl = _pictureDomainService.GetPictureUrl(picture),
+                        Title = string.Format(InfoMsg.Media_Product_ImageLinkTitleFormat_Details, model.Name),
+                        AlternateText = string.Format(InfoMsg.Media_Product_ImageAlternateTextFormat_Details, model.Name),
+                    };
+                    //"title" attribute
+                    pictureModel.Title = !string.IsNullOrEmpty(picture.TitleAttribute) ?
+                        picture.TitleAttribute :
+                        string.Format(InfoMsg.Media_Product_ImageLinkTitleFormat_Details, model.Name);
+                    //"alt" attribute
+                    pictureModel.AlternateText = !string.IsNullOrEmpty(picture.AltAttribute) ?
+                        picture.AltAttribute :
+                        string.Format(InfoMsg.Media_Product_ImageAlternateTextFormat_Details, model.Name);
 
-            //        pictureModels.Add(pictureModel);
-            //    }
+                    pictureModels.Add(pictureModel);
+                }
 
-            //    return new { DefaultPictureModel = defaultPictureModel, PictureModels = pictureModels };
+                //return new { DefaultPictureModel = defaultPictureModel, PictureModels = pictureModels };
+
+                var cachedPictures = new { DefaultPictureModel = defaultPictureModel, PictureModels = pictureModels };
             //});
-            //model.DefaultPictureModel = cachedPictures.DefaultPictureModel;
-            //model.PictureModels = cachedPictures.PictureModels;
+            model.DefaultPictureModel = cachedPictures.DefaultPictureModel;
+            model.PictureModels = cachedPictures.PictureModels;
 
             #endregion
 

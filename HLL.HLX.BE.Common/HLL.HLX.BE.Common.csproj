@@ -204,6 +204,7 @@
     <Compile Include="Util\FileUtil.cs" />
     <Compile Include="Util\ImageUtil.cs" />
     <Compile Include="Util\QueryUtil.cs" />
+    <Compile Include="WebHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
