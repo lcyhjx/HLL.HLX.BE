@@ -142,6 +142,8 @@
     <Compile Include="Catalog\ProductExtensions.cs" />
     <Compile Include="Catalog\ProductTagDomainService.cs" />
     <Compile Include="Catalog\ProductTemplateDomainService.cs" />
+    <Compile Include="Catalog\RoundingHelper.cs" />
+    <Compile Include="Catalog\TierPriceExtensions.cs" />
     <Compile Include="Common\AddressAttributeDomainService.cs" />
     <Compile Include="Common\AddressDomainService.cs" />
     <Compile Include="Common\GenericAttributeDomianService.cs" />
@@ -151,6 +153,7 @@
     <Compile Include="Directory\CurrencyDomainService.cs" />
     <Compile Include="Directory\StateProvinceDomainService.cs" />
     <Compile Include="Discounts\DiscountDomainService.cs" />
+    <Compile Include="Discounts\DiscountExtensions.cs" />
     <Compile Include="Discounts\DiscountRequirementValidationRequest.cs" />
     <Compile Include="Discounts\DiscountValidationResult.cs" />
     <Compile Include="HlxBeCoreBusinessModule.cs" />
