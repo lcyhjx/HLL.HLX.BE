@@ -20,6 +20,16 @@ namespace HLL.HLX.BE.Common
         public const string Products_Availability_InStockWithQuantity = "{0} in stock";
         public const string Products_Availability_OutOfStock = "Out of stock";
 
+        public const string Products_InclTaxSuffix = "{0} incl tax";
+        public const string Products_ExclTaxSuffix = "{0} excl tax";
+
+        public const string Products_Price_Rental_Days = "{0} per {1} day(s)";
+        public const string Products_Price_Rental_Months = "{0} per {1} month(s)";
+        public const string Products_Price_Rental_Weeks = "{0} per {1} week(s)";
+        public const string Products_Price_Rental_Years = "{0} per {1} year(s)";
+        public const string Products_Price_RentalPrice = "Rental price";
+
+
 
         public const string ShoppingCart_ConflictingShipmentSchedules = "Your cart has auto-ship (recurring) items with conflicting shipment schedules. Only one auto-ship schedule is allowed per order.";
         public const string ShoppingCart_Discount_CannotBeUsedWithGiftCards = "Sorry, this discount cannot be used with gift cards in the cart";

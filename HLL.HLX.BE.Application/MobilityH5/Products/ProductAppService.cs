@@ -34,6 +34,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
         private readonly PictureDomainService _pictureDomainService;
         private readonly CurrencyDomainService _currencyDomainService;
         private readonly TaxDomainService _taxDomainService;
+        private readonly PriceCalculationDomainService _priceCalculationDomainService;
 
         private readonly IVendorTest _vendorTest;
         private readonly IStoreContext _storeContext;
@@ -115,6 +116,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             , PictureDomainService pictureDomainService
             ,CurrencyDomainService currencyDomainService
             , TaxDomainService taxDomainService
+            , PriceCalculationDomainService priceCalculationDomainService
 
             , IVendorTest vendorTest
             , IStoreContext storeContext
@@ -128,6 +130,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             _pictureDomainService = pictureDomainService;
             _currencyDomainService = currencyDomainService;
             _taxDomainService = taxDomainService;
+            _priceCalculationDomainService = priceCalculationDomainService;
 
             _vendorTest = vendorTest;
             _storeContext = storeContext;
@@ -505,13 +508,13 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
                     {
                         
                         decimal taxRate;
-                        decimal oldPriceBase = _taxDomainService.GetProductPrice(product, product.OldPrice, CurrentUser,out taxRate);
-                        //decimal finalPriceWithoutDiscountBase = _taxDomainService.GetProductPrice(product, _priceCalculationService.GetFinalPrice(product, CurrentUser, includeDiscounts: false), out taxRate);
-                        //decimal finalPriceWithDiscountBase = _taxDomainService.GetProductPrice(product, _priceCalculationService.GetFinalPrice(product, CurrentUser, includeDiscounts: true), out taxRate);
+                        decimal oldPriceBase = _taxDomainService.GetProductPrice(product, product.OldPrice, CurrentUser,out taxRate);                        
+                        decimal finalPriceWithoutDiscountBase = _taxDomainService.GetProductPrice(product, _priceCalculationDomainService.GetFinalPrice(product, CurrentUser, includeDiscounts: false), CurrentUser, out taxRate);
+                        decimal finalPriceWithDiscountBase = _taxDomainService.GetProductPrice(product, _priceCalculationDomainService.GetFinalPrice(product, CurrentUser, includeDiscounts: true), CurrentUser, out taxRate);
 
-                        //decimal oldPrice = _currencyDomainService.ConvertFromPrimaryStoreCurrency(oldPriceBase, WorkingCurrency);
-                        //decimal finalPriceWithoutDiscount = _currencyDomainService.ConvertFromPrimaryStoreCurrency(finalPriceWithoutDiscountBase, WorkingCurrency);
-                        //decimal finalPriceWithDiscount = _currencyDomainService.ConvertFromPrimaryStoreCurrency(finalPriceWithDiscountBase, WorkingCurrency);
+                        decimal oldPrice = _currencyDomainService.ConvertFromPrimaryStoreCurrency(oldPriceBase, WorkingCurrency);
+                        decimal finalPriceWithoutDiscount = _currencyDomainService.ConvertFromPrimaryStoreCurrency(finalPriceWithoutDiscountBase, WorkingCurrency);
+                        decimal finalPriceWithDiscount = _currencyDomainService.ConvertFromPrimaryStoreCurrency(finalPriceWithDiscountBase, WorkingCurrency);
 
                         //if (finalPriceWithoutDiscountBase != oldPriceBase && oldPriceBase > decimal.Zero)
                         //    model.ProductPrice.OldPrice = _priceFormatter.FormatPrice(oldPrice);
@@ -913,14 +916,15 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             //#region Associated products
 
+            
             //if (product.ProductType == ProductType.GroupedProduct)
             //{
             //    //ensure no circular references
             //    if (!isAssociatedProduct)
             //    {
-            //        var associatedProducts = _productService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
+            //        var associatedProducts = _productDomainService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
             //        foreach (var associatedProduct in associatedProducts)
-            //            model.AssociatedProducts.Add(PrepareProductDetailsPageModel(associatedProduct, null, true));
+            //            model.AssociatedProducts.Add(PrepareProductDetailsPageDto(associatedProduct, null, true));
             //    }
             //}
 

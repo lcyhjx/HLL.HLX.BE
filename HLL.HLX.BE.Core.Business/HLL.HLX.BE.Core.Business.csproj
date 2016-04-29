@@ -130,10 +130,12 @@
   <ItemGroup>
     <Compile Include="Catalog\CategoryDomainService.cs" />
     <Compile Include="Catalog\CategoryExtensions.cs" />
+    <Compile Include="Catalog\IPriceFormatter.cs" />
     <Compile Include="Catalog\IProductAttributeFormatter.cs" />
     <Compile Include="Catalog\IProductAttributeParser.cs" />
     <Compile Include="Catalog\ManufacturerDomainService.cs" />
     <Compile Include="Catalog\PriceCalculationDomainService.cs" />
+    <Compile Include="Catalog\PriceFormatter.cs" />
     <Compile Include="Catalog\ProductAttributeDomainService.cs" />
     <Compile Include="Catalog\ProductAttributeExtensions.cs" />
     <Compile Include="Catalog\ProductAttributeFormatter.cs" />
