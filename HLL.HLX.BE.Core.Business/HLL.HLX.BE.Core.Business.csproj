@@ -144,6 +144,7 @@
     <Compile Include="Catalog\ProductTemplateDomainService.cs" />
     <Compile Include="Common\AddressAttributeDomainService.cs" />
     <Compile Include="Common\AddressDomainService.cs" />
+    <Compile Include="Common\GenericAttributeDomianService.cs" />
     <Compile Include="Configuration\SettingDomainService.cs" />
     <Compile Include="Configuration\SettingExtensions.cs" />
     <Compile Include="Directory\CountryDomainService.cs" />
@@ -199,6 +200,10 @@
     <ProjectReference Include="..\HLL.HLX.BE.Core.Model\HLL.HLX.BE.Core.Model.csproj">
       <Project>{8459a2de-38cc-4da3-a0cb-bbdf199b021b}</Project>
       <Name>HLL.HLX.BE.Core.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\HLL.HLX.BE.EntityFramework\HLL.HLX.BE.EntityFramework.csproj">
+      <Project>{3979f157-deb0-4878-ab1d-4cef6b5a1300}</Project>
+      <Name>HLL.HLX.BE.EntityFramework</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

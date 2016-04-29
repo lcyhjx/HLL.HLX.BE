@@ -143,6 +143,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions.cs" />
     <Compile Include="Mapping\Catalog\BackInStockSubscriptionMap.cs" />
     <Compile Include="Mapping\Catalog\CategoryMap.cs" />
     <Compile Include="Mapping\Catalog\CategoryTemplateMap.cs" />
@@ -242,12 +243,16 @@
     <Compile Include="Repositories\Common\AddressAttributeRepository.cs" />
     <Compile Include="Repositories\Common\AddressAttributeValueRepository.cs" />
     <Compile Include="Repositories\Common\AddressRepository.cs" />
+    <Compile Include="Repositories\Common\GenericAttributeRepository.cs" />
     <Compile Include="Repositories\Configuration\ParaSettingRepository.cs" />
     <Compile Include="Repositories\Directory\CountryRepository.cs" />
     <Compile Include="Repositories\Directory\CurrencyRepository.cs" />
     <Compile Include="Repositories\Directory\MeasureDimensionRepository.cs" />
     <Compile Include="Repositories\Directory\MeasureWeightRepository.cs" />
     <Compile Include="Repositories\Directory\StateProvinceRepository.cs" />
+    <Compile Include="Repositories\Discounts\DiscountUsageHistoryRepository.cs" />
+    <Compile Include="Repositories\Discounts\DiscountRequirementRepository.cs" />
+    <Compile Include="Repositories\Discounts\DiscountRepository.cs" />
     <Compile Include="Repositories\HlxBeRepositoryBase.cs" />
     <Compile Include="Repositories\Localization\LanguageRepository.cs" />
     <Compile Include="Repositories\Localization\LocaleStringResourceRepository.cs" />

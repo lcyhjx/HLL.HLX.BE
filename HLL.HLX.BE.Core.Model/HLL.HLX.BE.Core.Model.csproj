@@ -196,6 +196,7 @@
     <Compile Include="Common\IAddressAttributeRepository.cs" />
     <Compile Include="Common\IAddressAttributeValueRepository.cs" />
     <Compile Include="Common\IAddressRepository.cs" />
+    <Compile Include="Common\IGenericAttributeRepository.cs" />
     <Compile Include="Common\PdfSettings.cs" />
     <Compile Include="Common\SearchTerm.cs" />
     <Compile Include="Common\SearchTermReportLine.cs" />
@@ -219,6 +220,9 @@
     <Compile Include="Discounts\DiscountRequirement.cs" />
     <Compile Include="Discounts\DiscountType.cs" />
     <Compile Include="Discounts\DiscountUsageHistory.cs" />
+    <Compile Include="Discounts\IDiscountUsageHistoryRepository.cs" />
+    <Compile Include="Discounts\IDiscountRequirementRepository.cs" />
+    <Compile Include="Discounts\IDiscountRepository.cs" />
     <Compile Include="Editions\EditionManager.cs" />
     <Compile Include="HlxBeConsts.cs" />
     <Compile Include="HlxBeCoreModelModule.cs" />
