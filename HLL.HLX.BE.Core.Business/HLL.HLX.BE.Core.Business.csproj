@@ -150,6 +150,9 @@
     <Compile Include="Directory\CountryDomainService.cs" />
     <Compile Include="Directory\CurrencyDomainService.cs" />
     <Compile Include="Directory\StateProvinceDomainService.cs" />
+    <Compile Include="Discounts\DiscountDomainService.cs" />
+    <Compile Include="Discounts\DiscountRequirementValidationRequest.cs" />
+    <Compile Include="Discounts\DiscountValidationResult.cs" />
     <Compile Include="HlxBeCoreBusinessModule.cs" />
     <Compile Include="Authorization\PermissionChecker.cs" />
     <Compile Include="Authorization\Roles\AppRoleConfig.cs" />
@@ -160,6 +163,7 @@
     <Compile Include="Media\PictureDomainService.cs" />
     <Compile Include="Media\ResizeType.cs" />
     <Compile Include="MultiTenancy\TenantManager.cs" />
+    <Compile Include="Orders\ShoppingCartExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authorization\Roles\RoleManager.cs" />
     <Compile Include="Authorization\Roles\RoleStore.cs" />

@@ -21,6 +21,16 @@ namespace HLL.HLX.BE.Common
         public const string Products_Availability_OutOfStock = "Out of stock";
 
 
+        public const string ShoppingCart_ConflictingShipmentSchedules = "Your cart has auto-ship (recurring) items with conflicting shipment schedules. Only one auto-ship schedule is allowed per order.";
+        public const string ShoppingCart_Discount_CannotBeUsedWithGiftCards = "Sorry, this discount cannot be used with gift cards in the cart";
+        public const string ShoppingCart_Discount_CannotBeUsedAnymore = "Sorry, you've used this discount already";
+        public const string ShoppingCart_Discount_Expired = "Sorry, this offer is expired";
+        public const string ShoppingCart_Discount_NotStartedYet = "Sorry, this offer is not started yet";
+        
+        
+        
+
+
 
     }
 }
