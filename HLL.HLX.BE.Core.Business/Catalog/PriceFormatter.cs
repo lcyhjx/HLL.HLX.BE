@@ -158,20 +158,23 @@ namespace HLL.HLX.BE.Core.Business.Catalog
             return FormatPrice(price, showCurrency, targetCurrency, null, priceIncludesTax);
         }
 
-        ///// <summary>
-        ///// Formats the price
-        ///// </summary>
-        ///// <param name="price">Price</param>
-        ///// <param name="showCurrency">A value indicating whether to show a currency</param>
-        ///// <param name="showTax">A value indicating whether to show tax suffix</param>
-        ///// <returns>Price</returns>
-        //public virtual string FormatPrice(decimal price, bool showCurrency, bool showTax)
-        //{
-        //    //bool priceIncludesTax = _workContext.TaxDisplayType == TaxDisplayType.IncludingTax;
+        /// <summary>
+        /// Formats the price
+        /// </summary>
+        /// <param name="price">Price</param>
+        /// <param name="showCurrency">A value indicating whether to show a currency</param>
+        /// <param name="showTax">A value indicating whether to show tax suffix</param>
+        /// <returns>Price</returns>
+        public virtual string FormatPrice(decimal price, bool showCurrency, bool showTax,Currency targetCurrency)
+        {
+            //bool priceIncludesTax = _workContext.TaxDisplayType == TaxDisplayType.IncludingTax;
 
-        //    //return FormatPrice(price, showCurrency, _workContext.WorkingCurrency, _workContext.WorkingLanguage, priceIncludesTax, showTax);
-        //    throw new UserFriendlyException("Not implemented");
-        //}
+            var taxDisplayType = TaxSettings.TaxDisplayType;
+            bool priceIncludesTax = taxDisplayType == TaxDisplayType.IncludingTax;
+
+            return FormatPrice(price, showCurrency, targetCurrency , null, priceIncludesTax, showTax);
+          
+        }
 
         /// <summary>
         /// Formats the price

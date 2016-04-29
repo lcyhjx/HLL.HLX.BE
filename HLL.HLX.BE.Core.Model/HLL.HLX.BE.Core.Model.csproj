@@ -237,6 +237,7 @@
     <Compile Include="Localization\LocalizationSettings.cs" />
     <Compile Include="Localization\LocalizedProperty.cs" />
     <Compile Include="Media\Download.cs" />
+    <Compile Include="Media\IDownloadRepository.cs" />
     <Compile Include="Media\IPictureRepository.cs" />
     <Compile Include="Media\MediaSettings.cs" />
     <Compile Include="Media\Picture.cs" />

@@ -165,6 +165,7 @@
     <Compile Include="IWorkContext.cs" />
     <Compile Include="Localization\LanguageDomainService.cs" />
     <Compile Include="Localization\LocalizationDomainService.cs" />
+    <Compile Include="Media\DownloadDomainService.cs" />
     <Compile Include="Media\PictureDomainService.cs" />
     <Compile Include="Media\ResizeType.cs" />
     <Compile Include="MultiTenancy\TenantManager.cs" />

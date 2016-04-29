@@ -257,6 +257,7 @@
     <Compile Include="Repositories\Localization\LanguageRepository.cs" />
     <Compile Include="Repositories\Localization\LocaleStringResourceRepository.cs" />
     <Compile Include="Repositories\Localization\LocalizedPropertyRepository.cs" />
+    <Compile Include="Repositories\Media\DownloadRepository.cs" />
     <Compile Include="Repositories\Media\PictureRepository.cs" />
     <Compile Include="Repositories\Seo\UrlRecordRepository.cs" />
     <Compile Include="Repositories\Shipping\DeliveryDateRepository.cs" />

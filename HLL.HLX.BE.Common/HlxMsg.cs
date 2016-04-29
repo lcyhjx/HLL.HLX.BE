@@ -23,6 +23,9 @@ namespace HLL.HLX.BE.Common
         public const string Products_InclTaxSuffix = "{0} incl tax";
         public const string Products_ExclTaxSuffix = "{0} excl tax";
 
+        public const string Products_MinimumQuantityNotification = "This product has a minimum quantity of {0}";
+        public const string Products_EnterProductPrice_Range = "The price must be from {0} to {1}";
+
         public const string Products_Price_Rental_Days = "{0} per {1} day(s)";
         public const string Products_Price_Rental_Months = "{0} per {1} month(s)";
         public const string Products_Price_Rental_Weeks = "{0} per {1} week(s)";

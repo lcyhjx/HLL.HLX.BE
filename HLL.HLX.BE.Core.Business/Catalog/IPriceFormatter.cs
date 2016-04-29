@@ -25,14 +25,14 @@ namespace HLL.HLX.BE.Core.Business.Catalog
         /// <returns>Price</returns>
         string FormatPrice(decimal price, bool showCurrency, Currency targetCurrency);
 
-        ///// <summary>
-        ///// Formats the price
-        ///// </summary>
-        ///// <param name="price">Price</param>
-        ///// <param name="showCurrency">A value indicating whether to show a currency</param>
-        ///// <param name="showTax">A value indicating whether to show tax suffix</param>
-        ///// <returns>Price</returns>
-        //string FormatPrice(decimal price, bool showCurrency, bool showTax);
+        /// <summary>
+        /// Formats the price
+        /// </summary>
+        /// <param name="price">Price</param>
+        /// <param name="showCurrency">A value indicating whether to show a currency</param>
+        /// <param name="showTax">A value indicating whether to show tax suffix</param>
+        /// <returns>Price</returns>
+        string FormatPrice(decimal price, bool showCurrency, bool showTax, Currency targetCurrency);
 
         /// <summary>
         /// Formats the price
