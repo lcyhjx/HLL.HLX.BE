@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace HLL.HLX.BE.Common
 {
@@ -13,6 +14,12 @@ namespace HLL.HLX.BE.Common
     [Serializable]
     public class PagedList<T> : List<T>, IPagedList<T>
     {
+
+        private PagedList()
+        {
+            
+        }
+
         /// <summary>
         /// Ctor
         /// </summary>
@@ -72,10 +79,31 @@ namespace HLL.HLX.BE.Common
             this.AddRange(source);
         }
 
-        public int PageIndex { get; private set; }
-        public int PageSize { get; private set; }
-        public int TotalCount { get; private set; }
-        public int TotalPages { get; private set; }
+
+        public IPagedList<T1> ConvertTo<T1>()
+        {
+            IList<T1> items = Mapper.Map<IList<T1>>(this);
+            IPagedList<T1> returnItems = new PagedList<T1>();
+            if (items != null && items.Count > 0)
+            {
+                foreach (T1 item in items)
+                {
+                    returnItems.Add(item);
+                }
+            }
+            returnItems.PageIndex = this.PageIndex;
+            returnItems.PageSize = this.PageSize;
+            returnItems.TotalCount = this.TotalCount;
+            returnItems.TotalPages = this.TotalPages;
+
+            return returnItems;
+        }
+
+
+        public int PageIndex { get;  set; }
+        public int PageSize { get;  set; }
+        public int TotalCount { get;  set; }
+        public int TotalPages { get;  set; }
 
         public bool HasPreviousPage
         {

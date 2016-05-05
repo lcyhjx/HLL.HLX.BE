@@ -146,14 +146,8 @@ namespace HLL.HLX.BE.Application.Mobility.Users
         public UpdateUserAvatarOutput UpdateUserAvatar(UpdateUserAvatarInput input)
         {
             var userId = AbpSession.GetUserId();
-            _userDomainService.UpdateUserAvatar(userId, input.ImageBytes);
+            _userDomainService.UpdateUserAvatar(input.UserId.GetValueOrDefault(), input.ImageBase64);
 
-            //input -> business obj
-            //UserAvatar userAvatar = Mapper.Map<UserAvatar>(input);
-            //userAvatar.UserId = AbpSession.UserId;
-
-            //更新用户头像
-            //_userDomainService.UpdateUserAvatar(userAvatar, input.ImageBytes);
 
             return new UpdateUserAvatarOutput();
         }

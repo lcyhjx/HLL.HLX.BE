@@ -216,11 +216,12 @@
     <Compile Include="Mapping\Users\UserMap.cs" />
     <Compile Include="Mapping\Vendors\VendorMap.cs" />
     <Compile Include="Mapping\Vendors\VendorNoteMap.cs" />
+    <Compile Include="Mapping\Videos\UserLiveRoomMap.cs" />
     <Compile Include="Mapping\Videos\VideoMap.cs" />
     <Compile Include="HlxBeDbContext.cs" />
-    <Compile Include="Migrations\201604271251502_20160410_Init.cs" />
-    <Compile Include="Migrations\201604271251502_20160410_Init.Designer.cs">
-      <DependentUpon>201604271251502_20160410_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201605050832326_20160505_4_Init.cs" />
+    <Compile Include="Migrations\201605050832326_20160505_4_Init.Designer.cs">
+      <DependentUpon>201605050832326_20160505_4_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\HlxDbMigration.cs" />
     <Compile Include="Repositories\Catalog\PredefinedProductAttributeValueRepository.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="Repositories\Users\UserRepository.cs" />
     <Compile Include="Repositories\Vendors\VendorNoteRepository.cs" />
     <Compile Include="Repositories\Vendors\VendorRepository.cs" />
+    <Compile Include="Repositories\Videos\UserLiveRoomRepository.cs" />
     <Compile Include="Repositories\Videos\VideoRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="HlxBeDataModule.cs" />
@@ -289,12 +291,13 @@
   <ItemGroup>
     <Content Include="DBScript\Create_required_data.sql" />
     <Content Include="DBScript\Create_sample_data.sql" />
+    <Content Include="DBScript\create_sample_video.sql" />
     <Content Include="DBScript\SqlServer.Indexes.sql" />
     <Content Include="DBScript\SqlServer.StoredProcedures.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604271251502_20160410_Init.resx">
-      <DependentUpon>201604271251502_20160410_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605050832326_20160505_4_Init.resx">
+      <DependentUpon>201605050832326_20160505_4_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

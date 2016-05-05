@@ -49,10 +49,10 @@ namespace HLL.HLX.BE.Core.Model.Users
         /// </summary>
         public string Signature { get; set; }
 
-        /// <summary>
-        ///     头像图片存储路径
-        /// </summary>
-        public string AvatarFilePath { get; set; }
+        ///// <summary>
+        /////     头像图片存储路径
+        ///// </summary>
+        //public string AvatarFilePath { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the customer is tax exempt

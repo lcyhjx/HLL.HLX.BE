@@ -109,6 +109,10 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 "Vendor",
                 "VendorNote",
 
+                //Video
+                "Video",
+                "UserLiveRoom",
+
             };
 
 

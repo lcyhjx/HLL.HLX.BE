@@ -10,7 +10,7 @@ namespace HLL.HLX.BE.Core.Model.Users
         /// <summary>
         ///     用户Id
         /// </summary>
-        public long? UserId { get; set; }
+        public long UserId { get; set; }
 
         /// <summary>
         ///     图片存储路径

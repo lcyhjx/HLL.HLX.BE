@@ -7,8 +7,7 @@ using Abp.Application.Services.Dto;
 
 namespace HLL.HLX.BE.Application.Mobility.Videos.Dto
 {
-    public class GetLiveAndUnstartedVideoOutput : IOutputDto
+    public class EnterRoomOutput : IOutputDto
     {
-        public List<VideoDto> Videos  { get ; set; }
     }
 }

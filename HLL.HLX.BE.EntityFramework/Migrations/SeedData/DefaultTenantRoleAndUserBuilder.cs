@@ -27,6 +27,8 @@ namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
 
         private void CreateUserAndRoles()
         {
+
+            #region tenancy host
             //Admin role for host
 
             var adminRoleForHost = _context.Roles.FirstOrDefault(r => r.TenantId == null && r.Name == StaticRoleNames.Host.Admin);
@@ -82,6 +84,11 @@ namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
                 _context.SaveChanges();
             }
 
+           
+
+            #endregion
+
+            #region default tenant
             //Default tenant
 
             var defaultTenant = _context.Tenants.FirstOrDefault(t => t.TenancyName == "Default");
@@ -143,6 +150,52 @@ namespace HLL.HLX.BE.EntityFramework.Migrations.SeedData
                 _context.UserRoles.Add(new UserRole(adminUserForDefaultTenant.Id, adminRoleForDefaultTenant.Id));
                 _context.SaveChanges();
             }
+
+            #region add test user
+            var testUser1ForDefaultTenant = _context.Users.FirstOrDefault(u => u.TenantId == defaultTenant.Id && u.UserName == "test001");
+            if (testUser1ForDefaultTenant == null)
+            {
+                testUser1ForDefaultTenant = _context.Users.Add(
+                    new User
+                    {
+                        TenantId = defaultTenant.Id,
+                        UserName = "test001",
+                        Name = "test001",
+                        Surname = "test001",
+                        EmailAddress = "test001@aspnetboilerplate.com",
+                        IsEmailConfirmed = true,
+                        Password = new PasswordHasher().HashPassword(User.DefaultPassword)
+                    });
+                _context.SaveChanges();
+
+                _context.UserRoles.Add(new UserRole(testUser1ForDefaultTenant.Id, adminRoleForDefaultTenant.Id));
+                _context.SaveChanges();
+            }
+
+
+            var testUser2ForDefaultTenant = _context.Users.FirstOrDefault(u => u.TenantId == defaultTenant.Id && u.UserName == "test002");
+            if (testUser2ForDefaultTenant == null)
+            {
+                testUser2ForDefaultTenant = _context.Users.Add(
+                    new User
+                    {
+                        TenantId = defaultTenant.Id,
+                        UserName = "test002",
+                        Name = "test002",
+                        Surname = "test002",
+                        EmailAddress = "test002@aspnetboilerplate.com",
+                        IsEmailConfirmed = true,
+                        Password = new PasswordHasher().HashPassword(User.DefaultPassword)
+                    });
+                _context.SaveChanges();
+
+                _context.UserRoles.Add(new UserRole(testUser2ForDefaultTenant.Id, adminRoleForDefaultTenant.Id));
+                _context.SaveChanges();
+            }
+            #endregion
+            #endregion
+
+
         }
     }
 }

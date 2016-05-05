@@ -188,6 +188,7 @@
     <Compile Include="Vendors\VendorExtensions.cs" />
     <Compile Include="Vendors\VendorTest.cs" />
     <Compile Include="Videos\VideoDomainService.cs" />
+    <Compile Include="Videos\VideoEx.cs" />
     <Compile Include="WebWorkContext.cs" />
   </ItemGroup>
   <ItemGroup>

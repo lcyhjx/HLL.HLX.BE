@@ -12,9 +12,9 @@
         public const string USER_AVATAR_DIR = "YasPics\\UserAvatars";
 
         /// <summary>
-        ///     视频封面图片路径
+        ///     视频预览图片存储路径
         /// </summary>
-        public const string VIDEO_COVER_PIC_DIR = "YasPics\\VideoCoverPics";
+        public const string LIVE_PREVIEW_IMAGE_DIR = "YasPics\\LivePreviewImages";
 
         #endregion
     }

@@ -5,7 +5,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
     
-    public partial class _20160410_Init : HlxDbMigration
+    public partial class _20160505_4_Init : HlxDbMigration
     {
         public override void Up()
         {
@@ -262,7 +262,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                         Title = c.String(maxLength: 100),
                         PhoneNumber = c.String(maxLength: 50),
                         Signature = c.String(),
-                        AvatarFilePath = c.String(),
+                        IsTaxExempt = c.Boolean(nullable: false),
                         AuthenticationSource = c.String(maxLength: 64),
                         Name = c.String(nullable: false, maxLength: 32),
                         Surname = c.String(nullable: false, maxLength: 32),
@@ -282,6 +282,8 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                         LastModifierUserId = c.Long(),
                         CreationTime = c.DateTime(nullable: false),
                         CreatorUserId = c.Long(),
+                        BillingAddress_Id = c.Int(),
+                        ShippingAddress_Id = c.Int(),
                     },
                 annotations: new Dictionary<string, object>
                 {
@@ -289,11 +291,153 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                     { "DynamicFilter_User_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Address", t => t.BillingAddress_Id)
                 .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
                 .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
                 .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .ForeignKey("dbo.Address", t => t.ShippingAddress_Id)
                 .ForeignKey("dbo.AbpTenants", t => t.TenantId)
                 .Index(t => t.TenantId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId)
+                .Index(t => t.BillingAddress_Id)
+                .Index(t => t.ShippingAddress_Id);
+            
+            CreateTable(
+                "dbo.Address",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        FirstName = c.String(),
+                        LastName = c.String(),
+                        Email = c.String(),
+                        Company = c.String(),
+                        CountryId = c.Int(),
+                        StateProvinceId = c.Int(),
+                        City = c.String(),
+                        Address1 = c.String(),
+                        Address2 = c.String(),
+                        ZipPostalCode = c.String(),
+                        PhoneNumber = c.String(),
+                        FaxNumber = c.String(),
+                        CustomAttributes = c.String(),
+                        CreatedOnUtc = c.DateTime(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Address_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Country", t => t.CountryId)
+                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .ForeignKey("dbo.StateProvince", t => t.StateProvinceId)
+                .Index(t => t.CountryId)
+                .Index(t => t.StateProvinceId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
+                "dbo.Country",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        AllowsBilling = c.Boolean(nullable: false),
+                        AllowsShipping = c.Boolean(nullable: false),
+                        TwoLetterIsoCode = c.String(maxLength: 2),
+                        ThreeLetterIsoCode = c.String(maxLength: 3),
+                        NumericIsoCode = c.Int(nullable: false),
+                        SubjectToVat = c.Boolean(nullable: false),
+                        Published = c.Boolean(nullable: false),
+                        DisplayOrder = c.Int(nullable: false),
+                        LimitedToStores = c.Boolean(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Country_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
+                "dbo.ShippingMethod",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 400),
+                        Description = c.String(),
+                        DisplayOrder = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ShippingMethod_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
+                "dbo.StateProvince",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        CountryId = c.Int(nullable: false),
+                        Name = c.String(nullable: false, maxLength: 100),
+                        Abbreviation = c.String(maxLength: 100),
+                        Published = c.Boolean(nullable: false),
+                        DisplayOrder = c.Int(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_StateProvince_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Country", t => t.CountryId, cascadeDelete: true)
+                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .Index(t => t.CountryId)
                 .Index(t => t.DeleterUserId)
                 .Index(t => t.LastModifierUserId)
                 .Index(t => t.CreatorUserId);
@@ -1323,19 +1467,54 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.UserLiveRoom",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        UserId = c.Long(nullable: false),
+                        LiveRoomId = c.String(nullable: false),
+                        Status = c.Int(nullable: false),
+                        EnterTime = c.DateTime(),
+                        LeaveTime = c.DateTime(),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Long(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Long(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Long(),
+                    },
+                annotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_UserLiveRoom_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
+                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
+                .Index(t => t.DeleterUserId)
+                .Index(t => t.LastModifierUserId)
+                .Index(t => t.CreatorUserId);
+            
+            CreateTable(
                 "dbo.Video",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Title = c.String(nullable: false, maxLength: 200),
-                        CoverPicPath = c.String(maxLength: 300),
                         StreamMediaPath = c.String(maxLength: 300),
+                        PublishTime = c.DateTime(),
                         EstimatedStartTime = c.DateTime(),
                         ActualStartTime = c.DateTime(),
                         ActualEndTime = c.DateTime(),
                         Status = c.Int(nullable: false),
                         PublishUserId = c.Long(nullable: false),
+                        StartUserId = c.Long(nullable: false),
+                        EndUserId = c.Long(nullable: false),
                         limelightCount = c.Long(nullable: false),
+                        LivePreviewImagePath = c.String(maxLength: 300),
+                        LiveRoomId = c.String(maxLength: 100),
+                        ChatRoomId = c.String(maxLength: 100),
                         IsDeleted = c.Boolean(nullable: false),
                         DeleterUserId = c.Long(),
                         DeletionTime = c.DateTime(),
@@ -1542,144 +1721,6 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 .Index(t => t.CustomerId)
                 .Index(t => t.BillingAddressId)
                 .Index(t => t.ShippingAddressId)
-                .Index(t => t.DeleterUserId)
-                .Index(t => t.LastModifierUserId)
-                .Index(t => t.CreatorUserId);
-            
-            CreateTable(
-                "dbo.Address",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        FirstName = c.String(),
-                        LastName = c.String(),
-                        Email = c.String(),
-                        Company = c.String(),
-                        CountryId = c.Int(),
-                        StateProvinceId = c.Int(),
-                        City = c.String(),
-                        Address1 = c.String(),
-                        Address2 = c.String(),
-                        ZipPostalCode = c.String(),
-                        PhoneNumber = c.String(),
-                        FaxNumber = c.String(),
-                        CustomAttributes = c.String(),
-                        CreatedOnUtc = c.DateTime(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                        DeleterUserId = c.Long(),
-                        DeletionTime = c.DateTime(),
-                        LastModificationTime = c.DateTime(),
-                        LastModifierUserId = c.Long(),
-                        CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Address_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Country", t => t.CountryId)
-                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
-                .ForeignKey("dbo.StateProvince", t => t.StateProvinceId)
-                .Index(t => t.CountryId)
-                .Index(t => t.StateProvinceId)
-                .Index(t => t.DeleterUserId)
-                .Index(t => t.LastModifierUserId)
-                .Index(t => t.CreatorUserId);
-            
-            CreateTable(
-                "dbo.Country",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        AllowsBilling = c.Boolean(nullable: false),
-                        AllowsShipping = c.Boolean(nullable: false),
-                        TwoLetterIsoCode = c.String(maxLength: 2),
-                        ThreeLetterIsoCode = c.String(maxLength: 3),
-                        NumericIsoCode = c.Int(nullable: false),
-                        SubjectToVat = c.Boolean(nullable: false),
-                        Published = c.Boolean(nullable: false),
-                        DisplayOrder = c.Int(nullable: false),
-                        LimitedToStores = c.Boolean(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                        DeleterUserId = c.Long(),
-                        DeletionTime = c.DateTime(),
-                        LastModificationTime = c.DateTime(),
-                        LastModifierUserId = c.Long(),
-                        CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Country_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
-                .Index(t => t.DeleterUserId)
-                .Index(t => t.LastModifierUserId)
-                .Index(t => t.CreatorUserId);
-            
-            CreateTable(
-                "dbo.ShippingMethod",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 400),
-                        Description = c.String(),
-                        DisplayOrder = c.Int(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                        DeleterUserId = c.Long(),
-                        DeletionTime = c.DateTime(),
-                        LastModificationTime = c.DateTime(),
-                        LastModifierUserId = c.Long(),
-                        CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_ShippingMethod_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
-                .Index(t => t.DeleterUserId)
-                .Index(t => t.LastModifierUserId)
-                .Index(t => t.CreatorUserId);
-            
-            CreateTable(
-                "dbo.StateProvince",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        CountryId = c.Int(nullable: false),
-                        Name = c.String(nullable: false, maxLength: 100),
-                        Abbreviation = c.String(maxLength: 100),
-                        Published = c.Boolean(nullable: false),
-                        DisplayOrder = c.Int(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                        DeleterUserId = c.Long(),
-                        DeletionTime = c.DateTime(),
-                        LastModificationTime = c.DateTime(),
-                        LastModifierUserId = c.Long(),
-                        CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_StateProvince_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Country", t => t.CountryId, cascadeDelete: true)
-                .ForeignKey("dbo.AbpUsers", t => t.CreatorUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.DeleterUserId)
-                .ForeignKey("dbo.AbpUsers", t => t.LastModifierUserId)
-                .Index(t => t.CountryId)
                 .Index(t => t.DeleterUserId)
                 .Index(t => t.LastModifierUserId)
                 .Index(t => t.CreatorUserId);
@@ -1938,7 +1979,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.Long(),
+                        UserId = c.Long(nullable: false),
                         ImageFilePath = c.String(maxLength: 200),
                         Name = c.String(maxLength: 100),
                         Description = c.String(maxLength: 500),
@@ -2879,6 +2920,32 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 .Index(t => t.CreatorUserId);
             
             CreateTable(
+                "dbo.ShippingMethodRestrictions",
+                c => new
+                    {
+                        ShippingMethod_Id = c.Int(nullable: false),
+                        Country_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.ShippingMethod_Id, t.Country_Id })
+                .ForeignKey("dbo.ShippingMethod", t => t.ShippingMethod_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Country", t => t.Country_Id, cascadeDelete: true)
+                .Index(t => t.ShippingMethod_Id)
+                .Index(t => t.Country_Id);
+            
+            CreateTable(
+                "dbo.CustomerAddresses",
+                c => new
+                    {
+                        User_Id = c.Long(nullable: false),
+                        Address_Id = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.User_Id, t.Address_Id })
+                .ForeignKey("dbo.AbpUsers", t => t.User_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Address", t => t.Address_Id, cascadeDelete: true)
+                .Index(t => t.User_Id)
+                .Index(t => t.Address_Id);
+            
+            CreateTable(
                 "dbo.Discount_AppliedToCategories",
                 c => new
                     {
@@ -2930,21 +2997,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 .Index(t => t.Product_Id)
                 .Index(t => t.ProductTag_Id);
             
-            CreateTable(
-                "dbo.ShippingMethodRestrictions",
-                c => new
-                    {
-                        ShippingMethod_Id = c.Int(nullable: false),
-                        Country_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.ShippingMethod_Id, t.Country_Id })
-                .ForeignKey("dbo.ShippingMethod", t => t.ShippingMethod_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Country", t => t.Country_Id, cascadeDelete: true)
-                .Index(t => t.ShippingMethod_Id)
-                .Index(t => t.Country_Id);
-
             base.Up();
-            
         }
         
         public override void Down()
@@ -3090,23 +3143,6 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropForeignKey("dbo.Order", "CustomerId", "dbo.AbpUsers");
             DropForeignKey("dbo.Order", "CreatorUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.Order", "BillingAddressId", "dbo.Address");
-            DropForeignKey("dbo.Address", "StateProvinceId", "dbo.StateProvince");
-            DropForeignKey("dbo.Address", "LastModifierUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.Address", "DeleterUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.Address", "CreatorUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.Address", "CountryId", "dbo.Country");
-            DropForeignKey("dbo.StateProvince", "LastModifierUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.StateProvince", "DeleterUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.StateProvince", "CreatorUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.StateProvince", "CountryId", "dbo.Country");
-            DropForeignKey("dbo.ShippingMethodRestrictions", "Country_Id", "dbo.Country");
-            DropForeignKey("dbo.ShippingMethodRestrictions", "ShippingMethod_Id", "dbo.ShippingMethod");
-            DropForeignKey("dbo.ShippingMethod", "LastModifierUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.ShippingMethod", "DeleterUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.ShippingMethod", "CreatorUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.Country", "LastModifierUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.Country", "DeleterUserId", "dbo.AbpUsers");
-            DropForeignKey("dbo.Country", "CreatorUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.RewardPointsHistory", "LastModifierUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.RewardPointsHistory", "DeleterUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.RewardPointsHistory", "CustomerId", "dbo.AbpUsers");
@@ -3121,6 +3157,9 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropForeignKey("dbo.Video", "LastModifierUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.Video", "DeleterUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.Video", "CreatorUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.UserLiveRoom", "LastModifierUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.UserLiveRoom", "DeleterUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.UserLiveRoom", "CreatorUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.AbpRoles", "TenantId", "dbo.AbpTenants");
             DropForeignKey("dbo.AbpPermissions", "RoleId", "dbo.AbpRoles");
             DropForeignKey("dbo.AbpRoles", "LastModifierUserId", "dbo.AbpUsers");
@@ -3231,6 +3270,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropForeignKey("dbo.ShoppingCartItem", "DeleterUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.ShoppingCartItem", "CustomerId", "dbo.AbpUsers");
             DropForeignKey("dbo.ShoppingCartItem", "CreatorUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.AbpUsers", "ShippingAddress_Id", "dbo.Address");
             DropForeignKey("dbo.AbpSettings", "UserId", "dbo.AbpUsers");
             DropForeignKey("dbo.AbpUserRoles", "UserId", "dbo.AbpUsers");
             DropForeignKey("dbo.ReturnRequest", "LastModifierUserId", "dbo.AbpUsers");
@@ -3242,10 +3282,28 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropForeignKey("dbo.AbpUsers", "LastModifierUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.AbpUsers", "DeleterUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.AbpUsers", "CreatorUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.AbpUsers", "BillingAddress_Id", "dbo.Address");
+            DropForeignKey("dbo.CustomerAddresses", "Address_Id", "dbo.Address");
+            DropForeignKey("dbo.CustomerAddresses", "User_Id", "dbo.AbpUsers");
+            DropForeignKey("dbo.Address", "StateProvinceId", "dbo.StateProvince");
+            DropForeignKey("dbo.Address", "LastModifierUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.Address", "DeleterUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.Address", "CreatorUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.Address", "CountryId", "dbo.Country");
+            DropForeignKey("dbo.StateProvince", "LastModifierUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.StateProvince", "DeleterUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.StateProvince", "CreatorUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.StateProvince", "CountryId", "dbo.Country");
+            DropForeignKey("dbo.ShippingMethodRestrictions", "Country_Id", "dbo.Country");
+            DropForeignKey("dbo.ShippingMethodRestrictions", "ShippingMethod_Id", "dbo.ShippingMethod");
+            DropForeignKey("dbo.ShippingMethod", "LastModifierUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.ShippingMethod", "DeleterUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.ShippingMethod", "CreatorUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.Country", "LastModifierUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.Country", "DeleterUserId", "dbo.AbpUsers");
+            DropForeignKey("dbo.Country", "CreatorUserId", "dbo.AbpUsers");
             DropForeignKey("dbo.AbpOrganizationUnits", "ParentId", "dbo.AbpOrganizationUnits");
             DropForeignKey("dbo.AbpFeatures", "EditionId", "dbo.AbpEditions");
-            DropIndex("dbo.ShippingMethodRestrictions", new[] { "Country_Id" });
-            DropIndex("dbo.ShippingMethodRestrictions", new[] { "ShippingMethod_Id" });
             DropIndex("dbo.Product_ProductTag_Mapping", new[] { "ProductTag_Id" });
             DropIndex("dbo.Product_ProductTag_Mapping", new[] { "Product_Id" });
             DropIndex("dbo.Discount_AppliedToProducts", new[] { "Product_Id" });
@@ -3254,6 +3312,10 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropIndex("dbo.Discount_AppliedToManufacturers", new[] { "Discount_Id" });
             DropIndex("dbo.Discount_AppliedToCategories", new[] { "Category_Id" });
             DropIndex("dbo.Discount_AppliedToCategories", new[] { "Discount_Id" });
+            DropIndex("dbo.CustomerAddresses", new[] { "Address_Id" });
+            DropIndex("dbo.CustomerAddresses", new[] { "User_Id" });
+            DropIndex("dbo.ShippingMethodRestrictions", new[] { "Country_Id" });
+            DropIndex("dbo.ShippingMethodRestrictions", new[] { "ShippingMethod_Id" });
             DropIndex("dbo.RelatedProduct", new[] { "CreatorUserId" });
             DropIndex("dbo.RelatedProduct", new[] { "LastModifierUserId" });
             DropIndex("dbo.RelatedProduct", new[] { "DeleterUserId" });
@@ -3388,21 +3450,6 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropIndex("dbo.DiscountUsageHistory", new[] { "DeleterUserId" });
             DropIndex("dbo.DiscountUsageHistory", new[] { "OrderId" });
             DropIndex("dbo.DiscountUsageHistory", new[] { "DiscountId" });
-            DropIndex("dbo.StateProvince", new[] { "CreatorUserId" });
-            DropIndex("dbo.StateProvince", new[] { "LastModifierUserId" });
-            DropIndex("dbo.StateProvince", new[] { "DeleterUserId" });
-            DropIndex("dbo.StateProvince", new[] { "CountryId" });
-            DropIndex("dbo.ShippingMethod", new[] { "CreatorUserId" });
-            DropIndex("dbo.ShippingMethod", new[] { "LastModifierUserId" });
-            DropIndex("dbo.ShippingMethod", new[] { "DeleterUserId" });
-            DropIndex("dbo.Country", new[] { "CreatorUserId" });
-            DropIndex("dbo.Country", new[] { "LastModifierUserId" });
-            DropIndex("dbo.Country", new[] { "DeleterUserId" });
-            DropIndex("dbo.Address", new[] { "CreatorUserId" });
-            DropIndex("dbo.Address", new[] { "LastModifierUserId" });
-            DropIndex("dbo.Address", new[] { "DeleterUserId" });
-            DropIndex("dbo.Address", new[] { "StateProvinceId" });
-            DropIndex("dbo.Address", new[] { "CountryId" });
             DropIndex("dbo.Order", new[] { "CreatorUserId" });
             DropIndex("dbo.Order", new[] { "LastModifierUserId" });
             DropIndex("dbo.Order", new[] { "DeleterUserId" });
@@ -3424,6 +3471,9 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropIndex("dbo.Video", new[] { "CreatorUserId" });
             DropIndex("dbo.Video", new[] { "LastModifierUserId" });
             DropIndex("dbo.Video", new[] { "DeleterUserId" });
+            DropIndex("dbo.UserLiveRoom", new[] { "CreatorUserId" });
+            DropIndex("dbo.UserLiveRoom", new[] { "LastModifierUserId" });
+            DropIndex("dbo.UserLiveRoom", new[] { "DeleterUserId" });
             DropIndex("dbo.AbpUserNotifications", new[] { "UserId", "State", "CreationTime" });
             DropIndex("dbo.AbpTenants", new[] { "CreatorUserId" });
             DropIndex("dbo.AbpTenants", new[] { "LastModifierUserId" });
@@ -3528,6 +3578,23 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropIndex("dbo.ReturnRequest", new[] { "DeleterUserId" });
             DropIndex("dbo.ReturnRequest", new[] { "CustomerId" });
             DropIndex("dbo.AbpUserLogins", new[] { "UserId" });
+            DropIndex("dbo.StateProvince", new[] { "CreatorUserId" });
+            DropIndex("dbo.StateProvince", new[] { "LastModifierUserId" });
+            DropIndex("dbo.StateProvince", new[] { "DeleterUserId" });
+            DropIndex("dbo.StateProvince", new[] { "CountryId" });
+            DropIndex("dbo.ShippingMethod", new[] { "CreatorUserId" });
+            DropIndex("dbo.ShippingMethod", new[] { "LastModifierUserId" });
+            DropIndex("dbo.ShippingMethod", new[] { "DeleterUserId" });
+            DropIndex("dbo.Country", new[] { "CreatorUserId" });
+            DropIndex("dbo.Country", new[] { "LastModifierUserId" });
+            DropIndex("dbo.Country", new[] { "DeleterUserId" });
+            DropIndex("dbo.Address", new[] { "CreatorUserId" });
+            DropIndex("dbo.Address", new[] { "LastModifierUserId" });
+            DropIndex("dbo.Address", new[] { "DeleterUserId" });
+            DropIndex("dbo.Address", new[] { "StateProvinceId" });
+            DropIndex("dbo.Address", new[] { "CountryId" });
+            DropIndex("dbo.AbpUsers", new[] { "ShippingAddress_Id" });
+            DropIndex("dbo.AbpUsers", new[] { "BillingAddress_Id" });
             DropIndex("dbo.AbpUsers", new[] { "CreatorUserId" });
             DropIndex("dbo.AbpUsers", new[] { "LastModifierUserId" });
             DropIndex("dbo.AbpUsers", new[] { "DeleterUserId" });
@@ -3542,11 +3609,12 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
             DropIndex("dbo.AbpNotificationSubscriptions", new[] { "NotificationName", "EntityTypeName", "EntityId", "UserId" });
             DropIndex("dbo.AbpFeatures", new[] { "EditionId" });
             DropIndex("dbo.AbpBackgroundJobs", new[] { "IsAbandoned", "NextTryTime" });
-            DropTable("dbo.ShippingMethodRestrictions");
             DropTable("dbo.Product_ProductTag_Mapping");
             DropTable("dbo.Discount_AppliedToProducts");
             DropTable("dbo.Discount_AppliedToManufacturers");
             DropTable("dbo.Discount_AppliedToCategories");
+            DropTable("dbo.CustomerAddresses");
+            DropTable("dbo.ShippingMethodRestrictions");
             DropTable("dbo.RelatedProduct",
                 removedAnnotations: new Dictionary<string, object>
                 {
@@ -3737,26 +3805,6 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 {
                     { "DynamicFilter_DiscountUsageHistory_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
-            DropTable("dbo.StateProvince",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_StateProvince_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.ShippingMethod",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_ShippingMethod_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.Country",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Country_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.Address",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Address_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
             DropTable("dbo.Order",
                 removedAnnotations: new Dictionary<string, object>
                 {
@@ -3781,6 +3829,11 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 removedAnnotations: new Dictionary<string, object>
                 {
                     { "DynamicFilter_Video_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.UserLiveRoom",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_UserLiveRoom_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
             DropTable("dbo.AbpUserOrganizationUnits",
                 removedAnnotations: new Dictionary<string, object>
@@ -3916,6 +3969,26 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                     { "DynamicFilter_ReturnRequest_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
             DropTable("dbo.AbpUserLogins");
+            DropTable("dbo.StateProvince",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_StateProvince_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.ShippingMethod",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_ShippingMethod_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.Country",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Country_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
+            DropTable("dbo.Address",
+                removedAnnotations: new Dictionary<string, object>
+                {
+                    { "DynamicFilter_Address_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
+                });
             DropTable("dbo.AbpUsers",
                 removedAnnotations: new Dictionary<string, object>
                 {

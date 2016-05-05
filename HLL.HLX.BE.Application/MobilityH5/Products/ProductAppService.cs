@@ -27,10 +27,11 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
     public class ProductAppService : HlxBeAppServiceBase, IProductAppService
     {
         #region Fields
-        private readonly ProductDomainService _productDomainService;
+        
         private readonly SettingDomainService _settingDomainService;
         private readonly ShippingDomainServie _shippingDomainServie;        
         private readonly VendorDomainService _vendorDomainService;
+        private readonly ProductDomainService _productDomainService;
         private readonly ProductTemplateDomainService _productTemplateService;
         private readonly PictureDomainService _pictureDomainService;
         private readonly CurrencyDomainService _currencyDomainService;
@@ -40,6 +41,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
         private readonly IProductAttributeParser _productAttributeParser;
         private readonly ProductAttributeDomainService _productAttributeDomainService;
         private readonly DownloadDomainService _downloadDomainService;
+        private readonly ManufacturerDomainService _manufacturerDomainService;
 
         private readonly IVendorTest _vendorTest;
         private readonly IStoreContext _storeContext;
@@ -126,6 +128,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             , IProductAttributeParser productAttributeParser
             , ProductAttributeDomainService productAttributeDomainService
             , DownloadDomainService downloadDomainService
+            , ManufacturerDomainService manufacturerDomainService
 
             , IVendorTest vendorTest
             , IStoreContext storeContext
@@ -144,6 +147,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             _productAttributeParser = productAttributeParser;
             _productAttributeDomainService = productAttributeDomainService;            
             _downloadDomainService = downloadDomainService;
+            _manufacturerDomainService = manufacturerDomainService;
 
             _vendorTest = vendorTest;
             _storeContext = storeContext;
@@ -857,77 +861,80 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //        product);
             //}
 
-            //#endregion
+            #endregion
 
-            //#region Product review overview
+            #region Product review overview
 
-            //model.ProductReviewOverview = new ProductReviewOverviewModel
-            //{
-            //    ProductId = product.Id,
-            //    RatingSum = product.ApprovedRatingSum,
-            //    TotalReviews = product.ApprovedTotalReviews,
-            //    AllowCustomerReviews = product.AllowCustomerReviews
-            //};
+            model.ProductReviewOverview = new ProductReviewOverviewModel
+            {
+                ProductId = product.Id,
+                RatingSum = product.ApprovedRatingSum,
+                TotalReviews = product.ApprovedTotalReviews,
+                AllowCustomerReviews = product.AllowCustomerReviews
+            };
 
-            //#endregion
+            #endregion
 
-            //#region Tier prices
+            #region Tier prices
 
             //if (product.HasTierPrices && _permissionService.Authorize(StandardPermissionProvider.DisplayPrices))
-            //{
-            //    model.TierPrices = product.TierPrices
-            //        .OrderBy(x => x.Quantity)
-            //        .ToList()
-            //        .FilterByStore(_storeContext.CurrentStore.Id)
-            //        .FilterForCustomer(_workContext.CurrentCustomer)
-            //        .RemoveDuplicatedQuantities()
-            //        .Select(tierPrice =>
-            //        {
-            //            var m = new ProductDetailsModel.TierPriceModel
-            //            {
-            //                Quantity = tierPrice.Quantity,
-            //            };
-            //            decimal taxRate;
-            //            decimal priceBase = _taxService.GetProductPrice(product, _priceCalculationService.GetFinalPrice(product, _workContext.CurrentCustomer, decimal.Zero, _catalogSettings.DisplayTierPricesWithDiscounts, tierPrice.Quantity), out taxRate);
-            //            decimal price = _currencyService.ConvertFromPrimaryStoreCurrency(priceBase, _workContext.WorkingCurrency);
-            //            m.Price = _priceFormatter.FormatPrice(price, false, false);
-            //            return m;
-            //        })
-            //        .ToList();
-            //}
+            {
+                model.TierPrices = product.TierPrices
+                    .OrderBy(x => x.Quantity)
+                    .ToList()
+                    .FilterByStore(_storeContext.CurrentStore.Id)
+                    .FilterForCustomer(CurrentUser)
+                    .RemoveDuplicatedQuantities()
+                    .Select(tierPrice =>
+                    {
+                        var m = new ProductDetailsDto.TierPriceModel
+                        {
+                            Quantity = tierPrice.Quantity,
+                        };
+                        decimal taxRate;
+                        
+                        decimal priceBase = _taxDomainService.GetProductPrice(product, _priceCalculationDomainService.GetFinalPrice(product, CurrentUser, decimal.Zero, CatalogSettings.DisplayTierPricesWithDiscounts, tierPrice.Quantity),CurrentUser, out taxRate);
+                        decimal price = _currencyDomainService.ConvertFromPrimaryStoreCurrency(priceBase, WorkingCurrency);
+                        m.Price = _priceFormatter.FormatPrice(price, false, false, WorkingCurrency);
+                        return m;
+                    })
+                    .ToList();
+            }
 
-            //#endregion
+            #endregion
 
-            //#region Manufacturers
+            #region Manufacturers
 
-            ////do not prepare this model for the associated products. any it's not used
-            //if (!isAssociatedProduct)
-            //{
-            //    string manufacturersCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_MANUFACTURERS_MODEL_KEY,
-            //        product.Id,
-            //        _workContext.WorkingLanguage.Id,
-            //        string.Join(",", _workContext.CurrentCustomer.GetCustomerRoleIds()),
-            //        _storeContext.CurrentStore.Id);
-            //    model.ProductManufacturers = _cacheManager.Get(manufacturersCacheKey, () =>
-            //        _manufacturerService.GetProductManufacturersByProductId(product.Id)
-            //        .Select(x => x.Manufacturer.ToModel())
-            //        .ToList()
-            //        );
-            //}
+            //do not prepare this model for the associated products. any it's not used
+            if (!isAssociatedProduct)
+            {
+                //string manufacturersCacheKey = string.Format(ModelCacheEventConsumer.PRODUCT_MANUFACTURERS_MODEL_KEY,
+                //    product.Id,
+                //    _workContext.WorkingLanguage.Id,
+                //    string.Join(",", _workContext.CurrentCustomer.GetCustomerRoleIds()),
+                //    _storeContext.CurrentStore.Id);
+                //model.ProductManufacturers = _cacheManager.Get(manufacturersCacheKey, () =>
+                //    _manufacturerDomainService.GetProductManufacturersByProductId(product.Id)
+                //    .Select(x => x.Manufacturer.ToModel())
+                //    .ToList()
+                //    );
+                var manufacturers = _manufacturerDomainService.GetProductManufacturersByProductId(product.Id);
+                model.ProductManufacturers = Mapper.Map<IList<ManufacturerDto>>(manufacturers);
+            }
             #endregion
 
             #region Rental products
 
-            //if (product.IsRental)
-            //{
-            //    model.IsRental = true;
-            //    //set already entered dates attributes (if we're going to update the existing shopping cart item)
-            //    if (updatecartitem != null)
-            //    {
-            //        model.RentalStartDate = updatecartitem.RentalStartDateUtc;
-            //        model.RentalEndDate = updatecartitem.RentalEndDateUtc;
-            //    }
-            //}
+            if (product.IsRental)
+            {
+                model.IsRental = true;
+                //set already entered dates attributes (if we're going to update the existing shopping cart item)
+                if (updatecartitem != null)
+                {
+                    model.RentalStartDate = updatecartitem.RentalStartDateUtc;
+                    model.RentalEndDate = updatecartitem.RentalEndDateUtc;
+                }
+            }
 
             #endregion
 

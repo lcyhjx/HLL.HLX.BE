@@ -8,6 +8,11 @@ namespace HLL.HLX.BE.Application.Mobility.Users.Dto
     public class UserDto : EntityDto<long>
     {
         /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName { get; set; }
+
+        /// <summary>
         ///     昵称
         /// </summary>
         public string NickName { get; set; }

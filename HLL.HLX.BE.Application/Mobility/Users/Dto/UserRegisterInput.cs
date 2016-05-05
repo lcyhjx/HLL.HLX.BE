@@ -82,7 +82,7 @@ namespace HLL.HLX.BE.Application.Mobility.Users.Dto
                 TenantId = tenantId,
                 Name = !string.IsNullOrEmpty(NickName) ? NickName : PhoneNumber,
                 Surname = PhoneNumber,
-                EmailAddress = PhoneNumber + "@51yas.com",
+                EmailAddress = PhoneNumber + "@51hlx.com",
                 IsEmailConfirmed = true,
                 UserName = PhoneNumber,
                 Password = Password,

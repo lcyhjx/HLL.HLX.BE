@@ -28,7 +28,20 @@ namespace HLL.HLX.BE.Application.Mobility.Videos.Dto
         /// </summary>
         [Required]
         public DateTime? EstimatedStartTime { get; set; }
-    
 
+        /// <summary>
+        /// 视频直播间Id
+        /// </summary>
+        public string LiveRoomId { get; set; }
+
+        /// <summary>
+        /// 聊天室号
+        /// </summary>
+        public string ChatRoomId { get; set; }
+
+        /// <summary>
+        /// 视频预览图
+        /// </summary>
+        public string LivePreviewImageBase64 { get; set; }
     }
 }

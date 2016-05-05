@@ -14,7 +14,7 @@ namespace HLL.HLX.BE.Application.Mobility.Users.Dto
         public long? UserId { get; set; }
 
         //[Required]
-        public byte[] ImageBytes { get; set; }
+        public string ImageBase64 { get; set; }
 
         /// <summary>
         ///     图片名称

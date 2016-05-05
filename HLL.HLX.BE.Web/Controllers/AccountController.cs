@@ -117,7 +117,7 @@ namespace HLL.HLX.BE.Web.Controllers
             var loginResult = await GetLoginResultAsync(
                 loginModel.UsernameOrEmailAddress,
                 loginModel.Password,
-                loginModel.TenancyName
+                null
                 );
 
             await SignInAsync(loginResult.User, loginResult.Identity, loginModel.RememberMe);

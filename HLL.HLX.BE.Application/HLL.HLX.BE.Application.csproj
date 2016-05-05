@@ -132,7 +132,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\Dto\BaseInput.cs" />
+    <Compile Include="Common\Dto\BasePageInput.cs" />
+    <Compile Include="Common\Dto\BasePageOutput.cs" />
     <Compile Include="Common\Dto\IdentityResultDto.cs" />
+    <Compile Include="Common\Dto\IPageInputDto.cs" />
     <Compile Include="HlxBeApplicationModule.cs" />
     <Compile Include="HlxBeAppServiceBase.cs" />
     <Compile Include="MobilityH5\Products\Dto\BackInStockSubscribeDto.cs" />
@@ -181,15 +184,26 @@
     <Compile Include="Mobility\Users\UserAppService.cs" />
     <Compile Include="Mobility\Videos\Dto\DeleteVideoInput.cs" />
     <Compile Include="Mobility\Videos\Dto\DeleteVideoOutput.cs" />
+    <Compile Include="Mobility\Videos\Dto\EndVideoInput.cs" />
+    <Compile Include="Mobility\Videos\Dto\EndVideoOutput.cs" />
+    <Compile Include="Mobility\Videos\Dto\EnterRoomInput.cs" />
+    <Compile Include="Mobility\Videos\Dto\EnterRoomOutput.cs" />
     <Compile Include="Mobility\Videos\Dto\GetEndedVideoInput.cs" />
     <Compile Include="Mobility\Videos\Dto\GetEndedVideoOutput.cs" />
-    <Compile Include="Mobility\Videos\Dto\GetLiveAndUnstartedVideoInput.cs" />
-    <Compile Include="Mobility\Videos\Dto\GetLiveAndUnstartedVideoOutput.cs" />
+    <Compile Include="Mobility\Videos\Dto\GetLiveVideoInput.cs" />
+    <Compile Include="Mobility\Videos\Dto\GetLiveVideoOutput.cs" />
+    <Compile Include="Mobility\Videos\Dto\GetUnstartedVideoInput.cs" />
+    <Compile Include="Mobility\Videos\Dto\GetUnstartedVideoOutput.cs" />
+    <Compile Include="Mobility\Videos\Dto\LeaveRoomInput.cs" />
+    <Compile Include="Mobility\Videos\Dto\LeaveRoomOutput.cs" />
     <Compile Include="Mobility\Videos\Dto\PublishVideoDto.cs" />
     <Compile Include="Mobility\Videos\Dto\PublishVideoInput.cs" />
     <Compile Include="Mobility\Videos\Dto\PublishVideoOutput.cs" />
+    <Compile Include="Mobility\Videos\Dto\StartVideoInput.cs" />
+    <Compile Include="Mobility\Videos\Dto\StartVideoOutput.cs" />
     <Compile Include="Mobility\Videos\Dto\VideoDisplayDto.cs" />
     <Compile Include="Mobility\Videos\Dto\VideoDto.cs" />
+    <Compile Include="Mobility\Videos\Dto\VideoExDto.cs" />
     <Compile Include="Mobility\Videos\IVideoAppService.cs" />
     <Compile Include="Mobility\Videos\VideoAppService.cs" />
     <Compile Include="MultiTenancy\Dto\CreateTenantInput.cs" />

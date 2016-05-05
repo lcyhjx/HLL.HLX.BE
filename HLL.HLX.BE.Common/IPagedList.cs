@@ -11,10 +11,10 @@ namespace HLL.HLX.BE.Common
     /// </summary>
     public interface IPagedList<T> : IList<T>
     {
-        int PageIndex { get; }
-        int PageSize { get; }
-        int TotalCount { get; }
-        int TotalPages { get; }
+        int PageIndex { get; set; }
+        int PageSize { get; set; }
+        int TotalCount { get; set; }
+        int TotalPages { get; set; }
         bool HasPreviousPage { get; }
         bool HasNextPage { get; }
     }

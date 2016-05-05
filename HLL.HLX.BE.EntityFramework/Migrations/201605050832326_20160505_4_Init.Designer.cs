@@ -7,13 +7,13 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class _20160410_Init : IMigrationMetadata
+    public sealed partial class _20160505_4_Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_20160410_Init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_20160505_4_Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201604271251502_20160410_Init"; }
+            get { return "201605050832326_20160505_4_Init"; }
         }
         
         string IMigrationMetadata.Source

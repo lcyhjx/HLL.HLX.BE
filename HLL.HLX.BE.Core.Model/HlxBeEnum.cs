@@ -13,10 +13,34 @@
     //{
     //}
 
+    //101 - Video
+
     public enum VideoStatus
     {
+       /// <summary>
+       /// 预告
+       /// </summary>
         Unstarted = 1010101,
+        /// <summary>
+        /// 直播中
+        /// </summary>
         Started = 1010102,
+        /// <summary>
+        /// 已结束
+        /// </summary>
         Ended = 1010103
+    }
+
+
+    public enum UserLiveRommStatus
+    {
+        /// <summary>
+        /// 在房间中
+        /// </summary>
+        In = 1010201,
+        /// <summary>
+        /// 已退出房间
+        /// </summary>
+        Out = 1010202
     }
 }

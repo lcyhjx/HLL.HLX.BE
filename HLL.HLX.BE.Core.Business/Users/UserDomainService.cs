@@ -111,30 +111,42 @@ namespace HLL.HLX.BE.Core.Business.Users
         /// <summary>
         /// 更新用户头像
         /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="imageBytes"></param>
-        public void UpdateUserAvatar(long userId, byte[] imageBytes)
+        /// <param name="userId"></param>        
+        /// <param name="imageBase64">用户头像</param>
+        public void UpdateUserAvatar(long userId, string imageBase64)
         {
             #region save iamge
-            string extension =ImageUtil.GetImageExtension(imageBytes);
-            string fileName = "UserAvatar_" + userId;
-            fileName += extension;
-
-
-            //string relativePath = HlxBeConsts.USER_AVATAR_DIR + "\\" + userId + "\\" + fileName;
+            
+            string fileName = "UserAvatar_" + userId;            
             string relativePath = HlxBeConsts.USER_AVATAR_DIR + "\\" + fileName;
-            string fullName = AppDomain.CurrentDomain.BaseDirectory + relativePath;
+            string fullNameNoExtension = AppDomain.CurrentDomain.BaseDirectory + relativePath;
 
-            FileUtil.CreateDirIfNotExist(fullName);
-            ImageUtil.CreateImageFromBytes(fullName, imageBytes);
+            
+            ImageUtil.Base64StringToImage(imageBase64, fullNameNoExtension);
 
             var imageFilePath = relativePath;
             #endregion
 
-            _userRepository.Update(userId, x =>
+            var item =_userAvatarRepository.FirstOrDefault(x => x.UserId == userId);
+            if (item == null)
             {
-                x.AvatarFilePath = imageFilePath;
-            });
+                item = new UserAvatar()
+                {
+                    UserId = userId,
+                    ImageFilePath = imageFilePath                    
+                };
+                _userAvatarRepository.Insert(item);
+            }
+            else
+            {
+                item.ImageFilePath = imageFilePath;
+                _userAvatarRepository.Update(item);
+            }
+
+            //_userRepository.Update(userId, x =>
+            //{
+            //    x.AvatarFilePath = imageFilePath;
+            //});
         }
     }
 }

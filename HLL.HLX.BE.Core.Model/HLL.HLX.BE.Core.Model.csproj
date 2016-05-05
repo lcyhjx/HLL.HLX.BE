@@ -151,6 +151,14 @@
     <Compile Include="Catalog\IProductCategoryRepository.cs" />
     <Compile Include="Catalog\IProductManufacturerRepository.cs" />
     <Compile Include="Catalog\IBackInStockSubscriptionRepository.cs" />
+    <Compile Include="Catalog\IProductReviewRepository.cs" />
+    <Compile Include="Catalog\IProductSpecificationAttributeRepository.cs" />
+    <Compile Include="Catalog\IProductWarehouseInventoryRepository.cs" />
+    <Compile Include="Catalog\IRelatedProductRepository.cs" />
+    <Compile Include="Catalog\ISpecificationAttributeRepository.cs" />
+    <Compile Include="Catalog\ISpecificationAttributeOptionRepository.cs" />
+    <Compile Include="Catalog\ITierPriceRepository.cs" />
+    <Compile Include="Catalog\IProductReviewHelpfulnessRepository.cs" />
     <Compile Include="Catalog\IProductRepository.cs" />
     <Compile Include="Catalog\IProductTagRepository.cs" />
     <Compile Include="Catalog\IProductTemplateRepository.cs" />
@@ -310,7 +318,9 @@
     <Compile Include="Vendors\Vendor.cs" />
     <Compile Include="Vendors\VendorNote.cs" />
     <Compile Include="Vendors\VendorSettings.cs" />
+    <Compile Include="Videos\IUserLiveRoomRepository.cs" />
     <Compile Include="Videos\IVideoRepository.cs" />
+    <Compile Include="Videos\UserLiveRoom.cs" />
     <Compile Include="Videos\Video.cs" />
   </ItemGroup>
   <ItemGroup>

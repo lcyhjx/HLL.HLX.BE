@@ -76,13 +76,8 @@ namespace HLL.HLX.BE.Common.Util
         /// <returns></returns>
         public static string CreateImageFromBytes(string fullName, byte[] buffer)
         {
-            //string file = fullName;
+            FileUtil.CreateDirIfNotExist(fullName);
 
-            //string fullName = AppDomain.CurrentDomain.BaseDirectory  + file;
-            //System.IO.FileInfo info = new System.IO.FileInfo(fullName);                     
-            //System.IO.Directory.CreateDirectory(info.Directory.FullName);
-
-            //FileHelper.DeleteFile(fullName);
             File.WriteAllBytes(fullName, buffer);
             return fullName;
         }
@@ -143,27 +138,32 @@ namespace HLL.HLX.BE.Common.Util
         }
 
         //base64编码的文本 转为 图片
-        public static string Base64StringToImage(string imgBase64,string filePath)
+        public static string Base64StringToImage(string imgBase64,string fullNameNoExtension)
         {
             try
             {
-                byte[] arr = Convert.FromBase64String(imgBase64);
-                MemoryStream ms = new MemoryStream(arr);
-                Bitmap bmp = new Bitmap(ms);
-                var filename = Guid.NewGuid() + ".jpg";
-                var folder = HttpContext.Current.Server.MapPath(filePath);
-                if (!Directory.Exists(folder))
-                {
-                    Directory.CreateDirectory(folder);
-                }
-                var fullname = Path.Combine(folder, filename);
-                bmp.Save(fullname, ImageFormat.Jpeg);
-                //bmp.Save(txtFileName + ".bmp", ImageFormat.Bmp);
-                //bmp.Save(txtFileName + ".gif", ImageFormat.Gif);
-                //bmp.Save(txtFileName + ".png", ImageFormat.Png);
-                ms.Close();
+                byte[] buffer = Convert.FromBase64String(imgBase64);
+                var extension = ImageUtil.GetImageExtension(buffer);
+                string fullName = fullNameNoExtension + extension;
+              
+                CreateImageFromBytes(fullName, buffer);
 
-                return filename;
+                //MemoryStream ms = new MemoryStream(arr);
+                //Bitmap bmp = new Bitmap(ms);
+                //var filename = Guid.NewGuid() + ".jpg";
+                //var folder = HttpContext.Current.Server.MapPath(filePath);
+                //if (!Directory.Exists(folder))
+                //{
+                //    Directory.CreateDirectory(folder);
+                //}
+                //var fullname = Path.Combine(folder, filename);
+                //bmp.Save(fullname, ImageFormat.Jpeg);
+                ////bmp.Save(txtFileName + ".bmp", ImageFormat.Bmp);
+                ////bmp.Save(txtFileName + ".gif", ImageFormat.Gif);
+                ////bmp.Save(txtFileName + ".png", ImageFormat.Png);
+                //ms.Close();
+
+                return fullName;
             }
             catch (Exception ex)
             {                

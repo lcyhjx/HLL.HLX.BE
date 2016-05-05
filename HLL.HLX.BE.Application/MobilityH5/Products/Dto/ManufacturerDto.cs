@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using HLL.HLX.BE.Core.Model.Catalog;
 
 namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
 {
+    [AutoMapFrom(typeof(Manufacturer))]
     public partial class ManufacturerDto : EntityDto<int>
     {
         public ManufacturerDto()
