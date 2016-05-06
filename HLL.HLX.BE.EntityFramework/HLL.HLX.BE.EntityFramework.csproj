@@ -238,6 +238,14 @@
     <Compile Include="Repositories\Catalog\ProductCategoryRepository.cs" />
     <Compile Include="Repositories\Catalog\ProductManufacturerRepository.cs" />
     <Compile Include="Repositories\Catalog\BackInStockSubscriptionRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductReviewRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductSpecificationAttributeRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductWarehouseInventoryRepository.cs" />
+    <Compile Include="Repositories\Catalog\RelatedProductRepository.cs" />
+    <Compile Include="Repositories\Catalog\SpecificationAttributeRepository.cs" />
+    <Compile Include="Repositories\Catalog\SpecificationAttributeOptionRepository.cs" />
+    <Compile Include="Repositories\Catalog\TierPriceRepository.cs" />
+    <Compile Include="Repositories\Catalog\ProductReviewHelpfulnessRepository.cs" />
     <Compile Include="Repositories\Catalog\ProductRepository.cs" />
     <Compile Include="Repositories\Catalog\ProductTagRepository.cs" />
     <Compile Include="Repositories\Catalog\ProductTemplateRepository.cs" />

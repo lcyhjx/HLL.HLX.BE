@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Abp.Domain.Entities.Auditing;
 using HLL.HLX.BE.Core.Model.Discounts;
+using HLL.HLX.BE.Core.Model.Stores;
 using HLL.HLX.BE.Core.Model.Users;
 
 namespace HLL.HLX.BE.Core.Model.Catalog
@@ -10,7 +11,7 @@ namespace HLL.HLX.BE.Core.Model.Catalog
     /// <summary>
     ///     Represents a product
     /// </summary>
-    public class Product : FullAuditedEntity<int,User>
+    public class Product : FullAuditedEntity<int,User> , IStoreMappingSupported
     {
         private ICollection<Discount> _appliedDiscounts;
         private ICollection<ProductAttributeCombination> _productAttributeCombinations;
