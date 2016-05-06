@@ -145,6 +145,7 @@
     <Compile Include="Catalog\ProductTagDomainService.cs" />
     <Compile Include="Catalog\ProductTemplateDomainService.cs" />
     <Compile Include="Catalog\RoundingHelper.cs" />
+    <Compile Include="Catalog\SpecificationAttributeDomainService.cs" />
     <Compile Include="Catalog\TierPriceExtensions.cs" />
     <Compile Include="Common\AddressAttributeDomainService.cs" />
     <Compile Include="Common\AddressDomainService.cs" />

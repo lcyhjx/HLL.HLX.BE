@@ -6,12 +6,14 @@ using Abp.Domain.Repositories;
 using Abp.Runtime.Caching;
 using Abp.UI;
 using AutoMapper;
+using HLL.HLX.BE.Application.Common;
 using HLL.HLX.BE.Application.MobilityH5.Products.Dto;
 using HLL.HLX.BE.Common;
 using HLL.HLX.BE.Core.Business.Catalog;
 using HLL.HLX.BE.Core.Business.Configuration;
 using HLL.HLX.BE.Core.Business.Directory;
 using HLL.HLX.BE.Core.Business.Media;
+using HLL.HLX.BE.Core.Business.Orders;
 using HLL.HLX.BE.Core.Business.Shipping;
 using HLL.HLX.BE.Core.Business.Stores;
 using HLL.HLX.BE.Core.Business.Tax;
@@ -42,6 +44,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
         private readonly ProductAttributeDomainService _productAttributeDomainService;
         private readonly DownloadDomainService _downloadDomainService;
         private readonly ManufacturerDomainService _manufacturerDomainService;
+        private readonly SpecificationAttributeDomainService _specificationAttributeDomainService;
 
         private readonly IVendorTest _vendorTest;
         private readonly IStoreContext _storeContext;
@@ -129,6 +132,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             , ProductAttributeDomainService productAttributeDomainService
             , DownloadDomainService downloadDomainService
             , ManufacturerDomainService manufacturerDomainService
+            , SpecificationAttributeDomainService specificationAttributeDomainService
 
             , IVendorTest vendorTest
             , IStoreContext storeContext
@@ -148,6 +152,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             _productAttributeDomainService = productAttributeDomainService;            
             _downloadDomainService = downloadDomainService;
             _manufacturerDomainService = manufacturerDomainService;
+            _specificationAttributeDomainService = specificationAttributeDomainService;
 
             _vendorTest = vendorTest;
             _storeContext = storeContext;
@@ -169,8 +174,6 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             {
                 throw new UserFriendlyException(string.Format("商品[ID:{0}]不存在", input.ProductId.GetValueOrDefault()));
             }
-
-
 
             int aa = 5;
 
@@ -207,10 +210,10 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //}
 
             //update existing shopping cart item?
-            //ShoppingCartItem updatecartitem = null;
+            ShoppingCartItem updatecartitem = null;
             //if (_shoppingCartSettings.AllowCartItemEditing && updatecartitemid > 0)
             //{
-            //    var cart = _workContext.CurrentCustomer.ShoppingCartItems
+            //    var cart = CurrentUser.ShoppingCartItems
             //        .Where(x => x.ShoppingCartType == ShoppingCartType.ShoppingCart)
             //        .LimitPerStore(_storeContext.CurrentStore.Id)
             //        .ToList();
@@ -227,8 +230,8 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             //    }
             //}
 
-            ////prepare the model
-            //var model = PrepareProductDetailsPageModel(product, updatecartitem, false);
+            //prepare the model
+            var model = PrepareProductDetailsPageDto(product, updatecartitem, false);
 
             ////save as recently viewed
             //_recentlyViewedProductsService.AddProductToRecentlyViewedList(product.Id);
@@ -238,7 +241,13 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             //return View(model.ProductTemplateViewPath, model);
 
-            return new ProductDetailsOutput();
+            return new ProductDetailsOutput()
+
+            {
+                ProductDetail =  model
+            };
+
+
         }
 
         #endregion
@@ -852,14 +861,14 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             #region Product specifications
 
-            ////do not prepare this model for the associated products. any it's not used
-            //if (!isAssociatedProduct)
-            //{
-            //    model.ProductSpecifications = this.PrepareProductSpecificationModel(_workContext,
-            //        _specificationAttributeService,
-            //        _cacheManager,
-            //        product);
-            //}
+            //do not prepare this model for the associated products. any it's not used
+            if (!isAssociatedProduct)
+            {
+                model.ProductSpecifications = this.PrepareProductSpecificationModel(
+                    _specificationAttributeDomainService,
+                    _cacheManager,
+                    product);
+            }
 
             #endregion
 
@@ -941,16 +950,16 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             #region Associated products
 
 
-            //if (product.ProductType == ProductType.GroupedProduct)
-            //{
-            //    //ensure no circular references
-            //    if (!isAssociatedProduct)
-            //    {
-            //        var associatedProducts = _productDomainService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
-            //        foreach (var associatedProduct in associatedProducts)
-            //            model.AssociatedProducts.Add(PrepareProductDetailsPageDto(associatedProduct, null, true));
-            //    }
-            //}
+            if (product.ProductType == ProductType.GroupedProduct)
+            {
+                //ensure no circular references
+                if (!isAssociatedProduct)
+                {
+                    var associatedProducts = _productDomainService.GetAssociatedProducts(product.Id, _storeContext.CurrentStore.Id);
+                    foreach (var associatedProduct in associatedProducts)
+                        model.AssociatedProducts.Add(PrepareProductDetailsPageDto(associatedProduct, null, true));
+                }
+            }
 
             #endregion
 
