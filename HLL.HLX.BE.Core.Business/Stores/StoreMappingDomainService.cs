@@ -9,6 +9,7 @@ using Abp.Runtime.Caching;
 using HLL.HLX.BE.Core.Model.Catalog;
 using HLL.HLX.BE.Core.Model.Stores;
 using Abp.Domain.Entities.Auditing;
+using HLL.HLX.BE.Core.Business.Configuration;
 using HLL.HLX.BE.Core.Model.Users;
 
 namespace HLL.HLX.BE.Core.Business.Stores
@@ -40,8 +41,21 @@ namespace HLL.HLX.BE.Core.Business.Stores
         private readonly IStoreMappingRepository _storeMappingRepository;
         private readonly IStoreContext _storeContext;
         private readonly ICacheManager _cacheManager;
-        //private readonly IEventPublisher _eventPublisher;
-        private readonly CatalogSettings _catalogSettings;
+        //private readonly IEventPublisher _eventPublisher;    
+        private readonly SettingDomainService _settingDomainService;
+
+        private CatalogSettings _catalogSettings1;
+        public CatalogSettings CatalogSettings
+        {
+            get
+            {
+                if (_catalogSettings1 == null)
+                {
+                    _catalogSettings1 = _settingDomainService.LoadSetting<CatalogSettings>(_storeContext.CurrentStore.Id);
+                }
+                return _catalogSettings1;
+            }
+        }
 
         #endregion
 
@@ -58,15 +72,17 @@ namespace HLL.HLX.BE.Core.Business.Stores
         public StoreMappingDomainService(ICacheManager cacheManager,
             IStoreContext storeContext,
             IStoreMappingRepository storeMappingRepository,
-            CatalogSettings catalogSettings
+            //CatalogSettings catalogSettings
             //,IEventPublisher eventPublisher
+            SettingDomainService settingDomainService
             )
         {
             this._cacheManager = cacheManager;
             this._storeContext = storeContext;
             this._storeMappingRepository = storeMappingRepository;
-            this._catalogSettings = catalogSettings;
+            //this._catalogSettings = catalogSettings;
             //this._eventPublisher = eventPublisher;
+            _settingDomainService = settingDomainService;
         }
 
         #endregion
@@ -242,7 +258,7 @@ namespace HLL.HLX.BE.Core.Business.Stores
                 //return true if no store specified/found
                 return true;
 
-            if (_catalogSettings.IgnoreStoreLimitations)
+            if (CatalogSettings.IgnoreStoreLimitations)
                 return true;
 
             if (!entity.LimitedToStores)

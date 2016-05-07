@@ -3,7 +3,7 @@ using Abp.Application.Services.Dto;
 
 namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
 {
-    public partial class ProductReviewOverviewModel
+    public partial class ProductReviewOverviewDto
     {
         public int ProductId { get; set; }
 
@@ -14,12 +14,12 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
         public bool AllowCustomerReviews { get; set; }
     }
     
-    public partial class ProductReviewsModel 
+    public partial class ProductReviewsDto 
     {
-        public ProductReviewsModel()
+        public ProductReviewsDto()
         {
             Items = new List<ProductReviewDto>();
-            AddProductReview = new AddProductReviewModel();
+            AddProductReview = new AddProductReviewDto();
         }
         public int ProductId { get; set; }
 
@@ -28,7 +28,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
         public string ProductSeName { get; set; }
 
         public IList<ProductReviewDto> Items { get; set; }
-        public AddProductReviewModel AddProductReview { get; set; }
+        public AddProductReviewDto AddProductReview { get; set; }
     }
 
     public partial class ProductReviewDto : EntityDto<int>
@@ -45,13 +45,13 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
 
         public int Rating { get; set; }
 
-        public ProductReviewHelpfulnessModel Helpfulness { get; set; }
+        public ProductReviewHelpfulnessDto Helpfulness { get; set; }
 
         public string WrittenOnStr { get; set; }
     }
 
 
-    public partial class ProductReviewHelpfulnessModel 
+    public partial class ProductReviewHelpfulnessDto 
     {
         public int ProductReviewId { get; set; }
 
@@ -60,7 +60,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
         public int HelpfulNoTotal { get; set; }
     }
 
-    public partial class AddProductReviewModel 
+    public partial class AddProductReviewDto 
     {
         public string Title { get; set; }
         public string ReviewText { get; set; }

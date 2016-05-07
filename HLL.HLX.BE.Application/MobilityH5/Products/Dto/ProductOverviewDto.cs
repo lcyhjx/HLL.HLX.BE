@@ -11,7 +11,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
             ProductPrice = new ProductPriceModel();
             DefaultPictureModel = new PictureDto();
             SpecificationAttributeModels = new List<ProductSpecificationDto>();
-            ReviewOverviewModel = new ProductReviewOverviewModel();
+            ReviewOverviewModel = new ProductReviewOverviewDto();
         }
 
         public string Name { get; set; }
@@ -28,7 +28,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
         //specification attributes
         public IList<ProductSpecificationDto> SpecificationAttributeModels { get; set; }
         //price
-        public ProductReviewOverviewModel ReviewOverviewModel { get; set; }
+        public ProductReviewOverviewDto ReviewOverviewModel { get; set; }
 
 		#region Nested Classes
 

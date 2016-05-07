@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.Runtime.Caching;
 using Abp.UI;
@@ -163,11 +164,14 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
         #region Product details page
 
+        /// <summary>
+        /// 获取产品明细页面所需要的数据
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [AbpAuthorize]
         public ProductDetailsOutput ProductDetails(ProductDetailsInput input)
         {
-
-           
-            var b = _vendorTest.GetTest();
 
             var product = _productDomainService.GetProductById(input.ProductId.GetValueOrDefault());
             if (product == null || product.Deleted)
@@ -175,7 +179,6 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
                 throw new UserFriendlyException(string.Format("商品[ID:{0}]不存在", input.ProductId.GetValueOrDefault()));
             }
 
-            int aa = 5;
 
             //published?
             //if (!_catalogSettings.AllowViewUnpublishedProductPage)
@@ -262,36 +265,27 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             #region Standard properties
 
-            //var model = new ProductDetailsDto
-            //{
-            //    Id = product.Id,
-            //    Name = product.GetLocalized(x => x.Name),
-            //    ShortDescription = product.GetLocalized(x => x.ShortDescription),
-            //    FullDescription = product.GetLocalized(x => x.FullDescription),
-            //    MetaKeywords = product.GetLocalized(x => x.MetaKeywords),
-            //    MetaDescription = product.GetLocalized(x => x.MetaDescription),
-            //    MetaTitle = product.GetLocalized(x => x.MetaTitle),
-            //    SeName = product.GetSeName(),
-            //    ShowSku = _catalogSettings.ShowProductSku,
-            //    Sku = product.Sku,
-            //    ShowManufacturerPartNumber = _catalogSettings.ShowManufacturerPartNumber,
-            //    FreeShippingNotificationEnabled = _catalogSettings.ShowFreeShippingNotification,
-            //    ManufacturerPartNumber = product.ManufacturerPartNumber,
-            //    ShowGtin = _catalogSettings.ShowGtin,
-            //    Gtin = product.Gtin,
-            //    StockAvailability = product.FormatStockMessage("", _localizationService, _productAttributeParser),
-            //    HasSampleDownload = product.IsDownload && product.HasSampleDownload,
-            //    DisplayDiscontinuedMessage = !product.Published && _catalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
-            //};
-
-            var model = Mapper.Map<ProductDetailsDto>(product);
-            model.HasSampleDownload = product.IsDownload && product.HasSampleDownload;
-            model.ShowSku = CatalogSettings.ShowProductSku;
-            model.ShowManufacturerPartNumber = CatalogSettings.ShowManufacturerPartNumber;
-            model.FreeShippingNotificationEnabled = CatalogSettings.ShowFreeShippingNotification;
-            model.ShowGtin = CatalogSettings.ShowGtin;
-            model.DisplayDiscontinuedMessage = !product.Published &&
-                                               CatalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts;
+            var model = new ProductDetailsDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                ShortDescription = product.ShortDescription,
+                FullDescription = product.FullDescription,
+                MetaKeywords = product.MetaKeywords,
+                MetaDescription = product.MetaDescription,
+                MetaTitle = product.MetaTitle,
+                //SeName = product.GetSeName(),
+                ShowSku = CatalogSettings.ShowProductSku,
+                Sku = product.Sku,
+                ShowManufacturerPartNumber = CatalogSettings.ShowManufacturerPartNumber,
+                FreeShippingNotificationEnabled = CatalogSettings.ShowFreeShippingNotification,
+                ManufacturerPartNumber = product.ManufacturerPartNumber,
+                ShowGtin = CatalogSettings.ShowGtin,
+                Gtin = product.Gtin,
+                StockAvailability = product.FormatStockMessage("",_productAttributeParser),
+                HasSampleDownload = product.IsDownload && product.HasSampleDownload,
+                DisplayDiscontinuedMessage = !product.Published && CatalogSettings.DisplayDiscontinuedMessageForUnpublishedProducts
+            };
 
             //automatically generate product description?
             if (SeoSettings.GenerateProductMetaDescription && String.IsNullOrEmpty(model.MetaDescription))
@@ -699,7 +693,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
             }
             foreach (var attribute in productAttributeMapping)
             {
-                var attributeModel = new ProductDetailsDto.ProductAttributeModel
+                var attributeModel = new ProductDetailsDto.ProductAttributeDto
                 {
                     Id = attribute.Id,
                     ProductId = product.Id,
@@ -725,7 +719,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
                     var attributeValues = _productAttributeDomainService.GetProductAttributeValues(attribute.Id);
                     foreach (var attributeValue in attributeValues)
                     {
-                        var valueModel = new ProductDetailsDto.ProductAttributeValueModel
+                        var valueModel = new ProductDetailsDto.ProductAttributeValueDto
                         {
                             Id = attributeValue.Id,
                             Name = attributeValue.Name,
@@ -874,7 +868,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
 
             #region Product review overview
 
-            model.ProductReviewOverview = new ProductReviewOverviewModel
+            model.ProductReviewOverview = new ProductReviewOverviewDto
             {
                 ProductId = product.Id,
                 RatingSum = product.ApprovedRatingSum,
@@ -896,7 +890,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products
                     .RemoveDuplicatedQuantities()
                     .Select(tierPrice =>
                     {
-                        var m = new ProductDetailsDto.TierPriceModel
+                        var m = new ProductDetailsDto.TierPriceDto
                         {
                             Quantity = tierPrice.Quantity,
                         };

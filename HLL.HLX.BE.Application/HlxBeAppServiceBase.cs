@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.IdentityFramework;
 using Abp.Runtime.Session;
+using Abp.UI;
 using HLL.HLX.BE.Core.Business.MultiTenancy;
 using HLL.HLX.BE.Core.Business.Users;
 using HLL.HLX.BE.Core.Model;
@@ -51,7 +52,7 @@ namespace HLL.HLX.BE.Application
                     var user = UserManager.FindById(AbpSession.GetUserId());
                     if (user == null)
                     {
-                        throw new ApplicationException("There is no current user!");
+                        throw new UserFriendlyException("There is no current user!");
                     }
                     _cachedUser = user;
                     return user;

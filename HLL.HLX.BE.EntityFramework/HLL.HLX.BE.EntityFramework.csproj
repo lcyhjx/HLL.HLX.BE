@@ -219,9 +219,9 @@
     <Compile Include="Mapping\Videos\UserLiveRoomMap.cs" />
     <Compile Include="Mapping\Videos\VideoMap.cs" />
     <Compile Include="HlxBeDbContext.cs" />
-    <Compile Include="Migrations\201605050832326_20160505_4_Init.cs" />
-    <Compile Include="Migrations\201605050832326_20160505_4_Init.Designer.cs">
-      <DependentUpon>201605050832326_20160505_4_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201605070033429_20160507_Init.cs" />
+    <Compile Include="Migrations\201605070033429_20160507_Init.Designer.cs">
+      <DependentUpon>201605070033429_20160507_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\HlxDbMigration.cs" />
     <Compile Include="Repositories\Catalog\PredefinedProductAttributeValueRepository.cs" />
@@ -304,8 +304,8 @@
     <Content Include="DBScript\SqlServer.StoredProcedures.sql" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201605050832326_20160505_4_Init.resx">
-      <DependentUpon>201605050832326_20160505_4_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605070033429_20160507_Init.resx">
+      <DependentUpon>201605070033429_20160507_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

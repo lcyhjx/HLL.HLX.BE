@@ -17,18 +17,18 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
         {
             DefaultPictureModel = new PictureDto();
             PictureModels = new List<PictureDto>();
-            GiftCard = new GiftCardModel();
-            ProductPrice = new ProductPriceModel();
-            AddToCart = new AddToCartModel();
-            ProductAttributes = new List<ProductAttributeModel>();
+            GiftCard = new GiftCardDto();
+            ProductPrice = new ProductPriceDto();
+            AddToCart = new AddToCartDto();
+            ProductAttributes = new List<ProductAttributeDto>();
             AssociatedProducts = new List<ProductDetailsDto>();
             VendorDto = new VendorBriefInfoDto();
-            Breadcrumb = new ProductBreadcrumbModel();
+            Breadcrumb = new ProductBreadcrumbDto();
             ProductTags = new List<ProductTagDto>();
             ProductSpecifications = new List<ProductSpecificationDto>();
             ProductManufacturers = new List<ManufacturerDto>();
-            ProductReviewOverview = new ProductReviewOverviewModel();
-            TierPrices = new List<TierPriceModel>();
+            ProductReviewOverview = new ProductReviewOverviewDto();
+            TierPrices = new List<TierPriceDto>();
         }
 
         //picture(s)
@@ -59,7 +59,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
 
         public bool HasSampleDownload { get; set; }
 
-        public GiftCardModel GiftCard { get; set; }
+        public GiftCardDto GiftCard { get; set; }
 
         public bool IsShipEnabled { get; set; }
         public bool IsFreeShipping { get; set; }
@@ -80,23 +80,23 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
 
         public string PageShareCode { get; set; }
 
-        public ProductPriceModel ProductPrice { get; set; }
+        public ProductPriceDto ProductPrice { get; set; }
 
-        public AddToCartModel AddToCart { get; set; }
+        public AddToCartDto AddToCart { get; set; }
 
-        public ProductBreadcrumbModel Breadcrumb { get; set; }
+        public ProductBreadcrumbDto Breadcrumb { get; set; }
 
         public IList<ProductTagDto> ProductTags { get; set; }
 
-        public IList<ProductAttributeModel> ProductAttributes { get; set; }
+        public IList<ProductAttributeDto> ProductAttributes { get; set; }
 
         public IList<ProductSpecificationDto> ProductSpecifications { get; set; }
 
         public IList<ManufacturerDto> ProductManufacturers { get; set; }
 
-        public ProductReviewOverviewModel ProductReviewOverview { get; set; }
+        public ProductReviewOverviewDto ProductReviewOverview { get; set; }
 
-        public IList<TierPriceModel> TierPrices { get; set; }
+        public IList<TierPriceDto> TierPrices { get; set; }
 
         //a list of associated products. For example, "Grouped" products could have several child "simple" products
         public IList<ProductDetailsDto> AssociatedProducts { get; set; }
@@ -105,9 +105,9 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
 
         #region Nested Classes
 
-        public partial class ProductBreadcrumbModel : EntityDto<int>
+        public partial class ProductBreadcrumbDto : EntityDto<int>
         {
-            public ProductBreadcrumbModel()
+            public ProductBreadcrumbDto()
             {
                 CategoryBreadcrumb = new List<CategorySimpleDto>();
             }
@@ -119,9 +119,9 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
             public IList<CategorySimpleDto> CategoryBreadcrumb { get; set; }
         }
 
-        public partial class AddToCartModel : EntityDto<int>
+        public partial class AddToCartDto : EntityDto<int>
         {
-            public AddToCartModel()
+            public AddToCartDto()
             {
                 this.AllowedQuantities = new List<int>();
             }
@@ -151,7 +151,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
             public int UpdatedShoppingCartItemId { get; set; }
         }
 
-        public partial class ProductPriceModel : EntityDto<int>
+        public partial class ProductPriceDto : EntityDto<int>
         {
             /// <summary>
             /// The currency (in 3-letter ISO 4217 format) of the offer price 
@@ -186,7 +186,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
             public string BasePricePAngV { get; set; }
         }
 
-        public partial class GiftCardModel : EntityDto<int>
+        public partial class GiftCardDto : EntityDto<int>
         {
             public bool IsGiftCard { get; set; }
             public string RecipientName { get; set; }
@@ -202,19 +202,19 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
             public GiftCardType GiftCardType { get; set; }
         }
 
-        public partial class TierPriceModel : EntityDto<int>
+        public partial class TierPriceDto : EntityDto<int>
         {
             public string Price { get; set; }
 
             public int Quantity { get; set; }
         }
 
-        public partial class ProductAttributeModel : EntityDto<int>
+        public partial class ProductAttributeDto : EntityDto<int>
         {
-            public ProductAttributeModel()
+            public ProductAttributeDto()
             {
                 AllowedFileExtensions = new List<string>();
-                Values = new List<ProductAttributeValueModel>();
+                Values = new List<ProductAttributeValueDto>();
             }
 
             public int ProductId { get; set; }
@@ -258,13 +258,13 @@ namespace HLL.HLX.BE.Application.MobilityH5.Products.Dto
 
             public AttributeControlType AttributeControlType { get; set; }
 
-            public IList<ProductAttributeValueModel> Values { get; set; }
+            public IList<ProductAttributeValueDto> Values { get; set; }
 
         }
 
-        public partial class ProductAttributeValueModel : EntityDto<int>
+        public partial class ProductAttributeValueDto : EntityDto<int>
         {
-            public ProductAttributeValueModel()
+            public ProductAttributeValueDto()
             {
                 PictureModel = new PictureDto();
             }

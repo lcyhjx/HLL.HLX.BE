@@ -5,7 +5,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
     
-    public partial class _20160505_4_Init : HlxDbMigration
+    public partial class _20160507_Init : HlxDbMigration
     {
         public override void Up()
         {
@@ -2779,8 +2779,8 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        ProductId1 = c.Long(nullable: false),
-                        ProductId2 = c.Long(nullable: false),
+                        ProductId1 = c.Int(nullable: false),
+                        ProductId2 = c.Int(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                         DeleterUserId = c.Long(),
                         DeletionTime = c.DateTime(),
@@ -2996,8 +2996,9 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 .ForeignKey("dbo.ProductTag", t => t.ProductTag_Id, cascadeDelete: true)
                 .Index(t => t.Product_Id)
                 .Index(t => t.ProductTag_Id);
-            
+
             base.Up();
+            
         }
         
         public override void Down()
