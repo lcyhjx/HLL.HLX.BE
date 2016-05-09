@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Abp.Domain.Entities.Auditing;
 using HLL.HLX.BE.Core.Model.Catalog;
+using HLL.HLX.BE.Core.Model.Stores;
 using HLL.HLX.BE.Core.Model.Users;
 
 namespace HLL.HLX.BE.Core.Model.Orders
@@ -8,7 +9,7 @@ namespace HLL.HLX.BE.Core.Model.Orders
     /// <summary>
     /// Represents a checkout attribute
     /// </summary>
-    public partial class CheckoutAttribute : FullAuditedEntity<int, User>
+    public partial class CheckoutAttribute : FullAuditedEntity<int, User>, IStoreMappingSupported
     {
         private ICollection<CheckoutAttributeValue> _checkoutAttributeValues;
 
