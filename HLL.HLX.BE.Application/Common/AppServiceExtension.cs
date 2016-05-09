@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Abp.Application.Services;
 using Abp.Runtime.Caching;
-using HLL.HLX.BE.Application.MobilityH5.Products.Dto;
+using HLL.HLX.BE.Application.MobilityH5.Catalog.Dto;
 using HLL.HLX.BE.Core.Business.Catalog;
 using HLL.HLX.BE.Core.Business.Stores;
 using HLL.HLX.BE.Core.Model.Catalog;

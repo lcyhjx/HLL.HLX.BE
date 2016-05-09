@@ -6,6 +6,7 @@ using Abp.Modules;
 using Abp.WebApi;
 using Abp.WebApi.Controllers.Dynamic.Builders;
 using HLL.HLX.BE.Application;
+using HLL.HLX.BE.Application.MobilityH5.Catalog;
 
 namespace HLL.HLX.BE.WebApi.Api
 {
@@ -49,7 +50,7 @@ namespace HLL.HLX.BE.WebApi.Api
 
             #region MobilityH5 Web Api
             DynamicApiControllerBuilder
-               .For<Application.MobilityH5.Products.IProductAppService>("app/mobilityh5/product")
+               .For<IProductAppService>("app/mobilityh5/product")
                .Build();
             #endregion
 

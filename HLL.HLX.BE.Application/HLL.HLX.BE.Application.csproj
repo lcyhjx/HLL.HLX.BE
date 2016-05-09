@@ -139,32 +139,34 @@
     <Compile Include="Common\Dto\IPageInputDto.cs" />
     <Compile Include="HlxBeApplicationModule.cs" />
     <Compile Include="HlxBeAppServiceBase.cs" />
-    <Compile Include="MobilityH5\Products\Dto\BackInStockSubscribeDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\CategoryDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\CategoryNavigationDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\CategorySimpleDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\CompareProductsDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\CustomerBackInStockSubscriptionsDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ManufacturerDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ManufacturerNavigationDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\PictureDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\PopularProductTagsDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductDetailsDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductDetailsInput.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductDetailsOutput.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductEmailAFriendDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductOverviewDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductReviewDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductsByTagDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductSpecificationDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\ProductTagDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\SearchBoxDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\SearchDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\TopMenuDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\VendorDto.cs" />
-    <Compile Include="MobilityH5\Products\Dto\VendorNavigationDto.cs" />
-    <Compile Include="MobilityH5\Products\IProductAppService.cs" />
-    <Compile Include="MobilityH5\Products\ProductAppService.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\BackInStockSubscribeDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\CategoryDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\CategoryNavigationDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\CategorySimpleDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\CompareProductsDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\CustomerBackInStockSubscriptionsDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ManufacturerDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ManufacturerNavigationDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\PictureDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\PopularProductTagsDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductDetailsDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductDetailsInput.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductDetailsOutput.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductEmailAFriendDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductOverviewDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductReviewDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductsByTagDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductSpecificationDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\ProductTagDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\SearchBoxDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\SearchDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\TopMenuDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\VendorDto.cs" />
+    <Compile Include="MobilityH5\Catalog\Dto\VendorNavigationDto.cs" />
+    <Compile Include="MobilityH5\Catalog\IProductAppService.cs" />
+    <Compile Include="MobilityH5\Catalog\ProductAppService.cs" />
+    <Compile Include="MobilityH5\Orders\IShoppingCartAppService.cs" />
+    <Compile Include="MobilityH5\Orders\ShoppingCartAppService.cs" />
     <Compile Include="Mobility\Users\Dto\GetUserAvatarInput.cs" />
     <Compile Include="Mobility\Users\Dto\GetUserAvatarOutput.cs" />
     <Compile Include="Mobility\Users\Dto\GetUserByIdInput.cs" />
@@ -242,7 +244,9 @@
       <Name>HLL.HLX.BE.Core.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="MobilityH5\Orders\Dto\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

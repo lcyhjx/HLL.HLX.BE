@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using Abp.AutoMapper;
 using Abp.Modules;
-using HLL.HLX.BE.Application.MobilityH5.Products;
 using HLL.HLX.BE.Core.Business;
 using HLL.HLX.BE.Core.Model;
 using Castle.MicroKernel.Registration;
