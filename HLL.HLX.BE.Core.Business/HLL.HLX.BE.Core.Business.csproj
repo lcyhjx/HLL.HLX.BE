@@ -173,6 +173,8 @@
     <Compile Include="Orders\AppliedGiftCard.cs" />
     <Compile Include="Orders\CheckoutAttributeDomainService.cs" />
     <Compile Include="Orders\CheckoutAttributeExtensions.cs" />
+    <Compile Include="Orders\CheckoutAttributeParser.cs" />
+    <Compile Include="Orders\ICheckoutAttributeParser.cs" />
     <Compile Include="Orders\ShoppingCartExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Authorization\Roles\RoleManager.cs" />
