@@ -59,26 +59,25 @@ namespace HLL.HLX.BE.Core.Model.Users
         /// </summary>
         public bool IsTaxExempt { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether this customer has some products in the shopping cart
+        /// <remarks>The same as if we run this.ShoppingCartItems.Count > 0
+        /// We use this property for performance optimization:
+        /// if this property is set to false, then we do not need to load "ShoppingCartItems" navigation property for each page load
+        /// It's used only in a couple of places in the presenation layer
+        /// </remarks>
+        /// </summary>
+        public bool HasShoppingCartItems { get; set; }
 
-        public static string CreateRandomPassword()
-        {
-            return Guid.NewGuid().ToString("N").Truncate(16);
-        }
+        /// <summary>
+        /// Gets or sets a value indicating whether the customer account is system
+        /// </summary>
+        public bool IsSystemAccount { get; set; }
 
-        public static User CreateTenantAdminUser(int tenantId, string emailAddress, string password)
-        {
-            return new User
-            {
-                TenantId = tenantId,
-                UserName = AdminUserName,
-                Name = AdminUserName,
-                Surname = AdminUserName,
-                EmailAddress = emailAddress,
-                Password = new PasswordHasher().HashPassword(password)
-            };
-        }
-
-
+        /// <summary>
+        /// Gets or sets the customer system name
+        /// </summary>
+        public string SystemName { get; set; }
 
 
         /// <summary>
@@ -117,6 +116,25 @@ namespace HLL.HLX.BE.Core.Model.Users
         {
             get { return _addresses ?? (_addresses = new List<Address>()); }
             protected set { _addresses = value; }
+        }
+
+
+        public static string CreateRandomPassword()
+        {
+            return Guid.NewGuid().ToString("N").Truncate(16);
+        }
+
+        public static User CreateTenantAdminUser(int tenantId, string emailAddress, string password)
+        {
+            return new User
+            {
+                TenantId = tenantId,
+                UserName = AdminUserName,
+                Name = AdminUserName,
+                Surname = AdminUserName,
+                EmailAddress = emailAddress,
+                Password = new PasswordHasher().HashPassword(password)
+            };
         }
     }
 }

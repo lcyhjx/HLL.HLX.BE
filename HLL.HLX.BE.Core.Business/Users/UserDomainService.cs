@@ -8,7 +8,9 @@ using Abp.IO;
 using Abp.UI;
 using Castle.DynamicProxy.Generators.Emitters;
 using HLL.HLX.BE.Common.Util;
+using HLL.HLX.BE.Core.Business.Common;
 using HLL.HLX.BE.Core.Model;
+using HLL.HLX.BE.Core.Model.Shipping;
 using HLL.HLX.BE.Core.Model.Users;
 using Microsoft.AspNet.Identity;
 
@@ -22,14 +24,17 @@ namespace HLL.HLX.BE.Core.Business.Users
         private readonly IUserRepository _userRepository;
         private readonly UserManager _userManager;
         private readonly IUserAvatarRepository _userAvatarRepository;
+        private readonly GenericAttributeDomianService _genericAttributeService;
 
         public UserDomainService(IUserRepository userRepository,
            UserManager userManager,
-           IUserAvatarRepository userAvatarRepository)
+           IUserAvatarRepository userAvatarRepository
+            , GenericAttributeDomianService genericAttributeService)
         {
             _userRepository = userRepository;
             _userAvatarRepository = userAvatarRepository;
             _userManager = userManager;
+            _genericAttributeService = genericAttributeService;
         }
 
         /// <summary>
@@ -109,6 +114,21 @@ namespace HLL.HLX.BE.Core.Business.Users
         }
 
         /// <summary>
+        /// Updates the customer
+        /// </summary>
+        /// <param name="customer">Customer</param>
+        public virtual void UpdateCustomer(User customer)
+        {
+            if (customer == null)
+                throw new ArgumentNullException("customer");
+
+            _userRepository.Update(customer);
+
+            //event notification
+            //_eventPublisher.EntityUpdated(customer);
+        }
+
+        /// <summary>
         /// 更新用户头像
         /// </summary>
         /// <param name="userId"></param>        
@@ -147,6 +167,61 @@ namespace HLL.HLX.BE.Core.Business.Users
             //{
             //    x.AvatarFilePath = imageFilePath;
             //});
+        }
+
+
+        /// <summary>
+        /// Reset data required for checkout
+        /// </summary>
+        /// <param name="customer">Customer</param>
+        /// <param name="storeId">Store identifier</param>
+        /// <param name="clearCouponCodes">A value indicating whether to clear coupon code</param>
+        /// <param name="clearCheckoutAttributes">A value indicating whether to clear selected checkout attributes</param>
+        /// <param name="clearRewardPoints">A value indicating whether to clear "Use reward points" flag</param>
+        /// <param name="clearShippingMethod">A value indicating whether to clear selected shipping method</param>
+        /// <param name="clearPaymentMethod">A value indicating whether to clear selected payment method</param>
+        public virtual void ResetCheckoutData(User customer, int storeId,
+            bool clearCouponCodes = false, bool clearCheckoutAttributes = false,
+            bool clearRewardPoints = true, bool clearShippingMethod = true,
+            bool clearPaymentMethod = true)
+        {
+            if (customer == null)
+                throw new ArgumentNullException();
+
+            //clear entered coupon codes
+            if (clearCouponCodes)
+            {
+                _genericAttributeService.SaveAttribute<ShippingOption>(customer, SystemCustomerAttributeNames.DiscountCouponCode, null);
+                _genericAttributeService.SaveAttribute<ShippingOption>(customer, SystemCustomerAttributeNames.GiftCardCouponCodes, null);
+            }
+
+            //clear checkout attributes
+            if (clearCheckoutAttributes)
+            {
+                _genericAttributeService.SaveAttribute<ShippingOption>(customer, SystemCustomerAttributeNames.CheckoutAttributes, null, storeId);
+            }
+
+            //clear reward points flag
+            if (clearRewardPoints)
+            {
+                _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.UseRewardPointsDuringCheckout, false, storeId);
+            }
+
+            //clear selected shipping method
+            if (clearShippingMethod)
+            {
+                _genericAttributeService.SaveAttribute<ShippingOption>(customer, SystemCustomerAttributeNames.SelectedShippingOption, null, storeId);
+                _genericAttributeService.SaveAttribute<ShippingOption>(customer, SystemCustomerAttributeNames.OfferedShippingOptions, null, storeId);
+                _genericAttributeService.SaveAttribute(customer, SystemCustomerAttributeNames.SelectedPickUpInStore, false, storeId);
+            }
+
+            //clear selected payment method
+            if (clearPaymentMethod)
+            {
+                _genericAttributeService.SaveAttribute<string>(customer, SystemCustomerAttributeNames.SelectedPaymentMethod, null, storeId);
+            }
+
+            UpdateCustomer(customer);
         }
     }
 }

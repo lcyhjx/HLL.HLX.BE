@@ -168,7 +168,90 @@ namespace HLL.HLX.BE.Core.Business.Common
 
             string keyGroup = entity.GetUnproxiedEntityType().Name;
 
-            var props = GetAttributesForEntity(entity.Id, keyGroup)
+            SaveAttribute(entity.Id, keyGroup, key, value, storeId);
+
+            //var props = GetAttributesForEntity(entity.Id, keyGroup)
+            //    .Where(x => x.StoreId == storeId)
+            //    .ToList();
+            //var prop = props.FirstOrDefault(ga =>
+            //    ga.Key.Equals(key, StringComparison.InvariantCultureIgnoreCase)); //should be culture invariant
+
+            //var valueStr = CommonUtil.To<string>(value);
+
+            //if (prop != null)
+            //{
+            //    if (string.IsNullOrWhiteSpace(valueStr))
+            //    {
+            //        //delete
+            //        DeleteAttribute(prop);
+            //    }
+            //    else
+            //    {
+            //        //update
+            //        prop.Value = valueStr;
+            //        UpdateAttribute(prop);
+            //    }
+            //}
+            //else
+            //{
+            //    if (!string.IsNullOrWhiteSpace(valueStr))
+            //    {
+            //        //insert
+            //        prop = new GenericAttribute
+            //        {
+            //            EntityId = entity.Id,
+            //            Key = key,
+            //            KeyGroup = keyGroup,
+            //            Value = valueStr,
+            //            StoreId = storeId,
+
+            //        };
+            //        InsertAttribute(prop);
+            //    }
+            //}
+        }
+
+        /// <summary>
+        /// Save attribute value
+        /// </summary>
+        /// <typeparam name="TPropType">Property type</typeparam>
+        /// <param name="entity">Entity</param>
+        /// <param name="key">Key</param>
+        /// <param name="value">Value</param>
+        /// <param name="storeId">Store identifier; pass 0 if this attribute will be available for all stores</param>
+        public virtual void SaveAttribute<TPropType>(FullAuditedEntity<long> entity, string key, TPropType value,
+            int storeId = 0)
+        {
+            if (entity == null)
+                throw new ArgumentNullException("entity");
+
+            if (key == null)
+                throw new ArgumentNullException("key");
+
+            string keyGroup = entity.GetUnproxiedEntityType().Name;
+
+            SaveAttribute((int)entity.Id, keyGroup, key, value, storeId);
+        }
+
+        /// <summary>
+        /// Save attribute value
+        /// </summary>
+        /// <typeparam name="TPropType">Property type</typeparam>
+        /// <param name="entity">Entity</param>
+        /// <param name="key">Key</param>
+        /// <param name="value">Value</param>
+        /// <param name="storeId">Store identifier; pass 0 if this attribute will be available for all stores</param>
+        public virtual void SaveAttribute<TPropType>(int entityId, string keyGroup,string key, TPropType value, int storeId = 0)
+        {
+            //if (entity == null)
+            //    throw new ArgumentNullException("entity");
+
+            //if (key == null)
+            //    throw new ArgumentNullException("key");
+
+            //string keyGroup = entity.GetUnproxiedEntityType().Name;
+
+            var props = GetAttributesForEntity(entityId, keyGroup)
                 .Where(x => x.StoreId == storeId)
                 .ToList();
             var prop = props.FirstOrDefault(ga =>
@@ -197,7 +280,7 @@ namespace HLL.HLX.BE.Core.Business.Common
                     //insert
                     prop = new GenericAttribute
                     {
-                        EntityId = entity.Id,
+                        EntityId = entityId,
                         Key = key,
                         KeyGroup = keyGroup,
                         Value = valueStr,
@@ -208,6 +291,7 @@ namespace HLL.HLX.BE.Core.Business.Common
                 }
             }
         }
+
 
         #endregion
     }

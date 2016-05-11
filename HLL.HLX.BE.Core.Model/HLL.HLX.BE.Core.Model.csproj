@@ -319,11 +319,14 @@
     <Compile Include="Tax\TaxDisplayType.cs" />
     <Compile Include="Tax\TaxSettings.cs" />
     <Compile Include="Tax\VatNumberStatus.cs" />
+    <Compile Include="Users\CustomerExtensions.cs" />
     <Compile Include="Users\Events.cs" />
     <Compile Include="Users\IUserAvatarRepository.cs" />
     <Compile Include="Users\IUserRepository.cs" />
     <Compile Include="Users\RewardPointsHistory.cs" />
     <Compile Include="Users\RewardPointsSettings.cs" />
+    <Compile Include="Users\SystemCustomerAttributeNames.cs" />
+    <Compile Include="Users\SystemCustomerNames.cs" />
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserAvatar.cs" />
     <Compile Include="Vendors\IVendorNoteRepository.cs" />
