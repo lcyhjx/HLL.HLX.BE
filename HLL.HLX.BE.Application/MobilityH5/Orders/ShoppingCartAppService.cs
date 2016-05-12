@@ -42,7 +42,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
         #region Shopping cart
 
         /// <summary>
-        /// 添加产品到购物车- For Detail
+        /// 添加产品到购物车- currently we use this method on the product details pages
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
@@ -247,7 +247,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
 
             #endregion
         }
-
+      
         #endregion
 
         #region Utilities
