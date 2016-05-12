@@ -7,6 +7,7 @@ using Abp.WebApi;
 using Abp.WebApi.Controllers.Dynamic.Builders;
 using HLL.HLX.BE.Application;
 using HLL.HLX.BE.Application.MobilityH5.Catalog;
+using HLL.HLX.BE.Application.MobilityH5.Orders;
 
 namespace HLL.HLX.BE.WebApi.Api
 {
@@ -52,6 +53,10 @@ namespace HLL.HLX.BE.WebApi.Api
             DynamicApiControllerBuilder
                .For<IProductAppService>("app/mobilityh5/product")
                .Build();
+
+            DynamicApiControllerBuilder
+              .For<IShoppingCartAppService>("app/mobilityh5/shoppingcart")
+              .Build();
             #endregion
 
             Configuration.Modules.AbpWebApi().HttpConfiguration.Filters.Add(new HostAuthenticationFilter("Bearer"));

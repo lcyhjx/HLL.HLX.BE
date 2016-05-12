@@ -165,6 +165,10 @@
     <Compile Include="MobilityH5\Catalog\Dto\VendorNavigationDto.cs" />
     <Compile Include="MobilityH5\Catalog\IProductAppService.cs" />
     <Compile Include="MobilityH5\Catalog\ProductAppService.cs" />
+    <Compile Include="MobilityH5\Orders\Dto\AddProductToCartForDetailsInput.cs" />
+    <Compile Include="MobilityH5\Orders\Dto\AddProductToCartForDetailsOutput.cs" />
+    <Compile Include="MobilityH5\Orders\Dto\CartItemAttributeDto.cs" />
+    <Compile Include="MobilityH5\Orders\Dto\CartItemGiftCardDto.cs" />
     <Compile Include="MobilityH5\Orders\IShoppingCartAppService.cs" />
     <Compile Include="MobilityH5\Orders\ShoppingCartAppService.cs" />
     <Compile Include="Mobility\Users\Dto\GetUserAvatarInput.cs" />
@@ -244,9 +248,7 @@
       <Name>HLL.HLX.BE.Core.Model</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MobilityH5\Orders\Dto\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
