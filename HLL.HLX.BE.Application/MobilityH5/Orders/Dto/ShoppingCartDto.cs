@@ -54,7 +54,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
             public ShoppingCartItemModel()
             {
                 Picture = new PictureDto();
-                //AllowedQuantities = new List<SelectListItem>();
+                AllowedQuantities = new List<int>();
                 Warnings = new List<string>();
             }
             public string Sku { get; set; }
@@ -75,7 +75,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 
             public int Quantity { get; set; }
 
-            //public List<SelectListItem> AllowedQuantities { get; set; }
+            public List<int> AllowedQuantities { get; set; }
             
             public string AttributeInfo { get; set; }
 
