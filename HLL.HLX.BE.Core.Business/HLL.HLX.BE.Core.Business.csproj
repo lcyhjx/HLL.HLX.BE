@@ -148,9 +148,14 @@
     <Compile Include="Catalog\SpecificationAttributeDomainService.cs" />
     <Compile Include="Catalog\TierPriceExtensions.cs" />
     <Compile Include="Common\AddressAttributeDomainService.cs" />
+    <Compile Include="Common\AddressAttributeExtensions.cs" />
+    <Compile Include="Common\AddressAttributeFormatter.cs" />
+    <Compile Include="Common\AddressAttributeParser.cs" />
     <Compile Include="Common\AddressDomainService.cs" />
     <Compile Include="Common\GenericAttributeDomianService.cs" />
     <Compile Include="Common\GenericAttributeExtensions.cs" />
+    <Compile Include="Common\IAddressAttributeFormattercs.cs" />
+    <Compile Include="Common\IAddressAttributeParser.cs" />
     <Compile Include="Configuration\SettingDomainService.cs" />
     <Compile Include="Configuration\SettingExtensions.cs" />
     <Compile Include="Directory\CountryDomainService.cs" />
@@ -168,6 +173,7 @@
     <Compile Include="Localization\LanguageDomainService.cs" />
     <Compile Include="Localization\LocalizationDomainService.cs" />
     <Compile Include="Media\DownloadDomainService.cs" />
+    <Compile Include="Media\Extensions.cs" />
     <Compile Include="Media\PictureDomainService.cs" />
     <Compile Include="Media\ResizeType.cs" />
     <Compile Include="MultiTenancy\TenantManager.cs" />

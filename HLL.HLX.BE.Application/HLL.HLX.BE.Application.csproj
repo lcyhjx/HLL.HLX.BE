@@ -137,6 +137,8 @@
     <Compile Include="Common\Dto\BasePageOutput.cs" />
     <Compile Include="Common\Dto\IdentityResultDto.cs" />
     <Compile Include="Common\Dto\IPageInputDto.cs" />
+    <Compile Include="Common\Dto\ListItemDto.cs" />
+    <Compile Include="Common\MappingExtensions.cs" />
     <Compile Include="HlxBeApplicationModule.cs" />
     <Compile Include="HlxBeAppServiceBase.cs" />
     <Compile Include="MobilityH5\Catalog\Dto\BackInStockSubscribeDto.cs" />

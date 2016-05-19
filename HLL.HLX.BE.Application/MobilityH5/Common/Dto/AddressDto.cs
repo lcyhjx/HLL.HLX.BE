@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Abp.Application.Services.Dto;
+using HLL.HLX.BE.Application.Common.Dto;
 
 namespace HLL.HLX.BE.Application.MobilityH5.Common.Dto
 {
@@ -8,8 +9,8 @@ namespace HLL.HLX.BE.Application.MobilityH5.Common.Dto
     {
         public AddressDto()
         {
-            //AvailableCountries = new List<SelectListItem>();
-            //AvailableStates = new List<SelectListItem>();
+            AvailableCountries = new List<SelectListItemDto>();
+            AvailableStates = new List<SelectListItemDto>();
             CustomAddressAttributes = new List<AddressAttributeDto>();
         }
 
@@ -68,8 +69,8 @@ namespace HLL.HLX.BE.Application.MobilityH5.Common.Dto
      
         public string FaxNumber { get; set; }
 
-        //public IList<SelectListItem> AvailableCountries { get; set; }
-        //public IList<SelectListItem> AvailableStates { get; set; }
+        public IList<SelectListItemDto> AvailableCountries { get; set; }
+        public IList<SelectListItemDto> AvailableStates { get; set; }
 
 
         public string FormattedCustomAddressAttributes { get; set; }

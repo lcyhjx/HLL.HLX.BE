@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Abp.Application.Services.Dto;
+using HLL.HLX.BE.Application.Common.Dto;
 
 namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 {
@@ -10,8 +11,8 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
             ShippingOptions = new List<ShippingOptionModel>();
             Warnings = new List<string>();
             
-            //AvailableCountries = new List<SelectListItem>();
-            //AvailableStates = new List<SelectListItem>();
+            AvailableCountries = new List<SelectListItemDto>();
+            AvailableStates = new List<SelectListItemDto>();
         }
 
         public bool Enabled { get; set; }
@@ -27,8 +28,8 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
         
         public string ZipPostalCode { get; set; }
 
-        //public IList<SelectListItem> AvailableCountries { get; set; }
-        //public IList<SelectListItem> AvailableStates { get; set; }
+        public IList<SelectListItemDto> AvailableCountries { get; set; }
+        public IList<SelectListItemDto> AvailableStates { get; set; }
 
 		#region Nested Classes
 

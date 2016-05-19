@@ -2,6 +2,10 @@
 {
     public static class InfoMsg
     {
+        public const string Address_OtherNonUS = "Other (Non US)";
+        public const string Address_SelectCountry = "Select country";
+        public const string Address_SelectState = "Select state";
+
         public const string Media_Product_ImageAlternateTextFormat = "Picture of {0}";
         public const string Media_Product_ImageAlternateTextFormat_Details = "Picture of {0}";
         public const string Media_Product_ImageLinkTitleFormat = "Show details for {0}";
@@ -23,24 +27,12 @@
         public const string Products_Price_Rental_Months = "{0} per {1} month(s)";
         public const string Products_Price_Rental_Weeks = "{0} per {1} week(s)";
         public const string Products_Price_Rental_Years = "{0} per {1} year(s)";
-        public const string Products_Price_RentalPrice = "Rental price";
-        //public const string ShoppingCart_BuyingDisabled = "Buying is disabled for this product";
-
-
-        //public const string ShoppingCart_ConflictingShipmentSchedules = "Your cart has auto-ship (recurring) items with conflicting shipment schedules. Only one auto-ship schedule is allowed per order.";
+        public const string Products_Price_RentalPrice = "Rental price";        
+        
         public const string ShoppingCart_Discount_CannotBeUsedWithGiftCards = "Sorry, this discount cannot be used with gift cards in the cart";
         public const string ShoppingCart_Discount_CannotBeUsedAnymore = "Sorry, you've used this discount already";
         public const string ShoppingCart_Discount_Expired = "Sorry, this offer is expired";
-        public const string ShoppingCart_Discount_NotStartedYet = "Sorry, this offer is not started yet";
-
-        //public const string ShoppingCart_MaximumQuantity = "The maximum quantity allowed for purchase is {0}.";
-        //public const string ShoppingCart_MinimumQuantity = "The minimum quantity allowed for purchase is {0}.";
-
-        //public const string ShoppingCart_ProductDeleted = "Product is deleted";
-        //public const string ShoppingCart_ProductUnpublished = "Product is not published";
-        //public const string ShoppingCart_QuantityShouldPositive = "Quantity should be positive";
-
-        //public const string ShoppingCart_WishlistDisabled = "Wishlist is disabled for this product";
+        public const string ShoppingCart_Discount_NotStartedYet = "Sorry, this offer is not started yet";      
 
 
         public const string ShoppingCart_AddToCart = "Add to cart";
@@ -137,12 +129,12 @@
         public const string ShoppingCart_QuantityShouldPositive = "Quantity should be positive";
         public const string ShoppingCart_RecipientEmailError = "Enter valid recipient email";
         public const string ShoppingCart_RecipientNameError = "Enter valid recipient name";
-        public const string ShoppingCart_RecurringPeriod = "[Auto - ship, Every { 0} {1}]";
+        public const string ShoppingCart_RecurringPeriod = "[Auto - ship, Every {0} {1}]";
         public const string ShoppingCart_Remove = "Remove";
         public const string ShoppingCart_Rent = "Rent";
         public const string ShoppingCart_Rental_EnterEndDate = "Enter rental end date";
         public const string ShoppingCart_Rental_EnterStartDate = "Enter rental start date";
-        public const string ShoppingCart_Rental_FormattedDate = "Start date: {0}_ End date: {1}_";
+        public const string ShoppingCart_Rental_FormattedDate = "Start date: {0}_ End date: {1}";
         public const string ShoppingCart_Rental_StartDateLessEndDate = "Rental start date should be less than end date";
         public const string ShoppingCart_Rental_StartDateShouldBeFuture = "Rental start date should be the future date";
 
