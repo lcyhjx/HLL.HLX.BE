@@ -1,4 +1,5 @@
 using HLL.HLX.BE.Core.Model.Catalog;
+using HLL.HLX.BE.Core.Model.Directory;
 using HLL.HLX.BE.Core.Model.Users;
 
 namespace HLL.HLX.BE.Core.Business.Catalog
@@ -14,7 +15,11 @@ namespace HLL.HLX.BE.Core.Business.Catalog
         /// <param name="product">Product</param>
         /// <param name="attributesXml">Attributes in XML format</param>
         /// <returns>Attributes</returns>
-        string FormatAttributes(Product product, string attributesXml);
+         string FormatAttributes(Product product
+            , string attributesXml
+            , User customer
+            , Currency workingCurrency
+            );
 
         /// <summary>
         /// Formats attributes
@@ -30,8 +35,13 @@ namespace HLL.HLX.BE.Core.Business.Catalog
         /// <param name="allowHyperlinks">A value indicating whether to HTML hyperink tags could be rendered (if required)</param>
         /// <returns>Attributes</returns>
         string FormatAttributes(Product product, string attributesXml,
-            User customer, string serapator = "<br />", bool htmlEncode = true, bool renderPrices = true,
-            bool renderProductAttributes = true, bool renderGiftCardAttributes = true,
+            User customer,
+            Currency workingCurrency,
+            string serapator = "<br />",
+            bool htmlEncode = true,
+            bool renderPrices = true,
+            bool renderProductAttributes = true,
+            bool renderGiftCardAttributes = true,
             bool allowHyperlinks = true);
     }
 }

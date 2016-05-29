@@ -175,6 +175,8 @@
     <Compile Include="MobilityH5\Orders\Dto\CartItemGiftCardDto.cs" />
     <Compile Include="MobilityH5\Orders\Dto\EstimateShippingDto.cs" />
     <Compile Include="MobilityH5\Orders\Dto\MiniShoppingCartDto.cs" />
+    <Compile Include="MobilityH5\Orders\Dto\MyCartInput.cs" />
+    <Compile Include="MobilityH5\Orders\Dto\MyCartOutput.cs" />
     <Compile Include="MobilityH5\Orders\Dto\OrderTotalsDto.cs" />
     <Compile Include="MobilityH5\Orders\Dto\ShoppingCartDto.cs" />
     <Compile Include="MobilityH5\Orders\Dto\WishlistEmailAFriendDto.cs" />

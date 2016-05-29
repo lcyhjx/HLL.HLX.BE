@@ -4,11 +4,11 @@ using HLL.HLX.BE.Application.Common.Dto;
 
 namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 {
-    public partial class EstimateShippingModel : EntityDto
+    public partial class EstimateShippingDto : EntityDto
     {
-        public EstimateShippingModel()
+        public EstimateShippingDto()
         {
-            ShippingOptions = new List<ShippingOptionModel>();
+            ShippingOptions = new List<ShippingOptionDto>();
             Warnings = new List<string>();
             
             AvailableCountries = new List<SelectListItemDto>();
@@ -17,7 +17,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 
         public bool Enabled { get; set; }
 
-        public IList<ShippingOptionModel> ShippingOptions { get; set; }
+        public IList<ShippingOptionDto> ShippingOptions { get; set; }
 
         public IList<string> Warnings { get; set; }
         
@@ -33,7 +33,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 
 		#region Nested Classes
 
-        public partial class ShippingOptionModel : EntityDto
+        public partial class ShippingOptionDto : EntityDto
         {
             public string Name { get; set; }
 

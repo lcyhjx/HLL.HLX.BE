@@ -6,17 +6,17 @@ using HLL.HLX.BE.Core.Model.Catalog;
 
 namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 {
-    public partial class ShoppingCartModel : EntityDto
+    public partial class ShoppingCartDto : EntityDto
     {
-        public ShoppingCartModel()
+        public ShoppingCartDto()
         {
-            Items = new List<ShoppingCartItemModel>();
+            Items = new List<ShoppingCartItemDto>();
             Warnings = new List<string>();
-            EstimateShipping = new EstimateShippingModel();
-            DiscountBox = new DiscountBoxModel();
-            GiftCardBox = new GiftCardBoxModel();
-            CheckoutAttributes = new List<CheckoutAttributeModel>();
-            OrderReviewData = new OrderReviewDataModel();
+            EstimateShipping = new EstimateShippingDto();
+            DiscountBox = new DiscountBoxDto();
+            GiftCardBox = new GiftCardBoxDto();
+            CheckoutAttributes = new List<CheckoutAttributeDto>();
+            OrderReviewData = new OrderReviewDataDto();
 
             ButtonPaymentMethodActionNames = new List<string>();
             ButtonPaymentMethodControllerNames = new List<string>();
@@ -28,20 +28,20 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
         public bool ShowSku { get; set; }
         public bool ShowProductImages { get; set; }
         public bool IsEditable { get; set; }
-        public IList<ShoppingCartItemModel> Items { get; set; }
+        public IList<ShoppingCartItemDto> Items { get; set; }
 
         public string CheckoutAttributeInfo { get; set; }
-        public IList<CheckoutAttributeModel> CheckoutAttributes { get; set; }
+        public IList<CheckoutAttributeDto> CheckoutAttributes { get; set; }
 
         public IList<string> Warnings { get; set; }
         public string MinOrderSubtotalWarning { get; set; }
         public bool DisplayTaxShippingInfo { get; set; }
         public bool TermsOfServiceOnShoppingCartPage { get; set; }
         public bool TermsOfServiceOnOrderConfirmPage { get; set; }
-        public EstimateShippingModel EstimateShipping { get; set; }
-        public DiscountBoxModel DiscountBox { get; set; }
-        public GiftCardBoxModel GiftCardBox { get; set; }
-        public OrderReviewDataModel OrderReviewData { get; set; }
+        public EstimateShippingDto EstimateShipping { get; set; }
+        public DiscountBoxDto DiscountBox { get; set; }
+        public GiftCardBoxDto GiftCardBox { get; set; }
+        public OrderReviewDataDto OrderReviewData { get; set; }
 
         public IList<string> ButtonPaymentMethodActionNames { get; set; }
         public IList<string> ButtonPaymentMethodControllerNames { get; set; }
@@ -49,9 +49,9 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 
 		#region Nested Classes
 
-        public partial class ShoppingCartItemModel : EntityDto
+        public partial class ShoppingCartItemDto : EntityDto
         {
-            public ShoppingCartItemModel()
+            public ShoppingCartItemDto()
             {
                 Picture = new PictureDto();
                 AllowedQuantities = new List<int>();
@@ -89,12 +89,12 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 
         }
 
-        public partial class CheckoutAttributeModel : EntityDto
+        public partial class CheckoutAttributeDto : EntityDto
         {
-            public CheckoutAttributeModel()
+            public CheckoutAttributeDto()
             {
                 AllowedFileExtensions = new List<string>();
-                Values = new List<CheckoutAttributeValueModel>();
+                Values = new List<CheckoutAttributeValueDto>();
             }
 
             public string Name { get; set; }
@@ -125,10 +125,10 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
 
             public AttributeControlType AttributeControlType { get; set; }
 
-            public IList<CheckoutAttributeValueModel> Values { get; set; }
+            public IList<CheckoutAttributeValueDto> Values { get; set; }
         }
 
-        public partial class CheckoutAttributeValueModel : EntityDto
+        public partial class CheckoutAttributeValueDto : EntityDto
         {
             public string Name { get; set; }
 
@@ -139,7 +139,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
             public bool IsPreSelected { get; set; }
         }
 
-        public partial class DiscountBoxModel
+        public partial class DiscountBoxDto
         {
             public bool Display { get; set; }
             public string Message { get; set; }
@@ -147,16 +147,16 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders.Dto
             public bool IsApplied { get; set; }
         }
 
-        public partial class GiftCardBoxModel 
+        public partial class GiftCardBoxDto 
         {
             public bool Display { get; set; }
             public string Message { get; set; }
             public bool IsApplied { get; set; }
         }
 
-        public partial class OrderReviewDataModel 
+        public partial class OrderReviewDataDto 
         {
-            public OrderReviewDataModel()
+            public OrderReviewDataDto()
             {
                 this.BillingAddress = new AddressDto();
                 this.ShippingAddress = new AddressDto();

@@ -16,5 +16,13 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
         /// <param name="input"></param>
         /// <returns></returns>        
         AddProductToCartForDetailsOutput AddProductToCartForDetails(AddProductToCartForDetailsInput input);
+
+
+        /// <summary>
+        /// 我的购物车
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>        
+        MyCartOutput MyCart(MyCartInput input);
     }
 }

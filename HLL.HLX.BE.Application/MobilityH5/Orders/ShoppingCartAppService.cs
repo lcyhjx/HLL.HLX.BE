@@ -424,6 +424,32 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
             #endregion
         }
 
+
+        /// <summary>
+        /// 我的购物车
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [AbpAuthorize]
+        public MyCartOutput MyCart(MyCartInput input)
+        {
+            //if (!_permissionService.Authorize(StandardPermissionProvider.EnableShoppingCart))
+            //    return RedirectToRoute("HomePage");
+            
+            var cart = CurrentUser.ShoppingCartItems
+                .Where(sci => sci.ShoppingCartType == ShoppingCartType.ShoppingCart)
+                .LimitPerStore(_storeContext.CurrentStore.Id)
+                .ToList();
+            var dtoItem = new ShoppingCartDto();
+            PrepareShoppingCartDto(dtoItem, cart);
+            return new MyCartOutput()
+            {
+                ShoppingCart =  dtoItem
+            };
+            
+        }
+
+
         #endregion
 
         #region Utilities
@@ -604,7 +630,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
         /// <param name="setEstimateShippingDefaultAddress">A value indicating whether we should prefill "Estimate shipping" model with the default customer address</param>
         /// <param name="prepareAndDisplayOrderReviewData">A value indicating whether we should prepare review data (such as billing/shipping address, payment or shipping data entered during checkout)</param>
         /// <returns>Model</returns>        
-        protected virtual void PrepareShoppingCartModel(ShoppingCartModel model,
+        protected virtual void PrepareShoppingCartDto(ShoppingCartDto model,
             IList<ShoppingCartItem> cart, bool isEditable = true,
             bool validateCheckoutAttributes = false,
             bool prepareEstimateShippingIfEnabled = true, bool setEstimateShippingDefaultAddress = true,
@@ -663,7 +689,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
             var checkoutAttributes = _checkoutAttributeDomainService.GetAllCheckoutAttributes(_storeContext.CurrentStore.Id, !cart.RequiresShipping());
             foreach (var attribute in checkoutAttributes)
             {
-                var attributeModel = new ShoppingCartModel.CheckoutAttributeModel
+                var attributeModel = new ShoppingCartDto.CheckoutAttributeDto
                 {
                     Id = attribute.Id,
                     Name = attribute.Name,
@@ -685,7 +711,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
                     var attributeValues = _checkoutAttributeDomainService.GetCheckoutAttributeValues(attribute.Id);
                     foreach (var attributeValue in attributeValues)
                     {
-                        var attributeValueModel = new ShoppingCartModel.CheckoutAttributeValueModel
+                        var attributeValueModel = new ShoppingCartDto.CheckoutAttributeValueDto
                         {
                             Id = attributeValue.Id,
                             Name = attributeValue.Name,
@@ -838,7 +864,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
 
             foreach (var sci in cart)
             {
-                var cartItemModel = new ShoppingCartModel.ShoppingCartItemModel
+                var cartItemModel = new ShoppingCartDto.ShoppingCartItemDto
                 {
                     Id = sci.Id,
                     Sku = sci.Product.FormatSku(sci.AttributesXml, _productAttributeParser),
@@ -846,7 +872,7 @@ namespace HLL.HLX.BE.Application.MobilityH5.Orders
                     ProductName = sci.Product.Name,
                     //ProductSeName = sci.Product.GetSeName(),
                     Quantity = sci.Quantity,
-                    AttributeInfo = _productAttributeFormatter.FormatAttributes(sci.Product, sci.AttributesXml),
+                    AttributeInfo = _productAttributeFormatter.FormatAttributes(sci.Product, sci.AttributesXml,CurrentUser,WorkingCurrency),
                 };
 
                 //allow editing?

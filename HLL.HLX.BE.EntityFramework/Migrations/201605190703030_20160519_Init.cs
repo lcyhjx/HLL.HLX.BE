@@ -5,7 +5,7 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
     using System.Data.Entity.Infrastructure.Annotations;
     using System.Data.Entity.Migrations;
     
-    public partial class _20160507_Init : HlxDbMigration
+    public partial class _20160519_Init : HlxDbMigration
     {
         public override void Up()
         {
@@ -263,6 +263,9 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                         PhoneNumber = c.String(maxLength: 50),
                         Signature = c.String(),
                         IsTaxExempt = c.Boolean(nullable: false),
+                        HasShoppingCartItems = c.Boolean(nullable: false),
+                        IsSystemAccount = c.Boolean(nullable: false),
+                        SystemName = c.String(),
                         AuthenticationSource = c.String(maxLength: 64),
                         Name = c.String(nullable: false, maxLength: 32),
                         Surname = c.String(nullable: false, maxLength: 32),
@@ -2996,9 +2999,8 @@ namespace HLL.HLX.BE.EntityFramework.Migrations
                 .ForeignKey("dbo.ProductTag", t => t.ProductTag_Id, cascadeDelete: true)
                 .Index(t => t.Product_Id)
                 .Index(t => t.ProductTag_Id);
-
-            base.Up();
             
+            base.Up();
         }
         
         public override void Down()
