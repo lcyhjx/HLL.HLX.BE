@@ -51,7 +51,7 @@ namespace HLL.HLX.BE.Core.Business
             //IocManager.IocContainer.Register(Component.For<IWorkContext>().ImplementedBy<WebWorkContext>().LifestylePerWebRequest());
 
             IocManager.IocContainer.Register(Component.For<IProductAttributeParser>().ImplementedBy<ProductAttributeParser>().LifestylePerWebRequest());
-            //IocManager.IocContainer.Register(Component.For<IProductAttributeFormatter>().ImplementedBy<ProductAttributeFormatter>().LifestylePerWebRequest());
+            IocManager.IocContainer.Register(Component.For<IProductAttributeFormatter>().ImplementedBy<ProductAttributeFormatter>().LifestylePerWebRequest());
 
             IocManager.IocContainer.Register(Component.For<IPriceFormatter>().ImplementedBy<PriceFormatter>().LifestylePerWebRequest());
 
